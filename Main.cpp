@@ -1,6 +1,6 @@
 #include "pch.h"
 
-constexpr auto VERSION = "Beta v0.1";
+constexpr auto VERSION = "Beta v0.2";
 
 int main(int argc, char** argv)
 {
