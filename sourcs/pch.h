@@ -15,5 +15,6 @@
 
 bool razmer();
 int printRamka(int _row, int _col);
+long long unsigned int printMenu(std::vector <std::string>& _vec);
 
 extern int col, row;
