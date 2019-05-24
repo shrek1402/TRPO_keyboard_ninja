@@ -40,7 +40,7 @@ matrix:
 
 script:
     - sudo apt-get install libncursesw5-dev
-    - g++ -std=c++17 Main.cpp -lncurses
+    - make build
     - ./a.out
     
 before_install:
