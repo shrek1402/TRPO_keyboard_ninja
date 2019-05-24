@@ -31,6 +31,7 @@ int printRamka(int _row, int _col)
 
 int mainMenu(int row, int col)
 {
+	
     erase();
     printRamka(row, col);
 	std::string mStr[5] = {
@@ -74,4 +75,17 @@ int mainMenu(int row, int col)
 		refresh();
 	}while(temp != '\n');
 	return c;
+}
+
+int slozhnost(int row, int col)
+{
+	erase();
+    printRamka(row, col);
+	std::string mStr[5] = {
+		"  Slozhn", // TODO eng
+		"1. Eazy",
+		"2. Normal",
+		"3. Hard",
+		"4. Back"
+	};
 }
