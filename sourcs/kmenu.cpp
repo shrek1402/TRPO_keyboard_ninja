@@ -116,6 +116,25 @@ void resultTabl(int result, int popitki)
 				xSize++;
 			if ((row - ySize)%2 == 0)
 				ySize++;
-
+		
+		int sm;
+		result > 0? 
+			sm = 6:
+			sm = 7;
+			
+		WINDOW *win = newwin(ySize, xSize, yy, xx);
+		move(yy + 2, xx+xSize/2 - sm);
+		printw("Result: %d", result);
+		move(yy + 3, xx+xSize/2 -sm);
+				// TODO add: time, % ...
+		result > 0? 
+			printw("MOLODEC! :)"):
+			printw("NE MOLODEC! :(");
+		
+		move(yy + 4, xx+xSize/2 -sm);
+			printw("Reaction: %f", _SEC/result*1.0);
+			
+		box(win,0,0);
+		wrefresh(win);
 		getch();
 }
