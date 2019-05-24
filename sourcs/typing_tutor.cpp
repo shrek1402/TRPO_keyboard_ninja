@@ -55,5 +55,36 @@ int level_1_to_5 (string _dataFile, int row, int col)
 		std::getline(dataFile, temp);
 		vec.push_back(temp);
 	}	
+	unsigned int result = 0;
+	unsigned int startTime = clock();
+	unsigned int endTime = startTime;
+	nodelay(stdscr, TRUE);
+	int ch;
+	int temp;
+	long long unsigned int i =0;
+	std::string tempA;
+	bool flag = 1;
+	int x,y, x_temp,level=1;
+	int popitki = 0;
+	
+	do
+	{
+		if ((ch = getch()) == ERR){
+	if (flag == 1)	
+	{
+	move(row / 2, col / 2);
+	tempA=vec.at(level);
+	printw("%s", tempA.c_str());
+	flag=0;
+	popitki++;
+	}
+	endTime=clock();
+	move(1,5);
+	printw("%d ms", endTime - startTime);
+	move(1,1);
+	printw("level %d", level);
+		}
+
+	} while (endTime < startTime + SEC * 1000);
 	
 }
