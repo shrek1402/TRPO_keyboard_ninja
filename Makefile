@@ -1,4 +1,4 @@
-CFLAGS = -Wall -Werror -std=c++17 -lncurses #-Ithird/
+CFLAGS = -Wall -Werror -std=c++17 #-Ithird/
 OBJ = g++ $(CFLAGS) -c $< -o $@
 TEST =
 
@@ -15,13 +15,13 @@ folder2:
 	mkdir -p bin
 	
 bin/Keyboard-Ninja.exe: build/kmenu.o build/Main.o
-	g++ $(CFLAGS) $^ -o $@
+	g++ $(CFLAGS) $^ -lncurses
 	
 build/kmenu.o: sourcs/kmenu.cpp
-	$(OBJ)
+	$(OBJ) -lncurses
 	
 build/Main.o: sourcs/Main.cpp
-	$(OBJ)
+	$(OBJ) -lncurses
 
 copyDLL: 
 	cp third/pdcurses.dll bin
