@@ -14,5 +14,6 @@
 #include <unistd.h>
 
 bool razmer();
+int printRamka(int _row, int _col);
 
 extern int col, row;
