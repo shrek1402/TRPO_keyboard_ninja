@@ -15,7 +15,7 @@ folder2:
 	mkdir -p bin
 	
 bin/Keyboard-Ninja.exe: build/kmenu.o build/Main.o
-	g++ $(CFLAGS) third/pdcurses.dll $^ -o $@
+	g++ $(CFLAGS) $^ -o $@
 	
 build/kmenu.o: sourcs/kmenu.cpp
 	$(OBJ)
