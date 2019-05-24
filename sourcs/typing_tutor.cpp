@@ -43,3 +43,17 @@ void Select_level (int slozh, int row, int col)
 			break;
     }	
 }
+
+int level_1_to_5 (string _dataFile, int row, int col)
+{
+	std::ifstream dataFile(_dataFile);
+	std::vector <std::string> vec;
+
+	while(!dataFile.eof())
+	{
+		std::string temp;
+		std::getline(dataFile, temp);
+		vec.push_back(temp);
+	}	
+	
+}
