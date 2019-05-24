@@ -14,13 +14,16 @@ folder1:
 folder2:
 	mkdir -p bin
 	
-bin/Keyboard-Ninja.exe: build/kmenu.o build/Main.o
+bin/Keyboard-Ninja.exe: build/kmenu.o build/Main.o build/typing_tutor.o
 	g++ $(CFLAGS) third/pdcurses.dll $^ -o $@
 	
 build/kmenu.o: sourcs/kmenu.cpp
 	$(OBJ)
 	
 build/Main.o: sourcs/Main.cpp
+	$(OBJ)
+
+build/Main.o: sourcs/typing_tutor.cpp
 	$(OBJ)
 
 copyDLL: 
