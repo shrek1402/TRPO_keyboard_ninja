@@ -1,7 +1,7 @@
 #include "pch.h"
 
-constexpr auto _VERSION = "Beta v1.0";
-constexpr unsigned int _SEC = 1;
+constexpr auto VERSION = "Beta v1.0";
+constexpr unsigned int SEC = 1;
 
 
 bool razmer()
@@ -27,4 +27,19 @@ int printRamka(int _row, int _col)
 	wrefresh(win1);
 	wrefresh(win);
     return 0;
+}
+
+int mainMenu(int row, int col)
+{
+    erase();
+    printRamka(row, col);
+	std::string mStr[5] = {
+		"    Menu",
+		"1. Speed mode",
+		"2. Time mode",
+		"3. Blind seal mode",
+		"4. Exit"
+	};
+	
+	
 }
