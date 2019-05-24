@@ -31,6 +31,7 @@ int printRamka(int _row, int _col)
 
 int mainMenu(int row, int col)
 {
+	
     erase();
     printRamka(row, col);
 	std::string mStr[5] = {
@@ -43,6 +44,52 @@ int mainMenu(int row, int col)
 	
 	int c = 1;
 	//start_color();
+	int temp;
+	noecho();
+	keypad(stdscr, TRUE);
+	do{
+		for(int i = 0; i < 5; i++){//TODO 5 ->size
+			move(row/2 + i, col/2 - 9);
+			if (i == c){
+				//attron(A_BLINK);
+				for (long long unsigned int j=0; j< mStr[i].length(); j++)
+				addch(mStr[i][j] | A_BLINK);
+			}
+			else{
+				printw("%s", mStr[i].c_str());
+			}
+		}
+		temp = getch();
+		if (temp == KEY_UP){
+				if (c != 1)
+					c--;
+				else
+					c = 4;
+			}
+		if (temp == KEY_DOWN){
+			if (c != 4)
+				c++;
+			else
+				c = 1;
+		}
+		refresh();
+	}while(temp != '\n');
+	return c;
+}
+
+int slozhnost(int row, int col)
+{
+	erase();
+    printRamka(row, col);
+	std::string mStr[5] = {
+		"  Slozhn", // TODO eng
+		"1. Eazy",
+		"2. Normal",
+		"3. Hard",
+		"4. Back"
+	};
+	
+	int c = 1;
 	int temp;
 	noecho();
 	keypad(stdscr, TRUE);
