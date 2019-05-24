@@ -12,3 +12,13 @@ bool razmer()
 	if (col < 40) throw "Uvelich shirinu okna";
 	return true;
 }
+
+int printRamka(int _row, int _col)
+{
+	curs_set(0);
+	refresh();
+	WINDOW *win = newwin(3, _col, 0, 0);
+	box(win,0,0);
+	
+    return 0;
+}
