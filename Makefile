@@ -24,8 +24,8 @@ build/kmenu.o: sourcs/kmenu.cpp
 build/Main.o: sourcs/Main.cpp
 	$(OBJ) -lncurses
 
-build/Main.o: sourcs/typing_tutor.cpp
-	$(OBJ)
+build/typing_tutor.o: sourcs/typing_tutor.cpp
+	$(OBJ) -lncurses
 
 copyDLL: 
 	cp third/pdcurses.dll bin
