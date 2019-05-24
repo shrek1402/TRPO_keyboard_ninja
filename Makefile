@@ -6,7 +6,7 @@ TEST =
 
 all: help
 
-build: folder1 folder2 bin/Keyboard-Ninja.exe copyDLL copyTXT
+build: folder1 folder2 bin/Keyboard-Ninja.exe copyTXT
 
 folder1:	
 	mkdir -p build
