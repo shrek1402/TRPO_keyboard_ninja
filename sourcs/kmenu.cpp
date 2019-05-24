@@ -4,6 +4,15 @@ constexpr auto VERSION = "Beta v1.0";
 constexpr unsigned int SEC = 1;
 
 
+long long unsigned int printMenu(std::vector <std::string>& _vec)
+{
+	long long unsigned int c = 1;
+	int temp;
+	int col, row;
+	getmaxyx(stdscr, row, col);
+	
+}
+
 bool razmer()
 {
 	int col, row;
