@@ -41,7 +41,6 @@ matrix:
 script:
     - sudo apt-get install libncursesw5-dev
     - make build
-    - ./a.out
     
 before_install:
     - eval "${MATRIX_EVAL}"
