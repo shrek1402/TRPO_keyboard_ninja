@@ -100,3 +100,22 @@ int slozhnost(int row, int col)
 	
 	return printMenu(mStr);
 }
+
+void resultTabl(int result, int popitki)
+{
+	erase();
+	
+	int row,col;
+	getmaxyx(stdscr, row, col);
+	printRamka(row, col);
+	int ySize = 9,
+		xSize = col -(row - ySize +3 +2),
+		yy = (row - ySize - 5) / 2 + 4,
+		xx = (col - xSize) / 2;
+			if ((col - xSize)%2 != 0)
+				xSize++;
+			if ((row - ySize)%2 == 0)
+				ySize++;
+
+		getch();
+}
