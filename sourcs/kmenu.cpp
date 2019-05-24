@@ -11,6 +11,34 @@ long long unsigned int printMenu(std::vector <std::string>& _vec)
 	int col, row;
 	getmaxyx(stdscr, row, col);
 	
+	do{
+		for(long long unsigned int i = 0; i < _vec.size(); i++){
+			move(row/2 + i, col/2 - 9);
+			
+			if (i == c){
+				for (long long unsigned int j=0; j< _vec[i].length(); j++)
+				addch(_vec[i][j] | A_BLINK);
+			}
+			else{
+				printw("%s", _vec[i].c_str());
+			}
+		}
+		
+		if ((temp = getch()) == KEY_UP){
+				if (c != 1)
+					c--;
+				else
+					c = 4;
+		}
+		else if (temp == KEY_DOWN){
+			if (c != 4)
+				c++;
+			else
+				c = 1;
+		}
+		refresh();
+	}while(temp != '\n');
+	return c;
 }
 
 bool razmer()
