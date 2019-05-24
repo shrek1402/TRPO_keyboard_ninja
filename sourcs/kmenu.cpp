@@ -77,7 +77,7 @@ int printRamka(int _row, int _col)
 	WINDOW *win1 = newwin(_row - 3, _col, 3, 0); 
 	box(win1, 0, 0);
 	
-	mvaddstr(1, _col - 10, _VERSION);
+	mvaddstr(1, _col - 10, VERSION);
 	wrefresh(win1);
 	wrefresh(win);
     return 0;
@@ -87,7 +87,7 @@ int slozhnost(int row, int col)
 {
 	erase();
     printRamka(row, col);
-	vector <std::string> mStr = {
+	std::vector <std::string> mStr = {
 		"  Slozhn", // TODO eng
 		"1. Eazy",
 		"2. Normal",
@@ -132,7 +132,7 @@ void resultTabl(int result, int popitki)
 			printw("NE MOLODEC! :(");
 		
 		move(yy + 4, xx+xSize/2 -sm);
-			printw("Reaction: %f", _SEC/result*1.0);
+			printw("Reaction: %f", SEC/result*1.0);
 			
 		box(win,0,0);
 		wrefresh(win);
