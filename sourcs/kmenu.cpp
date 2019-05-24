@@ -20,5 +20,9 @@ int printRamka(int _row, int _col)
 	WINDOW *win = newwin(3, _col, 0, 0);
 	box(win,0,0);
 	
+	WINDOW *win1 = newwin(_row - 3, _col, 3, 0); 
+	box(win1, 0, 0);
+	
+	
     return 0;
 }
