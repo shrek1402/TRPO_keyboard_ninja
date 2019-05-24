@@ -23,6 +23,8 @@ int printRamka(int _row, int _col)
 	WINDOW *win1 = newwin(_row - 3, _col, 3, 0); 
 	box(win1, 0, 0);
 	
-	
+	mvaddstr(1, _col - 10, VERSION);
+	wrefresh(win1);
+	wrefresh(win);
     return 0;
 }
