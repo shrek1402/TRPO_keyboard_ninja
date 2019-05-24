@@ -1,4 +1,4 @@
-CFLAGS = -Wall -Werror -std=c++17 -Ithird/
+CFLAGS = -Wall -Werror -std=c++17 -lncurses #-Ithird/
 OBJ = g++ $(CFLAGS) -c $< -o $@
 TEST =
 
