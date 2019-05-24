@@ -14,18 +14,14 @@ folder1:
 folder2:
 	mkdir -p bin
 	
-bin/Keyboard-Ninja.exe: build/kmenu.o build/Main.o build/typing_tutor.o
-	g++ $(CFLAGS) third/pdcurses.dll $^ -o $@
-
+bin/Keyboard-Ninja.exe: build/kmenu.o build/Main.o
+	g++ $(CFLAGS) $^ -lncurses
 	
 build/kmenu.o: sourcs/kmenu.cpp
 	$(OBJ) -lncurses
 	
 build/Main.o: sourcs/Main.cpp
 	$(OBJ) -lncurses
-
-build/Main.o: sourcs/typing_tutor.cpp
-	$(OBJ)
 
 copyDLL: 
 	cp third/pdcurses.dll bin
@@ -42,6 +38,10 @@ help:
 	@echo "1. Build project: Make build"
 	@echo "2. Test: Make test"
 	@echo "3. If you see error 'pdcurses.dll not found': Make copyDLL"
+	@echo ""
+	@echo "=========================    TODO   ========================="
+
+"
 	@echo ""
 	@echo "=========================    TODO   ========================="
 
