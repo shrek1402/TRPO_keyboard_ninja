@@ -31,7 +31,7 @@ void level1(std::string _dataFile, int row, int col)
 	}
 
 	unsigned int startTime = clock();
-	unsigned int endTime = startTime,DOP=0;
+	unsigned int endTime = startTime, DOP = 0;
 	nodelay(stdscr, TRUE);
 	int ch;
 	int temp;
@@ -40,7 +40,6 @@ void level1(std::string _dataFile, int row, int col)
 	bool flag = 1;
 	int x_temp = col / 2, level = 5;
 	int popitki = 0;
-	
 
 	do
 	{
@@ -51,14 +50,15 @@ void level1(std::string _dataFile, int row, int col)
 				erase();
 				printRamka(row, col);
 				tempA = vec.at(level - 1);
-				move(row / 2, col / 2);
+				move(row / 2, (col-tempA.length()) / 2);
 				printw("%s", tempA.c_str());
+				x_temp = (col / 2)-(tempA.length()/2);
 				flag = 0;
 				popitki++;
 			}
 			endTime = clock();
 			move(1, 10);
-			printw("%d ms", (DOP+SEK) * 1000 - (endTime - startTime));
+			printw("%d ms", (DOP + SEK) * 1000 - (endTime - startTime));
 			move(1, 1);
 			printw("level %d", level);
 		}
@@ -75,12 +75,11 @@ void level1(std::string _dataFile, int row, int col)
 				i++;
 				if (i == tempA.length())
 				{
-					DOP+=5;
-					x_temp = col / 2;
+					DOP += 5;
 					flag = 1;
 					i = 0;
-					
-					if (level==5)
+
+					if (level == 5)
 					{
 						break;
 					}
@@ -88,10 +87,17 @@ void level1(std::string _dataFile, int row, int col)
 				}
 			}
 		}
-	} while (endTime < startTime + (DOP+SEK) * 1000);
+	} while (endTime < startTime + (DOP + SEK) * 1000);
 
 	nodelay(stdscr, FALSE);
-	
+	if (level == 5)
+	{
+		std::string abc="You have passed all 5 levels, now the following are open for you!";
+		erase();
+		move(row / 2, (col-abc.length()) / 2);
+		printw("%s",abc.c_str());
+		getch();
+	}
 }
 
 void Select_level(int slozh, int row, int col)
