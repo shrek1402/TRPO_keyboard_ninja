@@ -19,6 +19,10 @@ int main(int argc, char** argv)
 				break;
 			}
 			case 2:
+            {
+                int tmp = level (row, col);	
+        	Select_level(tmp, row, col);
+            }
 			case 3:
 			case 4:
 				return 0;
