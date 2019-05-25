@@ -24,7 +24,6 @@ folder4:
 	
 bin/Keyboard-Ninja.exe: build/src/Main.o build/src/kmenu.o build/src/typing_tutor.o
 	g++ $(CFLAGS) $^ third/pdcurses.dll -o $@ 
-#TODO ubrat' -Ithird...
 	
 build/src/Main.o: sourcs/src/Main.cpp
 	$(OBJ)
