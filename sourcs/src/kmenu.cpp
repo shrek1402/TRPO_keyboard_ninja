@@ -107,6 +107,17 @@ int slozhnost(int row, int col)
 	noecho();
 	return printMenu(mStr);
 }
+double reaction(int _SEC, int result)
+{
+	double reaction;
+		if (!result){
+			reaction = 0;
+		}
+		else{
+			reaction = (double)_SEC/result;
+		}
+	return reaction;
+}
 
 void resultTabl(int result, int popitki)
 {
@@ -138,15 +149,8 @@ void resultTabl(int result, int popitki)
 			printw("MOLODEC! :)"):
 			printw("NE MOLODEC! :(");
 			
-		double a;
-		if (!result){
-			a = sqrt(-1);
-		}
-		else{
-			a = (double)_SEC/result;
-		}
 		move(yy + 4, xx+xSize/2 -sm);
-			printw("Reaction: %.2f", a);
+			printw("Reaction: %.2f", reaction(_SEC, result));
 			
 		box(win,0,0);
 		wrefresh(win);

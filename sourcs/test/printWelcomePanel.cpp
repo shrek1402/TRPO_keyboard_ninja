@@ -14,6 +14,6 @@ int printWelcomePanel(string _str)
     return 0;
 }
 TEST_CASE("TEST_PRINT_WELCOME_PANEL", "[check]") {
-  REQUIRE(printWelcomePanel("../../bin/Welcome.txt") == Approx(0));
-  CHECK(printWelcomePanel("../../bin/temp.txt") == Approx(0));
+  REQUIRE(printWelcomePanel("../sourcs/data/Welcome.txt") == 0);
+  REQUIRE(printWelcomePanel("../../bin/temp.txt") == 1);
 }
