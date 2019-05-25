@@ -44,7 +44,7 @@ script:
     - make test
     - cd bin/
     - ls
-    - ./Keyboard-Ninja-test.out
+    - ./Keyboard-Ninja-test
     
 before_install:
     - eval "${MATRIX_EVAL}"
