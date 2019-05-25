@@ -43,7 +43,7 @@ script:
     - make build
     - make test
     - cd bin/
-    - ./Keyboard-ninja-test.out
+    - ./Keyboard-Ninja-test.out
     
 before_install:
     - eval "${MATRIX_EVAL}"
