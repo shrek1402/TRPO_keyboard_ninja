@@ -43,6 +43,7 @@ script:
     - make build
     - make test
     - cd bin/
+    - ls
     - ./Keyboard-Ninja-test.out
     
 before_install:
