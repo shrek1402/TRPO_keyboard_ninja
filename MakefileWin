@@ -22,25 +22,28 @@ folder3:
 folder4:
 	mkdir -p build/test
 	
-bin/Keyboard-Ninja.exe: build/src/kmenu.o build/src/Main.o build/src/typing_tutor.o
+bin/Keyboard-Ninja.exe: build/src/Main.o build/src/kmenu.o build/src/typing_tutor.o
 	g++ $(CFLAGS) $^ third/pdcurses.dll -o $@ 
 #TODO ubrat' -Ithird...
 	
-build/src/kmenu.o: sourcs/src/kmenu.cpp
-	$(OBJ)
-	
 build/src/Main.o: sourcs/src/Main.cpp
-	$(OBJ) 
+	$(OBJ)
+
+build/src/kmenu.o: sourcs/src/kmenu.cpp
+	$(OBJ)	
 
 build/src/typing_tutor.o: sourcs/src/typing_tutor.cpp
 	$(OBJ) 
 	
 
 
-bin/Keyboard-Ninja-test: build/test/reaction.o 
+bin/Keyboard-Ninja-test: build/test/reaction.o build/test/printWelcomePanel.o
 	g++ $(CFLAGS) $^ -o $@
 
 build/test/reaction.o: sourcs/test/reaction.cpp
+	$(TEST)
+	
+build/test/printWelcomePanel.o: sourcs/test/printWelcomePanel.cpp
 	$(TEST)
 	
 copyDLL: 
