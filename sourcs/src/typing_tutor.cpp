@@ -18,7 +18,7 @@ int level(int row, int col)
 	return printMenu(mStr);
 }
 
-void level1(std::string _dataFile, int row, int col)
+int level1(std::string _dataFile, int row, int col)
 {
 	std::ifstream dataFile(_dataFile);
 	std::vector<std::string> vec;
@@ -38,7 +38,7 @@ void level1(std::string _dataFile, int row, int col)
 	long long unsigned int i = 0;
 	std::string tempA;
 	bool flag = 1;
-	int x_temp = col / 2, level = 5;
+	int x_temp = col / 2, level = 1;
 	int popitki = 0;
 
 	do
@@ -50,9 +50,9 @@ void level1(std::string _dataFile, int row, int col)
 				erase();
 				printRamka(row, col);
 				tempA = vec.at(level - 1);
-				move(row / 2, (col-tempA.length()) / 2);
+				move(row / 2, (col - tempA.length()) / 2);
 				printw("%s", tempA.c_str());
-				x_temp = (col / 2)-(tempA.length()/2);
+				x_temp = (col / 2) - (tempA.length() / 2);
 				flag = 0;
 				popitki++;
 			}
@@ -92,16 +92,20 @@ void level1(std::string _dataFile, int row, int col)
 	nodelay(stdscr, FALSE);
 	if (level == 5)
 	{
-		std::string abc="You have passed all 5 levels, now the following are open for you!";
+		std::string abc = "You have passed all 5 levels, now the following are open for you!";
 		erase();
-		move(row / 2, (col-abc.length()) / 2);
-		printw("%s",abc.c_str());
+		move(row / 2, (col - abc.length()) / 2);
+		printw("%s", abc.c_str());
 		getch();
+		return level;
 	}
+	return level;
 }
 
 void Select_level(int slozh, int row, int col)
 {
+	int temp, dopusk = 0;
+
 	erase();
 	printRamka(row, col);
 
@@ -109,20 +113,32 @@ void Select_level(int slozh, int row, int col)
 	{
 	case 1:
 	{
-		level1("level1.txt", row, col);
+
+		temp = level1("level1.txt", row, col);
+		if (temp == 5)
+		{
+			dopusk = temp;
+		}
 		break;
 	}
 
 	case 2:
 	{
+		if (dopusk >= 5)
+		{
+		}
 		break;
 	}
 
 	case 3:
 	{
+		if (dopusk >= 10)
+		{
+		}
 		break;
 	}
 	case 4:
 		break;
 	}
+}
 }
