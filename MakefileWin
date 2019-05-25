@@ -6,7 +6,9 @@ TEST = g++ $(CFLAGS) -I ..third/catch2 -c $< -o $@
 
 all: help
 
-build: folder1 folder2 folder3 folder4 bin/Keyboard-Ninja.exe copyTXT copyDLL clean
+build: folder1 folder2 folder3 folder4 bin/Keyboard-Ninja.exe copyTXT copyDLL
+
+test: bin/Keyboard-Ninja-test
 
 folder1:	
 	mkdir -p build
