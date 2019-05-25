@@ -1,8 +1,14 @@
 #include "pch.h"
+<<<<<<< HEAD:sourcs/src/kmenu.cpp
 
 constexpr auto _VERSION = "Beta v1.0";
 constexpr unsigned int _SEC = 1;
 
+=======
+using namespace std;
+constexpr auto _VERSION = "Beta v1.0";
+constexpr unsigned int _SEC = 10;
+>>>>>>> develop:sourcs/kmenu.cpp
 
 long long unsigned int printMenu(std::vector <std::string>& _vec)
 {
@@ -39,15 +45,6 @@ long long unsigned int printMenu(std::vector <std::string>& _vec)
 		refresh();
 	}while(temp != '\n');
 	return c;
-}
-
-bool razmer()
-{
-	int col, row;
-	getmaxyx(stdscr, row, col);
-	if (row <  10) throw "Uvelich visotu okna";
-	if (col < 40) throw "Uvelich shirinu okna";
-	return true;
 }
 
 int mainMenu(int row, int col)
@@ -144,4 +141,173 @@ void resultTabl(int result, int popitki)
 		box(win,0,0);
 		wrefresh(win);
 		getch();
+}
+
+void speedNormal(string _dataFile, int row, int col)
+{
+	std::ifstream dataFile(_dataFile);
+	std::vector <std::string> vec;
+	
+	while(!dataFile.eof()){
+		std::string temp;
+		std::getline(dataFile, temp);
+		vec.push_back(temp);
+	}
+	
+	unsigned int result = 0;
+	unsigned int startTime = clock();
+	unsigned int endTime = startTime;
+	nodelay(stdscr, TRUE);
+	int ch;
+	int temp;
+	long long unsigned int i =0;
+	std::string tempA;
+	bool flag = 1;
+	int x,y, x_temp;
+	int popitki = 0;
+	do{
+		if ((ch = getch()) == ERR){
+			if (flag){
+				tempA = vec.at(rand() % vec.size());
+				x = (rand() % (col- tempA.length()-1)+1) ;
+				y = (rand() % (row-5)) + 4;
+				erase();
+				printRamka(row, col);
+				move(y,x);
+				printw("%s", tempA.c_str());
+				flag = 0;
+				popitki++;
+			}
+				
+			endTime = clock();
+			move(1,5);
+			printw("%d ms", endTime - startTime);
+			move(1,1);
+			printw("%d", result);
+		}
+		else{
+			temp = ch;
+			flag = 0;
+		
+			if ((int)tempA[i] != temp || i == 0){
+				
+				if(tempA[i] != temp){
+					i=0;
+					flag = 1;
+				}
+				else{
+					x_temp = x;
+					move(y, x_temp++);
+					addch(tempA.at(i)| A_BLINK );
+					i++;
+				}
+				
+				refresh();
+			}
+			else{
+				move(y, x_temp++);
+				addch(tempA.at(i)| A_BLINK );
+				i++;
+				
+				if (i == tempA.length()){
+					flag =1;
+					i=0;
+					
+					if (endTime < startTime + _SEC * 1000){
+						result++;
+					}
+				}
+				
+				refresh();						
+			}
+		}
+	}while(endTime < startTime + _SEC * 1000);
+	
+	
+	nodelay(stdscr, FALSE);
+	resultTabl(result, popitki);
+	
+}
+
+void speedEz()
+{
+	int row,col;
+	getmaxyx(stdscr, row, col);
+	unsigned int result = 0;
+	unsigned int startTime = clock();
+	unsigned int endTime = startTime;
+		
+	nodelay(stdscr, TRUE);
+	int ch;
+	int temp;
+	bool flag = 1;
+	int x,y;
+	int popitki = 0;
+	char tempA;
+	
+	do{
+		if ((ch = getch()) == ERR){
+			if (flag){
+				tempA = rand() % 26 + 0x61;
+				x = (rand() % (col-1)+1) ;
+				y = (rand() % (row-5)) + 4;
+				erase();
+				printRamka(row, col);
+				move(y,x);
+				printw("%c",tempA);
+				flag = 0;
+				popitki++;
+			}
+					
+			endTime = clock();
+			move(1,5);
+			printw("%d ms", endTime - startTime);
+			move(1,1);
+			printw("%d", result);
+		}
+		else{
+			temp = ch;
+			flag = 0;
+			
+			if ((int)tempA != temp){
+				flag = 1;
+			}
+			else{
+				flag =1;
+				result++;
+			}
+			refresh();						
+		}
+		
+	}while(endTime < startTime + _SEC * 1000);
+	
+	
+	nodelay(stdscr, FALSE);	
+	resultTabl(result, popitki);
+}
+
+void speedMode(int slozh, int row, int col)
+{
+	erase();
+    printRamka(row, col);
+	
+	switch (slozh) {
+        case 1:
+		{
+			speedEz();
+			break;
+		}
+        
+		case 2:{
+			speedNormal("Word.txt", row, col);
+			break;
+		}
+			
+		case 3:{
+				speedNormal("Pred.txt", row, col);
+				break;
+		}
+		case 4:
+			break;
+    }	
 }
