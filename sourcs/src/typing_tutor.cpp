@@ -141,4 +141,4 @@ void Select_level(int slozh, int row, int col)
 		break;
 	}
 }
-}
+
