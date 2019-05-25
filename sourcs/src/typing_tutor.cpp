@@ -1,5 +1,5 @@
 #include "pch.h"
-const unsigned int SEK = 20;
+const unsigned int SEK = 30;
 int level(int row, int col)
 {
 	erase();
@@ -31,16 +31,16 @@ void level1(std::string _dataFile, int row, int col)
 	}
 
 	unsigned int startTime = clock();
-	unsigned int endTime = startTime;
+	unsigned int endTime = startTime,DOP=0;
 	nodelay(stdscr, TRUE);
 	int ch;
 	int temp;
 	long long unsigned int i = 0;
 	std::string tempA;
 	bool flag = 1;
-	int x_temp = col / 2, level = 1;
+	int x_temp = col / 2, level = 5;
 	int popitki = 0;
-	unsigned int dop = 0;
+	
 
 	do
 	{
@@ -58,7 +58,7 @@ void level1(std::string _dataFile, int row, int col)
 			}
 			endTime = clock();
 			move(1, 10);
-			printw("%d ms", dop + SEK * 1000 - (endTime - startTime));
+			printw("%d ms", (DOP+SEK) * 1000 - (endTime - startTime));
 			move(1, 1);
 			printw("level %d", level);
 		}
@@ -75,19 +75,20 @@ void level1(std::string _dataFile, int row, int col)
 				i++;
 				if (i == tempA.length())
 				{
-					dop += 5;
+					DOP+=5;
 					x_temp = col / 2;
 					flag = 1;
 					i = 0;
-					level++;
-					if (level == 5)
+					
+					if (level==5)
 					{
-						
+						break;
 					}
+					level++;
 				}
 			}
 		}
-	} while (endTime < startTime + SEK * 1000);
+	} while (endTime < startTime + (DOP+SEK) * 1000);
 
 	nodelay(stdscr, FALSE);
 	
