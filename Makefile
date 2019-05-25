@@ -6,8 +6,6 @@ TEST = g++ $(CFLAGS) -I ..third/catch2 -c $< -o $@
 
 all: help
 
-build: folder1 folder2 bin/Keyboard-Ninja copyTXT
-
 build: folder1 folder2 folder3 folder4 bin/Keyboard-Ninja copyTXT copyDLL
 
 test: bin/Keyboard-Ninja-test
