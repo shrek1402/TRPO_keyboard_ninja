@@ -47,7 +47,8 @@ copyDLL:
 	cp third/pdcurses.dll bin
 	
 copyTXT: 
-	cp sourcs/data/Welcome.txt bin
+	cp sourcs/Welcome.txt bin
+	cp sourcs/level1.txt bin
 
 run:
 	bin/Keyboard-Ninja.exe Welcome.txt
