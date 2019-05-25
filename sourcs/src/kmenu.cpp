@@ -1,12 +1,28 @@
 #include "pch.h"
+
 using namespace std;
 constexpr auto _VERSION = "Beta v1.0";
 constexpr unsigned int _SEC = 10;
 
+int printWelcomePanel(string _str, int row, int col)
+{
+    ifstream myTextFile;
+    myTextFile.open(_str);
+    if (!myTextFile.is_open())
+        return 1; 
+	
+    move(row / 2, col / 2);
+    printw("Hello");
+	refresh();
+	getch(); // TODO time
+    myTextFile.close();
+    return 0;
+}
+//
 long long unsigned int printMenu(std::vector <std::string>& _vec)
 {
-	long long unsigned int c = 1;
-	int temp;
+	long long unsigned int swtch = 1;
+	int key;
 	int col, row;
 	getmaxyx(stdscr, row, col);
 	
@@ -14,7 +30,7 @@ long long unsigned int printMenu(std::vector <std::string>& _vec)
 		for(long long unsigned int i = 0; i < _vec.size(); i++){
 			move(row/2 + i, col/2 - 9);
 			
-			if (i == c){
+			if (i == swtch){
 				for (long long unsigned int j=0; j< _vec[i].length(); j++)
 				addch(_vec[i][j] | A_BLINK);
 			}
@@ -23,23 +39,24 @@ long long unsigned int printMenu(std::vector <std::string>& _vec)
 			}
 		}
 		
-		if ((temp = getch()) == KEY_UP){
-				if (c != 1)
-					c--;
+		if ((key = getch()) == KEY_UP){
+				if (swtch != 1)
+					swtch--;
 				else
-					c = 4;
+					swtch = 4;
 		}
-		else if (temp == KEY_DOWN){
-			if (c != 4)
-				c++;
+		else if (key == KEY_DOWN){
+			if (swtch != 4)
+				swtch++;
 			else
-				c = 1;
+				swtch = 1;
 		}
 		refresh();
-	}while(temp != '\n');
-	return c;
+	}while(key != '\n');
+	
+	return swtch;
 }
-
+//
 int mainMenu(int row, int col)
 {
     erase();
@@ -57,6 +74,7 @@ int mainMenu(int row, int col)
 	
 	return printMenu(mStr);
 }
+//
 int printRamka(int _row, int _col)
 {
 	curs_set(0);
@@ -73,11 +91,12 @@ int printRamka(int _row, int _col)
     return 0;
 }
 
+//
 int slozhnost(int row, int col)
 {
 	erase();
     printRamka(row, col);
-	vector <std::string> mStr = {
+	std::vector <std::string> mStr = {
 		"  Slozhn", // TODO eng
 		"1. Eazy",
 		"2. Normal",
@@ -86,8 +105,6 @@ int slozhnost(int row, int col)
 	};
 
 	noecho();
-	keypad(stdscr, TRUE);
-	
 	return printMenu(mStr);
 }
 
@@ -120,9 +137,16 @@ void resultTabl(int result, int popitki)
 		result > 0? 
 			printw("MOLODEC! :)"):
 			printw("NE MOLODEC! :(");
-		
+			
+		double a;
+		if (!result){
+			a = sqrt(-1);
+		}
+		else{
+			a = (double)_SEC/result;
+		}
 		move(yy + 4, xx+xSize/2 -sm);
-			printw("Reaction: %f", _SEC/result*1.0);
+			printw("Reaction: %.2f", a);
 			
 		box(win,0,0);
 		wrefresh(win);
