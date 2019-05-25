@@ -24,7 +24,7 @@ folder3:
 folder4:
 	mkdir -p build/test
 	
-bin/Keyboard-Ninja: build/kmenu.o build/Main.o build/typing_tutor.o
+bin/Keyboard-Ninja: build/src/kmenu.o build/src/Main.o build/src/typing_tutor.o
 	g++ $(CFLAGS) $^ -lncurses -o $@
 	
 build/src/kmenu.o: sourcs/src/kmenu.cpp
