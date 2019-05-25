@@ -1,6 +1,6 @@
-CFLAGS = -Wall -Werror -std=c++17 #-Ithird/
+CFLAGS = -Wall -Werror -std=c++17
 OBJ = g++ $(CFLAGS) -c $< -o $@
-TEST =
+TEST = g++ $(CFLAGS) -I ..third/catch2 -c $< -o $@
 
 .PHONY: clean
 
@@ -8,32 +8,54 @@ all: help
 
 build: folder1 folder2 bin/Keyboard-Ninja.exe copyTXT
 
+build: folder1 folder2 folder3 folder4 bin/Keyboard-Ninja.exe copyTXT copyDLL
+
+test: bin/Keyboard-Ninja-test
+
 folder1:	
 	mkdir -p build
 
 folder2:
 	mkdir -p bin
 	
-bin/Keyboard-Ninja.exe: build/kmenu.o build/Main.o build/typing_tutor.o
-	g++ $(CFLAGS) $^ -lncurses
+folder3:
+	mkdir -p build/src
 	
-build/kmenu.o: sourcs/kmenu.cpp
+folder4:
+	mkdir -p build/test
+	
+bin/Keyboard-Ninja: build/kmenu.o build/Main.o build/typing_tutor.o
+	g++ $(CFLAGS) $^ -lncurses -o $@
+	
+build/src/kmenu.o: sourcs/src/kmenu.cpp
 	$(OBJ) -lncurses
 	
-build/Main.o: sourcs/Main.cpp
+build/src/Main.o: sourcs/src/Main.cpp
 	$(OBJ) -lncurses
 
-build/typing_tutor.o: sourcs/typing_tutor.cpp
+build/src/typing_tutor.o: sourcs/src/typing_tutor.cpp
 	$(OBJ) -lncurses
 
+bin/Keyboard-Ninja-test: build/test/reaction.o build/test/printWelcomePanel.o
+	g++ $(CFLAGS) $^ -o $@
+
+build/test/reaction.o: sourcs/test/reaction.cpp
+	$(TEST)
+	
+build/test/printWelcomePanel.o: sourcs/test/printWelcomePanel.cpp
+	$(TEST)
+	
 copyDLL: 
 	cp third/pdcurses.dll bin
 	
 copyTXT: 
-	cp sourcs/Welcome.txt bin
+	cp sourcs/data/Welcome.txt bin
 
 run:
 	bin/Keyboard-Ninja.exe Welcome.txt
+
+clean:
+	rm -r build
 
 help:
 	@echo "=========================HELP THERE!========================="
@@ -43,5 +65,3 @@ help:
 	@echo "3. If you see error 'pdcurses.dll not found': Make copyDLL"
 	@echo ""
 	@echo "=========================    TODO   ========================="
-
-
