@@ -1,7 +1,7 @@
 #include "pch.h"
 
-constexpr auto VERSION = "Beta v1.0";
-constexpr unsigned int SEC = 1;
+constexpr auto _VERSION = "Beta v1.0";
+constexpr unsigned int _SEC = 1;
 
 
 long long unsigned int printMenu(std::vector <std::string>& _vec)
@@ -87,7 +87,7 @@ int slozhnost(int row, int col)
 {
 	erase();
     printRamka(row, col);
-	vector <std::string> mStr = {
+	std::vector <std::string> mStr = {
 		"  Slozhn", // TODO eng
 		"1. Eazy",
 		"2. Normal",
@@ -101,7 +101,7 @@ int slozhnost(int row, int col)
 	return printMenu(mStr);
 }
 
-void resultTabl(int result, int popitki)
+int resultTabl(int result, int popitki)
 {
 	erase();
 	
@@ -130,9 +130,16 @@ void resultTabl(int result, int popitki)
 		result > 0? 
 			printw("MOLODEC! :)"):
 			printw("NE MOLODEC! :(");
-		
+			
+		double a;
+		if (!result){
+			a = sqrt(-1);
+		}
+		else{
+			a = (double)_SEC/result;
+		}
 		move(yy + 4, xx+xSize/2 -sm);
-			printw("Reaction: %f", _SEC/result*1.0);
+			printw("Reaction: %.2f", a);
 			
 		box(win,0,0);
 		wrefresh(win);
