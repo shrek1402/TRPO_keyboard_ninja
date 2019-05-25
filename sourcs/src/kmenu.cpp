@@ -101,7 +101,7 @@ int slozhnost(int row, int col)
 	return printMenu(mStr);
 }
 
-int resultTabl(int result, int popitki)
+void resultTabl(int result, int popitki)
 {
 	erase();
 	

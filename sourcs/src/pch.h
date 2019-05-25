@@ -12,6 +12,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <cmath>
 
 bool razmer();
 int printRamka(int _row, int _col);
