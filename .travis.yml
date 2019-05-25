@@ -41,6 +41,9 @@ matrix:
 script:
     - sudo apt-get install libncursesw5-dev
     - make build
+    - make test
+    - cd bin/
+    - ./Keyboard-ninja-test.out
     
 before_install:
     - eval "${MATRIX_EVAL}"
