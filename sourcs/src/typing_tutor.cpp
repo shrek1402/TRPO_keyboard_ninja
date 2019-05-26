@@ -86,6 +86,10 @@ int level1(std::string _dataFile, int row, int col)
 					level++;
 				}
 			}
+			else
+			{
+				DOP -= 1;
+			}
 		}
 	} while (endTime < startTime + (DOP + SEK) * 1000);
 
@@ -102,9 +106,19 @@ int level1(std::string _dataFile, int row, int col)
 	return level;
 }
 
+void dopusk(int row, int col, int temp)
+{
+	printRamka(row, col);
+	std::string abc = "First pass the first 5 levels!";
+	erase();
+	move(row / 2, (col - abc.length()) / 2);
+	printw("%s", abc.c_str());
+	getch();
+}
+
 void Select_level(int slozh, int row, int col)
 {
-	int temp, dopusk = 0;
+	int temp, dopus = 0;
 
 	erase();
 	printRamka(row, col);
@@ -117,24 +131,32 @@ void Select_level(int slozh, int row, int col)
 		temp = level1("level1.txt", row, col);
 		if (temp == 5)
 		{
-			dopusk = temp;
+			dopus = temp;
 		}
 		break;
 	}
 
 	case 2:
 	{
-		if (dopusk >= 5)
+		if (dopus >= 5)
 		{
 		}
+		else
+		{
+			dopusk(row,col,5);
+		}
+
 		break;
 	}
 
 	case 3:
 	{
-		if (dopusk >= 10)
+		if (dopus >= 10)
 		{
 		}
+		else
+			dopusk(row,col,10);
+
 		break;
 	}
 	case 4:
