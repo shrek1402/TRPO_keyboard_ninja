@@ -1,15 +1,15 @@
 #include "pch.h"
-const unsigned int SEK = 30;
+const unsigned int SEK = 60;
 int level(int row, int col)
 {
 	erase();
 	printRamka(row, col);
 	std::vector<std::string> mStr = {
-		"  Select the level",
-		"1. level 1 to 5",
-		"2. level 6 to 10",
-		"3. level 11 to 15",
-		"4. Backward"
+		"Learning touch typing",
+		"1 Lesson",
+		"2 Lesson",
+		"3 Lesson",
+		" Backward"
 
 	};
 
@@ -18,15 +18,16 @@ int level(int row, int col)
 	return printMenu(mStr);
 }
 
-int level1(std::string _dataFile, int row, int col)
+void level1(std::string _dataFile, int row, int col, int Lessen)
 {
 	std::ifstream dataFile(_dataFile);
 	std::vector<std::string> vec;
-
+	 double max_leg=0.0;
 	while (!dataFile.eof())
 	{
 		std::string temp;
 		std::getline(dataFile, temp);
+		max_leg+=temp.length();
 		vec.push_back(temp);
 	}
 
@@ -38,8 +39,10 @@ int level1(std::string _dataFile, int row, int col)
 	long long unsigned int i = 0;
 	std::string tempA;
 	bool flag = 1;
-	int x_temp = col / 2, level = 1;
+	int x_temp = 0, level = 1;
 	int popitki = 0;
+	double proz=0.0,sum_proz=0.0;
+	proz=100/max_leg;
 
 	do
 	{
@@ -52,15 +55,18 @@ int level1(std::string _dataFile, int row, int col)
 				tempA = vec.at(level - 1);
 				move(row / 2, (col - tempA.length()) / 2);
 				printw("%s", tempA.c_str());
-				x_temp = (col / 2) - (tempA.length() / 2);
+				x_temp = (col / 2) - (tempA.length() / 2) - 1;
 				flag = 0;
 				popitki++;
 			}
+			
+			move (10,(col-8)/2);
+			printw ("%3.2f proz",sum_proz);
 			endTime = clock();
 			move(1, 10);
 			printw("%d ms", (DOP + SEK) * 1000 - (endTime - startTime));
 			move(1, 1);
-			printw("level %d", level);
+			printw("Lessen %d", Lessen);
 		}
 		else
 		{
@@ -69,6 +75,7 @@ int level1(std::string _dataFile, int row, int col)
 
 			if (tempA[i] == temp)
 			{
+				sum_proz+=proz;
 				move(row / 2, x_temp);
 				x_temp++;
 				addch(tempA.at(i) | A_BLINK);
@@ -79,11 +86,12 @@ int level1(std::string _dataFile, int row, int col)
 					flag = 1;
 					i = 0;
 
-					if (level == 5)
+					if (level == 8)
 					{
 						break;
 					}
 					level++;
+					
 				}
 			}
 			else
@@ -92,24 +100,13 @@ int level1(std::string _dataFile, int row, int col)
 			}
 		}
 	} while (endTime < startTime + (DOP + SEK) * 1000);
-
 	nodelay(stdscr, FALSE);
-	if (level == 5)
-	{
-		std::string abc = "You have passed all 5 levels, now the following are open for you!";
-		erase();
-		move(row / 2, (col - abc.length()) / 2);
-		printw("%s", abc.c_str());
-		getch();
-		return level;
-	}
-	return level;
 }
 
 void dopusk(int row, int col, int temp)
 {
 	printRamka(row, col);
-	std::string abc = "First pass the first 5 levels!";
+	std::string abc = "Go through the previous lesson first";
 	erase();
 	move(row / 2, (col - abc.length()) / 2);
 	printw("%s", abc.c_str());
@@ -118,7 +115,7 @@ void dopusk(int row, int col, int temp)
 
 void Select_level(int slozh, int row, int col)
 {
-	int temp, dopus = 0;
+	int  Lessen = 1;
 
 	erase();
 	printRamka(row, col);
@@ -127,40 +124,25 @@ void Select_level(int slozh, int row, int col)
 	{
 	case 1:
 	{
-
-		temp = level1("level1.txt", row, col);
-		if (temp == 5)
-		{
-			dopus = temp;
-		}
+		Lessen = 1;
+		level1("level1.txt", row, col, Lessen);
 		break;
 	}
 
 	case 2:
 	{
-		if (dopus >= 5)
-		{
-		}
-		else
-		{
-			dopusk(row,col,5);
-		}
-
+		Lessen = 2;
+		level1("level2.txt", row, col, Lessen);
 		break;
 	}
 
 	case 3:
 	{
-		if (dopus >= 10)
-		{
-		}
-		else
-			dopusk(row,col,10);
-
+		Lessen = 3;
+		level1("level3.txt", row, col, Lessen);
 		break;
 	}
 	case 4:
 		break;
 	}
 }
-
