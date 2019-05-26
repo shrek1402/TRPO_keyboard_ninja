@@ -22,7 +22,7 @@ folder3:
 folder4:
 	mkdir -p build/test
 	
-bin/Keyboard-Ninja.exe: build/src/Main.o build/src/kmenu.o build/src/typing_tutor.o
+bin/Keyboard-Ninja.exe: build/src/Main.o build/src/kmenu.o build/src/typing_tutor.o build/src/Numerical_simulator.o
 	g++ $(CFLAGS) $^ third/pdcurses.dll -o $@ 
 	
 build/src/Main.o: sourcs/src/Main.cpp
@@ -33,6 +33,9 @@ build/src/kmenu.o: sourcs/src/kmenu.cpp
 
 build/src/typing_tutor.o: sourcs/src/typing_tutor.cpp
 	$(OBJ) 
+
+build/src/Numerical_simulator.o: sourcs/src/Numerical_simulator.cpp
+	$(OBJ)
 	
 
 
