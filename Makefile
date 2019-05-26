@@ -48,7 +48,9 @@ copyDLL:
 	
 copyTXT: 
 	cp sourcs/Welcome.txt bin
-	cp sourcs/level1.txt bin
+	cp sourcs/data/level1.txt bin
+	cp sourcs/data/level2.txt bin
+	cp sourcs/data/level3.txt bin
 
 run:
 	bin/Keyboard-Ninja.exe Welcome.txt
