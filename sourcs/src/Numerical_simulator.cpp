@@ -6,10 +6,10 @@ int Num_Menu(int row, int col)
 	printRamka(row, col);
 	std::vector<std::string> N_Menu = {
 		"Exercises with numbers:",
-		"Speed Number",
-		"Solving equations",
-	 	"Calculator",
-		"Back to main menu"
+		"1. Speed Number",
+		"2. Solving equations",
+	 	"3. Calculator",
+		"4. Back to main menu"
 	};
 
 	noecho();
