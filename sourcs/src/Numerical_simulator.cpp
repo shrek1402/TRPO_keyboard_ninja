@@ -23,7 +23,7 @@ void Select_item (int item, int row, int col) {
 
 	switch(item){
 		case 1: {
-		//	SpeedNum();
+			SpeedNum(row, col);
 			break;
 		}
 		case 2: {
@@ -38,4 +38,35 @@ void Select_item (int item, int row, int col) {
 			break;
 		}
 	}
+}
+
+int SpeedNum(int row, int col) {
+	
+	nodelay(stdscr, TRUE);
+	unsigned int StartTime = clock(), EndTime = clock(), otvet=0;
+	char ch;
+	ifstream Numbers("Numbers.txt");
+	vector<string> vector;
+	string str1, str2;
+	erase();
+	printRamka(row, col);
+	while (!Numbers.eof()){
+		getline(Numbers, str1);
+		vector.push_back(str1);
+	}
+
+		do {
+			if ((ch = getch()) == ERR)
+			{
+			move(1, 2);
+			printw("Time left: ");
+			EndTime = clock();
+			move(1, 13);
+			printw("%d sec", (30 * 1000 - (EndTime - StartTime))/1000);
+			}
+	
+	
+	} while (EndTime < StartTime + 30*1000);
+	nodelay(stdscr, FALSE);
+return otvet;
 }
