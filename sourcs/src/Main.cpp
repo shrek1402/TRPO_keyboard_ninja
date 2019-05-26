@@ -22,6 +22,7 @@ int main(int argc, char** argv)
             {
                 int tmp = level (row, col);	
         	Select_level(tmp, row, col);
+            break;
             }
 			case 3:
 			case 4:
