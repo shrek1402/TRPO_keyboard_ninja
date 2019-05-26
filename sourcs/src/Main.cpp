@@ -25,7 +25,8 @@ int main(int argc, char** argv)
             break;
             }
 			case 3: {
-                Num_Menu(row, col);
+                int item = Num_Menu(row, col);
+                Select_item (item, row, col);
                 break;
             }
 			case 4:

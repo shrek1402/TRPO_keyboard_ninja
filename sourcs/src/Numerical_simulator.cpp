@@ -16,3 +16,26 @@ int Num_Menu(int row, int col)
 	keypad(stdscr, TRUE);
 	return printMenu(N_Menu);
 }
+
+void Select_item (int item, int row, int col) {
+	erase();
+	printRamka(row, col);
+
+	switch(item){
+		case 1: {
+		//	SpeedNum();
+			break;
+		}
+		case 2: {
+		//	Solving();
+			break;
+		}
+		case 3: {
+		//	Calculator();
+			break;
+		}
+		case 4: {
+			break;
+		}
+	}
+}

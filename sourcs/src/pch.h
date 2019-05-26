@@ -29,4 +29,5 @@
 	void Select_level(int slozh, int row, int col);
 	int level(int row, int col);
 	int Num_Menu(int row, int col);
+	void Select_item (int item, int row, int col);
 #endif
