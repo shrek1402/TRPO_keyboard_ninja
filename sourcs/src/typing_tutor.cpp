@@ -18,13 +18,17 @@ int level(int row, int col)
 	return printMenu(mStr);
 }
 
-void dopusk(int row, int col, int Lessen, unsigned int endTime, unsigned int DOP )
+void dopusk(int row, int col, int Lessen, unsigned int endTime, unsigned int startTime, double sum_proz )
 {
 	printRamka(row, col);
 	move (1,(col-8)/2);
 	attron ( A_BOLD);
 	printw("Lessen %d", Lessen);
 	attron ( A_NORMAL);
+	move (row/2,(col-12)/2);
+	printw ("Passed %d ms",endTime-startTime);
+	move (row/2+2,(col-38)/2);
+	printw ("You passed %3.2f percent of the lesson", sum_proz);
 
 	getch();
 }
@@ -70,8 +74,8 @@ void level1(std::string _dataFile, int row, int col, int Lessen)
 				flag = 0;
 			}
 			attron (A_BOLD);
-			move(10, (col - 10) / 2);
-			printw("%3.2f proz", sum_proz);
+			move(10, (col - 16) / 2);
+			printw("%3.2f percent", sum_proz);
 			endTime = clock();
 			move(1, 10);
 			printw("%d ms", (DOP + SEK) * 1000 - (endTime - startTime));
@@ -110,7 +114,7 @@ void level1(std::string _dataFile, int row, int col, int Lessen)
 		}
 	} while (endTime < startTime + (DOP + SEK) * 1000);
 	nodelay(stdscr, FALSE);
-	dopusk (row, col, Lessen, endTime, DOP);
+	dopusk (row, col, Lessen, endTime, startTime,sum_proz);
 }
 
 
