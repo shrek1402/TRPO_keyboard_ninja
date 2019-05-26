@@ -18,6 +18,17 @@ int level(int row, int col)
 	return printMenu(mStr);
 }
 
+void dopusk(int row, int col, int Lessen, unsigned int endTime, unsigned int DOP )
+{
+	printRamka(row, col);
+	move (1,(col-8)/2);
+	attron ( A_BOLD);
+	printw("Lessen %d", Lessen);
+	attron ( A_NORMAL);
+
+	getch();
+}
+
 void level1(std::string _dataFile, int row, int col, int Lessen)
 {
 	std::ifstream dataFile(_dataFile);
@@ -58,7 +69,7 @@ void level1(std::string _dataFile, int row, int col, int Lessen)
 				x_temp = (col / 2) - (tempA.length() / 2) - 1;
 				flag = 0;
 			}
-
+			attron (A_BOLD);
 			move(10, (col - 10) / 2);
 			printw("%3.2f proz", sum_proz);
 			endTime = clock();
@@ -99,17 +110,10 @@ void level1(std::string _dataFile, int row, int col, int Lessen)
 		}
 	} while (endTime < startTime + (DOP + SEK) * 1000);
 	nodelay(stdscr, FALSE);
+	dopusk (row, col, Lessen, endTime, DOP);
 }
 
-void dopusk(int row, int col, int temp)
-{
-	printRamka(row, col);
-	std::string abc = "Go through the previous lesson first";
-	erase();
-	move(row / 2, (col - abc.length()) / 2);
-	printw("%s", abc.c_str());
-	getch();
-}
+
 
 void Select_level(int slozh, int row, int col)
 {
