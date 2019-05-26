@@ -24,7 +24,10 @@ int main(int argc, char** argv)
         	Select_level(tmp, row, col);
             break;
             }
-			case 3:
+			case 3: {
+                Num_Menu(row, col);
+                break;
+            }
 			case 4:
 				return 0;
         }
