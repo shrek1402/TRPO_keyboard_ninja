@@ -33,5 +33,5 @@
 	int level(int row, int col);
 	int Num_Menu(int row, int col);
 	void Select_item (int item, int row, int col);
-	int SpeedNum(int row, int col);
+	int SpeedNum(int row, int col, int numbers, int simvols);
 #endif

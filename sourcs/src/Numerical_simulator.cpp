@@ -20,10 +20,12 @@ int Num_Menu(int row, int col)
 void Select_item (int item, int row, int col) {
     erase();
 	printRamka(row, col);
+	int numbers=-1, simvols=-1;
+	numbers++; simvols++;
 
 	switch(item){
 		case 1: {
-			SpeedNum(row, col);
+			SpeedNum(row, col, numbers, simvols);
 			break;
 		}
 		case 2: {
@@ -40,12 +42,11 @@ void Select_item (int item, int row, int col) {
 	}
 }
 
-int SpeedNum(int row, int col) {
+int SpeedNum(int row, int col, int numbers, int simvols) {
 	srand(time(0));
 	nodelay(stdscr, TRUE);
-	unsigned int StartTime = clock(), EndTime = clock(), otvet=0;
-	int ch;
-	int i=0, k=0, time=30, flag=1, size;
+	unsigned int StartTime = clock(), EndTime = clock();
+	int i=0, k=0, time=30, flag=1, size, ch;
 	ifstream Numbers("Numbers.txt");
 	string array[100];
 	string str1, str2;
@@ -65,7 +66,7 @@ int SpeedNum(int row, int col) {
 		printw("%d sec", (time * 1000 - (EndTime - StartTime))/1000);
 		if (((StartTime + time * 1000)-EndTime)<16000)
 		{
-		move(5, col/2-9);
+		move(5, col/2-6);
 		attron (A_BOLD);
 		printw("Let's! Pull baker!");
 		attron (A_NORMAL);
@@ -82,6 +83,7 @@ int SpeedNum(int row, int col) {
 				move(row / 2, col / 2);
 				printw("%s", str2.c_str());
 				flag = 0;
+				numbers++;
 			}
 		}
 		else
@@ -91,7 +93,7 @@ int SpeedNum(int row, int col) {
 				move(row / 2, col / 2 + i); //перемещаемся в строке const + i (где i - номер текущего символа)
 				addch(str2.at(i) | A_STANDOUT); //выделение правильно введеного символа
 				i++;
-				otvet++;
+				simvols++;
 				if (i == size) //достижение конца строки
 				{
 					flag = 1; //"включение" новой строки 
@@ -101,5 +103,5 @@ int SpeedNum(int row, int col) {
 		}
 	} while (EndTime < StartTime + time * 1000);
 	nodelay(stdscr, FALSE);
-return otvet;
+return 0;
 }
