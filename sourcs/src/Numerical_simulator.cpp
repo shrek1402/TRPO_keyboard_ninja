@@ -26,6 +26,7 @@ void Select_item (int item, int row, int col) {
 	switch(item){
 		case 1: {
 			SpeedNum(row, col, numbers, simvols);
+			ResultNum (row, col, numbers, simvols);
 			break;
 		}
 		case 2: {
@@ -46,7 +47,7 @@ int SpeedNum(int row, int col, int numbers, int simvols) {
 	srand(time(0));
 	nodelay(stdscr, TRUE);
 	unsigned int StartTime = clock(), EndTime = clock();
-	int i=0, k=0, time=30, flag=1, size, ch;
+	int i=0, k=0, time=5, flag=1, size, ch;
 	ifstream Numbers("Numbers.txt");
 	string array[100];
 	string str1, str2;
@@ -103,5 +104,30 @@ int SpeedNum(int row, int col, int numbers, int simvols) {
 		}
 	} while (EndTime < StartTime + time * 1000);
 	nodelay(stdscr, FALSE);
+return 0;
+}
+
+int ResultNum (int row, int col, int numbers, int simvols) {
+	erase();
+	printRamka(row, col);
+	attron (A_BOLD);
+
+	move(row / 2 - 10, col / 2-5);
+	printw("Your results:\n");
+
+	move(row / 2 - 5, 25);
+	printw("Your speed in simvols = %d per second", simvols/30);
+	if (simvols/30 > 1) {
+	printw("	[GOOD]");
+	}
+	else printw("	[NOT GOOD] You should train more!");
+
+	move(row / 2, 25);
+	printw("Your speed in numbers = %d per second", numbers/30);
+	if (numbers/30 > 1) {
+	printw("	[GOOD]");
+	}
+	else printw("	[NOT GOOD] You should train more!");
+	getch();
 return 0;
 }
