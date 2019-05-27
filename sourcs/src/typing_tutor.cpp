@@ -20,25 +20,22 @@ int level(int row, int col)
 
 void dopusk(int row, int col, int Lessen, unsigned int endTime, unsigned int startTime, double sum_proz, int error )
 {
-	double record=0,;
 	printRamka(row, col);
-	move (1,(col-8)/2);
+	
 	attron (A_BOLD);
-	printw("Lessen %d", Lessen);
-	move (row/2,(col-26)/2);
-	printw ("Execution time %d ms",endTime-startTime);
-	move (row/2+2,(col-26)/2);
-	printw ("You passed %3.2f percent of the lesson", sum_proz);
-	move (row/2+4,(col-26)/2);
-	printw ("Incorrectly entered letters %d", error);
-	if (sum_proz >= 100)
+	if (sum_proz<100)
 	{
-		if (record<(endTime-startTime))
-		record=endTime-startTime;
-		move (row/2+6,(col-26)/2);
-	printw ("Minimum travel time %3.2f ", record);
+	move ((row-4)/2-2,(col-26)/2);
+	printw ("Time's up, try again!");	
 	}
-
+	move (1,(col-4)/2);
+	printw("Lessen %d", Lessen);
+	move ((row-4)/2,(col-26)/2);
+	printw ("Execution time %d ms",endTime-startTime);
+	move ((row-4)/2+2,(col-26)/2);
+	printw ("You passed %3.2f percent of the lesson", sum_proz);
+	move ((row-4)/2+4,(col-26)/2);
+	printw ("Incorrectly entered letters %d", error);
 	attroff(A_BOLD);
 
 
