@@ -6,6 +6,7 @@ int main(int argc, char** argv)
 {
     int row, col;
     initscr();
+ 
     getmaxyx(stdscr, row, col);
     printRamka(row, col);
     printWelcomePanel(argv[1], row, col);

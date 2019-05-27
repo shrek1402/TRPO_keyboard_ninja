@@ -18,17 +18,29 @@ int level(int row, int col)
 	return printMenu(mStr);
 }
 
-void dopusk(int row, int col, int Lessen, unsigned int endTime, unsigned int startTime, double sum_proz )
+void dopusk(int row, int col, int Lessen, unsigned int endTime, unsigned int startTime, double sum_proz, int error )
 {
+	double record=0,;
 	printRamka(row, col);
 	move (1,(col-8)/2);
-	attron ( A_BOLD);
+	attron (A_BOLD);
 	printw("Lessen %d", Lessen);
-	attron ( A_NORMAL);
-	move (row/2,(col-12)/2);
-	printw ("Passed %d ms",endTime-startTime);
-	move (row/2+2,(col-38)/2);
+	move (row/2,(col-26)/2);
+	printw ("Execution time %d ms",endTime-startTime);
+	move (row/2+2,(col-26)/2);
 	printw ("You passed %3.2f percent of the lesson", sum_proz);
+	move (row/2+4,(col-26)/2);
+	printw ("Incorrectly entered letters %d", error);
+	if (sum_proz >= 100)
+	{
+		if (record<(endTime-startTime))
+		record=endTime-startTime;
+		move (row/2+6,(col-26)/2);
+	printw ("Minimum travel time %3.2f ", record);
+	}
+
+	attroff(A_BOLD);
+
 
 	getch();
 }
@@ -50,7 +62,7 @@ void level1(std::string _dataFile, int row, int col, int Lessen)
 	unsigned int endTime = startTime, DOP = 0;
 	nodelay(stdscr, TRUE);
 	int ch;
-	int temp;
+	int temp,error=0;
 	long long unsigned int i = 0;
 	std::string tempA;
 	bool flag = 1;
@@ -81,6 +93,7 @@ void level1(std::string _dataFile, int row, int col, int Lessen)
 			printw("%d ms", (DOP + SEK) * 1000 - (endTime - startTime));
 			move(1, 1);
 			printw("Lessen %d", Lessen);
+			attroff (A_BOLD);
 		}
 		else
 		{
@@ -110,11 +123,13 @@ void level1(std::string _dataFile, int row, int col, int Lessen)
 			else
 			{
 				DOP -= 1;
+				error++;
 			}
 		}
 	} while (endTime < startTime + (DOP + SEK) * 1000);
 	nodelay(stdscr, FALSE);
-	dopusk (row, col, Lessen, endTime, startTime,sum_proz);
+	attroff(A_BLINK);
+	dopusk (row, col, Lessen, endTime, startTime,sum_proz, error);
 }
 
 
