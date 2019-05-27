@@ -33,6 +33,6 @@
 	int level(int row, int col);
 	int Num_Menu(int row, int col);
 	void Select_item (int item, int row, int col);
-	int SpeedNum(int row, int col, int numbers, int simvols);
-	int ResultNum (int row, int col, int numbers, int simvols);
+	int* SpeedNum(int row, int col, int* A);
+	int ResultNum (int row, int col, int* A);
 #endif

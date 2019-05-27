@@ -20,13 +20,11 @@ int Num_Menu(int row, int col)
 void Select_item (int item, int row, int col) {
     erase();
 	printRamka(row, col);
-	int numbers=-1, simvols=-1;
-	numbers++; simvols++;
-
+	int A[3]={0, 0 ,0};
 	switch(item){
 		case 1: {
-			SpeedNum(row, col, numbers, simvols);
-			ResultNum (row, col, numbers, simvols);
+			SpeedNum(row, col, A);
+			ResultNum (row, col, A);
 			break;
 		}
 		case 2: {
@@ -43,7 +41,7 @@ void Select_item (int item, int row, int col) {
 	}
 }
 
-int SpeedNum(int row, int col, int numbers, int simvols) {
+int* SpeedNum(int row, int col, int* A) {
 	srand(time(0));
 	nodelay(stdscr, TRUE);
 	unsigned int StartTime = clock(), EndTime = clock();
@@ -84,7 +82,7 @@ int SpeedNum(int row, int col, int numbers, int simvols) {
 				move(row / 2, col / 2);
 				printw("%s", str2.c_str());
 				flag = 0;
-				numbers++;
+				A[0]++; //подсчет чисел
 			}
 		}
 		else
@@ -94,37 +92,48 @@ int SpeedNum(int row, int col, int numbers, int simvols) {
 				move(row / 2, col / 2 + i); //перемещаемся в строке const + i (где i - номер текущего символа)
 				addch(str2.at(i) | A_STANDOUT); //выделение правильно введеного символа
 				i++;
-				simvols++;
+				A[1]++; //подсчет символов
 				if (i == size) //достижение конца строки
 				{
 					flag = 1; //"включение" новой строки 
 					i = 0; //обнуляем счетчик для новой строки
 				}
 			}
+			else A[2]++; //ошибки ввода
 		}
 	} while (EndTime < StartTime + time * 1000);
 	nodelay(stdscr, FALSE);
-return 0;
+return A;
 }
 
-int ResultNum (int row, int col, int numbers, int simvols) {
+int ResultNum (int row, int col, int* A) {
 	erase();
 	printRamka(row, col);
 	attron (A_BOLD);
 
+	float result0, result1;
+	result0=A[0]/30;
+	result1=A[1]/30;
 	move(row / 2 - 10, col / 2-5);
 	printw("Your results:\n");
 
 	move(row / 2 - 5, 25);
-	printw("Your speed in simvols = %d per second", simvols/30);
-	if (simvols/30 > 1) {
+	printw("Your speed in simvols = %.2f per second", result1);
+	if (A[1]/30 > 1) {
 	printw("	[GOOD]");
 	}
 	else printw("	[NOT GOOD] You should train more!");
 
 	move(row / 2, 25);
-	printw("Your speed in numbers = %d per second", numbers/30);
-	if (numbers/30 > 1) {
+	printw("Your speed in numbers = %.2f per second", result0);
+	if (A[0]/30 > 1) {
+	printw("	[GOOD]");
+	}
+	else printw("	[NOT GOOD] You should train more!");
+
+	move(row / 2 + 5, 25);
+	printw("Your errors = %d", A[2]);
+	if (A[2] < 5) {
 	printw("	[GOOD]");
 	}
 	else printw("	[NOT GOOD] You should train more!");
