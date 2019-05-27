@@ -20,14 +20,26 @@ int level(int row, int col)
 
 void dopusk(int row, int col, int Lessen, unsigned int endTime, unsigned int startTime, double sum_proz, int error )
 {
+	erase();
 	printRamka(row, col);
-	
+	int size_x, size_y, xx, yy;
+	size_x=80;
+	size_y=20;
+	xx=20;
+	yy=15;
+	WINDOW *win5 = newwin(size_y,size_x,yy,xx);
 	attron (A_BOLD);
 	if (sum_proz<100)
 	{
 	move ((row-4)/2-2,(col-26)/2);
 	printw ("Time's up, try again!");	
 	}
+	else
+	{
+	move ((row-4)/2-2,(col-26)/2);
+	printw ("Well done keep learning!");	
+	}
+	
 	move (1,(col-4)/2);
 	printw("Lessen %d", Lessen);
 	move ((row-4)/2,(col-26)/2);
@@ -37,8 +49,8 @@ void dopusk(int row, int col, int Lessen, unsigned int endTime, unsigned int sta
 	move ((row-4)/2+4,(col-26)/2);
 	printw ("Incorrectly entered letters %d", error);
 	attroff(A_BOLD);
-
-
+	box(win5,0,0);
+	wrefresh(win5);
 	getch();
 }
 
@@ -63,7 +75,7 @@ void level1(std::string _dataFile, int row, int col, int Lessen)
 	long long unsigned int i = 0;
 	std::string tempA;
 	bool flag = 1;
-	int x_temp = 0, level = 1;
+	int x_temp = 0, level = 8;
 	double proz = 0.0, sum_proz = 0.0;
 
 	proz = 100 / max_leg;
