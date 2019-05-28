@@ -72,7 +72,7 @@ int mainMenu(int row, int col)
 	
 	return printMenu(&mStr);
 }
-//
+
 int printRamka(int _row, int _col)
 {
 	erase();

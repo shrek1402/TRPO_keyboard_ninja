@@ -22,7 +22,7 @@ folder3:
 folder4:
 	mkdir -p build/test
 	
-bin/Keyboard-Ninja: build/src/kmenu.o build/src/Main.o build/src/typing_tutor.o
+bin/Keyboard-Ninja: build/src/kmenu.o build/src/Main.o build/src/typing_tutor.o build/src/Numerical_simulator.o
 	g++ $(CFLAGS) $^ -lncurses -o $@
 	
 build/src/kmenu.o: sourcs/src/kmenu.cpp
@@ -33,6 +33,11 @@ build/src/Main.o: sourcs/src/Main.cpp
 
 build/src/typing_tutor.o: sourcs/src/typing_tutor.cpp
 	$(OBJ) -lncurses
+
+build/src/Numerical_simulator.o: sourcs/src/Numerical_simulator.cpp
+	$(OBJ) -lncurses
+
+
 
 bin/Keyboard-Ninja-test: build/test/reaction.o build/test/printWelcomePanel.o
 	g++ $(CFLAGS) $^ -o $@
@@ -47,8 +52,13 @@ copyDLL:
 	cp third/pdcurses.dll bin
 	
 copyTXT: 
-	cp sourcs/Welcome.txt bin
-	cp sourcs/level1.txt bin
+	cp sourcs/Welcome.txt bincp 
+	cp sourcs/data/level1.txt bin
+	cp sourcs/data/level2.txt bin
+	cp sourcs/data/level3.txt bin
+	cp sourcs/data/level4.txt bin
+	cp sourcs/data/level5.txt bin
+	cp sourcs/data/level6.txt bin
 
 run:
 	bin/Keyboard-Ninja.exe Welcome.txt

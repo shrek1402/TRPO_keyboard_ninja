@@ -12,6 +12,7 @@ int main(int argc, char** argv)
 	init_pair(2, COLOR_GREEN, COLOR_BLACK);
 	init_pair(3, COLOR_RED,   COLOR_BLACK);
 	attron(COLOR_PAIR(1));
+
     getmaxyx(stdscr, row, col);
     printRamka(row, col);
     printWelcomePanel(argv[1], row, col);
@@ -27,8 +28,13 @@ int main(int argc, char** argv)
             {
                 int tmp = level (row, col);	
         	Select_level(tmp, row, col);
+            break;
             }
-			case 3:
+			case 3: {
+                int item = Num_Menu(row, col);
+                Select_item (item, row, col);
+                break;
+            }
 			case 4:
 				return 0;
         }
