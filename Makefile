@@ -52,10 +52,13 @@ copyDLL:
 	cp third/pdcurses.dll bin
 	
 copyTXT: 
-	cp sourcs/Welcome.txt bin
+	cp sourcs/Welcome.txt bincp 
 	cp sourcs/data/level1.txt bin
 	cp sourcs/data/level2.txt bin
 	cp sourcs/data/level3.txt bin
+	cp sourcs/data/level4.txt bin
+	cp sourcs/data/level5.txt bin
+	cp sourcs/data/level6.txt bin
 
 run:
 	bin/Keyboard-Ninja.exe Welcome.txt
