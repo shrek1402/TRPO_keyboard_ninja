@@ -64,7 +64,7 @@ int mainMenu(int row, int col)
 		"    Menu          ",
 		"1. Speed mode     ",
 		"2. typing tutor   ",
-		"3. Blind seal mode",
+		"3. Numerical Simulator",
 		"4. Exit           "
 	};
 
