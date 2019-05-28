@@ -18,12 +18,13 @@ int Num_Menu(int row, int col)
 }
 
 void Select_item (int item, int row, int col) {
-	erase();
+    erase();
 	printRamka(row, col);
-
+	int A[3]={0, 0 ,0};
 	switch(item){
 		case 1: {
-			SpeedNum(row, col);
+			SpeedNum(row, col, A);
+			ResultNum (row, col, A);
 			break;
 		}
 		case 2: {
@@ -40,33 +41,102 @@ void Select_item (int item, int row, int col) {
 	}
 }
 
-int SpeedNum(int row, int col) {
-	
+int* SpeedNum(int row, int col, int* A) {
+	srand(time(0));
 	nodelay(stdscr, TRUE);
-	unsigned int StartTime = clock(), EndTime = clock(), otvet=0;
-	char ch;
+	unsigned int StartTime = clock(), EndTime = clock();
+	int i=0, k=0, time=30, flag=1, size, ch;
 	ifstream Numbers("Numbers.txt");
-	vector<string> vector;
+	string array[100];
 	string str1, str2;
 	erase();
 	printRamka(row, col);
-	while (!Numbers.eof()){
+	while (!Numbers.eof()){		//заполняем массив строками из файла
 		getline(Numbers, str1);
-		vector.push_back(str1);
+		array[i]=str1;
+		i++;
 	}
-
-		do {
-			if ((ch = getch()) == ERR)
+	i=0;
+	do {
+		move(1, 2);				//таймер
+		printw("Time left: ");
+		EndTime = clock();
+		move(1, 13);
+		printw("%d sec", (time * 1000 - (EndTime - StartTime))/1000);
+		if (((StartTime + time * 1000)-EndTime)<16000)
+		{
+		move(5, col/2-6);
+		attron (A_BOLD);
+		printw("Let's! Pull baker!");
+		attron (A_NORMAL);
+		}
+		if ((ch = getch()) == ERR)
+		{
+			if (flag)
 			{
-			move(1, 2);
-			printw("Time left: ");
-			EndTime = clock();
-			move(1, 13);
-			printw("%d sec", (30 * 1000 - (EndTime - StartTime))/1000);
+				erase();				//для очищения от 
+				printRamka(row, col);	//выделения с прошлой итерации
+				k = rand()%100;			//выбираем случайную строку из массива
+				str2 = array[k];
+				size=str2.length();		//получение длины очередой строки
+				move(row / 2, col / 2);
+				printw("%s", str2.c_str());
+				flag = 0;
+				A[0]++; //подсчет чисел
 			}
-	
-	
-	} while (EndTime < StartTime + 30*1000);
+		}
+		else
+		{
+			if (str2[i] == ch)
+			{
+				move(row / 2, col / 2 + i); //перемещаемся в строке const + i (где i - номер текущего символа)
+				addch(str2.at(i) | A_STANDOUT); //выделение правильно введеного символа
+				i++;
+				A[1]++; //подсчет символов
+				if (i == size) //достижение конца строки
+				{
+					flag = 1; //"включение" новой строки 
+					i = 0; //обнуляем счетчик для новой строки
+				}
+			}
+			else A[2]++; //ошибки ввода
+		}
+	} while (EndTime < StartTime + time * 1000);
 	nodelay(stdscr, FALSE);
-return otvet;
+return A;
+}
+
+int ResultNum (int row, int col, int* A) {
+	erase();
+	printRamka(row, col);
+	attron (A_BOLD);
+
+	float result0, result1;
+	result0=(double)A[0]/(double)30;
+	result1=(double)A[1]/(double)30;
+	move(row / 2 - 10, col / 2-5);
+	printw("Your results:\n");
+
+	move(row / 2 - 5, 25);
+	printw("Your speed in simvols = %.2f per second", result1);
+	if ((double)A[1]/(double)30 > 1) {
+	printw("	[GOOD]");
+	}
+	else printw("	[NOT GOOD] You should train more!");
+	
+	move(row / 2, 25);
+	printw("Your speed in numbers = %.2f per second", result0);
+	if ((double)A[0]/(double)30 > 1) {
+	printw("	[GOOD]");
+	}
+	else printw("	[NOT GOOD] You should train more!");
+
+	move(row / 2 + 5, 25);
+	printw("Your errors = %d", A[2]);
+	if (A[2] < 5) {
+	printw("	[GOOD]");
+	}
+	else printw("	[NOT GOOD] You should train more!");
+	getch();
+return 0;
 }
