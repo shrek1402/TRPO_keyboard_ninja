@@ -18,6 +18,7 @@
 	#include <unistd.h>
 	#include <cmath>
 	#include <sstream>
+	#include <map>
 
 	using namespace std;
 
@@ -35,4 +36,5 @@
 	void Select_item (int item, int row, int col);
 	int* SpeedNum(int row, int col, int* A);
 	int ResultNum (int row, int col, int* A);
+	int* Solving (int row, int col, int* A);
 #endif
