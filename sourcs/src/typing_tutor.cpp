@@ -15,7 +15,7 @@ int level(int row, int col)
 
 	noecho();
 	keypad(stdscr, TRUE);
-	return printMenu(mStr);
+	return printMenu(&mStr);
 }
 
 void level1(std::string _dataFile, int row, int col)
