@@ -78,7 +78,7 @@ void level1(std::string _dataFile, int row, int col, int Lessen) {
         tempA = vec.at(level - 1);
         move(row / 2, (col - tempA.length()) / 2);
         printw("%s", tempA.c_str());
-        x_temp = (col / 2) - (tempA.length() / 2) - 1;
+        x_temp = (col-tempA.length()) / 2;
         flag = 0;
       }
       attron(A_BOLD);
@@ -96,9 +96,10 @@ void level1(std::string _dataFile, int row, int col, int Lessen) {
 
       if (tempA[i] == temp) {
         sum_proz += proz;
+        
         move(row / 2, x_temp);
-        x_temp++;
         addch(tempA.at(i) | A_BLINK);
+        x_temp++;
         i++;
         if (i == tempA.length()) {
           DOP += 5;
