@@ -14,7 +14,7 @@ int Num_Menu(int row, int col)
 
 	noecho();
 	keypad(stdscr, TRUE);
-	return printMenu(N_Menu);
+	return printMenu(&N_Menu);
 }
 
 void Select_item (int item, int row, int col) {
