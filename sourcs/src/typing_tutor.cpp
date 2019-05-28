@@ -8,15 +8,9 @@ int level(int row, int col) {
 
   };
 
-<<<<<<< HEAD
 	noecho();
 	keypad(stdscr, TRUE);
 	return printMenu(&mStr);
-=======
-  noecho();
-  keypad(stdscr, TRUE);
-  return printMenu(mStr);
->>>>>>> e8e87a7e5b78fb46aa267fcd660c659024b62885
 }
 
 void dopusk(int row, int col, int Lessen, unsigned int endTime,
