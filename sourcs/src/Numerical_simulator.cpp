@@ -2,6 +2,7 @@
 
 int Num_Menu(int row, int col)
 {
+	int punk=4;
 	erase();
 	printRamka(row, col);
 	std::vector<std::string> N_Menu = {
@@ -14,7 +15,7 @@ int Num_Menu(int row, int col)
 
 	noecho();
 	keypad(stdscr, TRUE);
-	return printMenu(&N_Menu);
+	return printMenu(&N_Menu,punk);
 }
 
 void Select_item (int item, int row, int col) {

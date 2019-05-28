@@ -1,6 +1,7 @@
 #include "pch.h"
 const unsigned int SEK = 60;
 int level(int row, int col) {
+  int punk =7;
   erase();
   printRamka(row, col);
   std::vector<std::string> mStr = {"Learning touch typing", "Lesson 1",
@@ -10,7 +11,7 @@ int level(int row, int col) {
 
 	noecho();
 	keypad(stdscr, TRUE);
-	return printMenu(&mStr);
+	return printMenu(&mStr,punk);
 }
 
 void dopusk(int row, int col, int Lessen, unsigned int endTime,
@@ -82,8 +83,8 @@ void level1(std::string _dataFile, int row, int col, int Lessen) {
         flag = 0;
       }
       attron(A_BOLD);
-      move(10, (col - 16) / 2);
-      printw("%3.2f percent", sum_proz);
+      move(10, (col - 12) / 2);
+      printw("%3.2f %", sum_proz);
       endTime = clock();
       move(1, 10);
       printw("%d ms", (DOP + SEK) * 1000 - (endTime - startTime));
@@ -102,7 +103,7 @@ void level1(std::string _dataFile, int row, int col, int Lessen) {
         x_temp++;
         i++;
         if (i == tempA.length()) {
-          DOP += 5;
+          DOP += 3;
           flag = 1;
           i = 0;
 
