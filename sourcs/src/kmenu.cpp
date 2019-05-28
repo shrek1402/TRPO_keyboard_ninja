@@ -2,24 +2,23 @@
 
 using namespace std;
 constexpr auto _VERSION = "Beta v1.0";
-constexpr unsigned int _SEC = 10;
+constexpr unsigned int _SEC = 5;
 
-int printWelcomePanel(string _str, int row, int col)
+void printWelcomePanel(string _str, int row, int col)
 {
+	keypad(stdscr,1);
     ifstream myTextFile;
     myTextFile.open(_str);
     if (!myTextFile.is_open())
-        return 1; 
+        return; 
 	
-    move(row / 2, col / 2);
-    printw("Hello");
-	refresh();
-	getch(); // TODO time
+    mvprintw(row / 2, col / 2, "Hello");
+	refresh();	
+	getch();
     myTextFile.close();
-    return 0;
 }
 //
-long long unsigned int printMenu(std::vector <std::string>& _vec)
+long long unsigned int printMenu(std::vector <std::string>* _vec, long long unsigned int punk)
 {
 	long long unsigned int swtch = 1;
 	int key;
@@ -27,15 +26,15 @@ long long unsigned int printMenu(std::vector <std::string>& _vec)
 	getmaxyx(stdscr, row, col);
 	
 	do{
-		for(long long unsigned int i = 0; i < _vec.size(); i++){
-			move(row/2 + i, col/2 - 9);
+		for(long long unsigned int i = 0; i < _vec->size(); i++){
+			move(row/2 + i, col/2 - _vec->at(0).length()/2);
 			
 			if (i == swtch){
-				for (long long unsigned int j=0; j< _vec[i].length(); j++)
-				addch(_vec[i][j] | A_BLINK);
+				for (long long unsigned int j=0; j< _vec->at(i).length(); j++)
+					addch(_vec->at(i).at(j) | A_BLINK);
 			}
 			else{
-				printw("%s", _vec[i].c_str());
+				printw("%s", _vec->at(i).c_str());
 			}
 		}
 		
@@ -43,10 +42,10 @@ long long unsigned int printMenu(std::vector <std::string>& _vec)
 				if (swtch != 1)
 					swtch--;
 				else
-					swtch = 4;
+					swtch = punk;
 		}
 		else if (key == KEY_DOWN){
-			if (swtch != 4)
+			if (swtch != punk)
 				swtch++;
 			else
 				swtch = 1;
@@ -59,24 +58,25 @@ long long unsigned int printMenu(std::vector <std::string>& _vec)
 //
 int mainMenu(int row, int col)
 {
-    erase();
+	int punk=4;
     printRamka(row, col);
 	std::vector <std::string> mStr = {
-		"    Menu",
-		"1. Speed mode",
-		"2. typing tutor",
-		"3. Numerical simulator",
-		"4. Exit"
+		"    Menu          ",
+		"1. Speed mode     ",
+		"2. typing tutor   ",
+		"3. Blind seal mode",
+		"4. Exit           "
 	};
 
 	noecho();
 	keypad(stdscr, TRUE);
 	
-	return printMenu(mStr);
+	return printMenu(&mStr,punk);
 }
-//
+
 int printRamka(int _row, int _col)
 {
+	erase();
 	curs_set(0);
 	refresh();
 	WINDOW *win = newwin(3, _col, 0, 0);
@@ -94,63 +94,57 @@ int printRamka(int _row, int _col)
 //
 int slozhnost(int row, int col)
 {
-	erase();
+	int punk=4;
     printRamka(row, col);
 	std::vector <std::string> mStr = {
-		"  Slozhn", // TODO eng
-		"1. Eazy",
-		"2. Normal",
-		"3. Hard",
-		"4. Back"
+		"Complexity", // TODO eng
+		"1. Eazy   ",
+		"2. Normal ",
+		"3. Hard   ",
+		"4. Back   "
 	};
 
 	noecho();
-	return printMenu(mStr);
+	return printMenu(&mStr,punk);
 }
 double reaction(int _SEC, int result)
 {
-	double reaction;
-		if (!result){
-			reaction = 0;
-		}
-		else{
-			reaction = (double)_SEC/result;
-		}
-	return reaction;
+		if (!result)
+			return 0;
+		
+		return (double)_SEC/result;
 }
 
 void resultTabl(int result, int popitki)
 {
-	erase();
-	
+	attron(COLOR_PAIR(1));
 	int row,col;
 	getmaxyx(stdscr, row, col);
 	printRamka(row, col);
 	int ySize = 9,
 		xSize = col -(row - ySize +3 +2),
-		yy = (row - ySize - 5) / 2 + 4,
-		xx = (col - xSize) / 2;
-			if ((col - xSize)%2 != 0)
-				xSize++;
-			if ((row - ySize)%2 == 0)
-				ySize++;
+		yy = (row - ySize - 5) / 2 + 4,// TEST
+		xx = (col - xSize) / 2;		   // TEST TOO
 		
-		int sm;
-		result > 0? 
-			sm = 6:
-			sm = 7;
-			
-		WINDOW *win = newwin(ySize, xSize, yy, xx);
-		move(yy + 2, xx+xSize/2 - sm);
-		printw("Result: %d", result);
-		move(yy + 3, xx+xSize/2 -sm);
-				// TODO add: time, % ...
-		result > 0? 
-			printw("MOLODEC! :)"):
-			printw("NE MOLODEC! :(");
-			
-		move(yy + 4, xx+xSize/2 -sm);
-			printw("Reaction: %.2f", reaction(_SEC, result));
+	if ((col - xSize)%2 != 0)
+		xSize++;
+	if ((row - ySize)%2 == 0)
+		ySize++;
+	
+	WINDOW *win = newwin(ySize, xSize, yy, xx);
+			// TODO add: time, % ...
+	if (result){
+		attron(COLOR_PAIR(2));
+		mvprintw(yy+=3, xx+xSize/2 - 6, "MOLODEC! :)");
+	}
+	else{
+		attron(COLOR_PAIR(3));
+		mvprintw(yy+=3, xx+xSize/2 - 6, "NE MOLODEC! :(");		
+	}
+	
+		mvprintw(++yy, xx+xSize/2 - 6,"Result: %d", result);
+		mvprintw(++yy, xx+xSize/2 - 6, "Reaction: %.2f", reaction(_SEC, result));
+		attron(COLOR_PAIR(1));
 			
 		box(win,0,0);
 		wrefresh(win);
@@ -185,14 +179,13 @@ void speedNormal(string _dataFile, int row, int col)
 				tempA = vec.at(rand() % vec.size());
 				x = (rand() % (col- tempA.length()-1)+1) ;
 				y = (rand() % (row-5)) + 4;
-				erase();
 				printRamka(row, col);
 				move(y,x);
 				printw("%s", tempA.c_str());
 				flag = 0;
 				popitki++;
 			}
-				
+			attron(COLOR_PAIR(1));
 			endTime = clock();
 			move(1,5);
 			printw("%d ms", endTime - startTime);
@@ -200,11 +193,12 @@ void speedNormal(string _dataFile, int row, int col)
 			printw("%d", result);
 		}
 		else{
+			attron(COLOR_PAIR(2));
 			temp = ch;
 			flag = 0;
-		
+			if(ch == 27)
+				break;
 			if ((int)tempA[i] != temp || i == 0){
-				
 				if(tempA[i] != temp){
 					i=0;
 					flag = 1;
@@ -212,7 +206,7 @@ void speedNormal(string _dataFile, int row, int col)
 				else{
 					x_temp = x;
 					move(y, x_temp++);
-					addch(tempA.at(i)| A_BLINK );
+					addch(tempA.at(i));
 					i++;
 				}
 				
@@ -220,7 +214,7 @@ void speedNormal(string _dataFile, int row, int col)
 			}
 			else{
 				move(y, x_temp++);
-				addch(tempA.at(i)| A_BLINK );
+					addch(tempA.at(i));
 				i++;
 				
 				if (i == tempA.length()){
@@ -234,9 +228,9 @@ void speedNormal(string _dataFile, int row, int col)
 				
 				refresh();						
 			}
+			attron(COLOR_PAIR(1));
 		}
 	}while(endTime < startTime + _SEC * 1000);
-	
 	
 	nodelay(stdscr, FALSE);
 	resultTabl(result, popitki);
@@ -265,7 +259,6 @@ void speedEz()
 				tempA = rand() % 26 + 0x61;
 				x = (rand() % (col-1)+1) ;
 				y = (rand() % (row-5)) + 4;
-				erase();
 				printRamka(row, col);
 				move(y,x);
 				printw("%c",tempA);
@@ -282,7 +275,8 @@ void speedEz()
 		else{
 			temp = ch;
 			flag = 0;
-			
+			if(ch == 27)
+				break;
 			if ((int)tempA != temp){
 				flag = 1;
 			}
@@ -292,35 +286,26 @@ void speedEz()
 			}
 			refresh();						
 		}
-		
 	}while(endTime < startTime + _SEC * 1000);
-	
-	
+		
 	nodelay(stdscr, FALSE);	
 	resultTabl(result, popitki);
 }
 
 void speedMode(int slozh, int row, int col)
 {
-	erase();
     printRamka(row, col);
 	
 	switch (slozh) {
         case 1:
-		{
 			speedEz();
 			break;
-		}
-        
-		case 2:{
+		case 2:
 			speedNormal("Word.txt", row, col);
 			break;
-		}
-			
-		case 3:{
+		case 3:
 				speedNormal("Pred.txt", row, col);
 				break;
-		}
 		case 4:
 			break;
     }	
