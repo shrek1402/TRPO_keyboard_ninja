@@ -18,7 +18,7 @@ void printWelcomePanel(string _str, int row, int col)
     myTextFile.close();
 }
 //
-long long unsigned int printMenu(std::vector <std::string>* _vec)
+long long unsigned int printMenu(std::vector <std::string>* _vec, long long unsigned int punk)
 {
 	long long unsigned int swtch = 1;
 	int key;
@@ -42,10 +42,10 @@ long long unsigned int printMenu(std::vector <std::string>* _vec)
 				if (swtch != 1)
 					swtch--;
 				else
-					swtch = 4;
+					swtch = punk;
 		}
 		else if (key == KEY_DOWN){
-			if (swtch != 4)
+			if (swtch != punk)
 				swtch++;
 			else
 				swtch = 1;
@@ -58,6 +58,7 @@ long long unsigned int printMenu(std::vector <std::string>* _vec)
 //
 int mainMenu(int row, int col)
 {
+	int punk=4;
     printRamka(row, col);
 	std::vector <std::string> mStr = {
 		"    Menu          ",
@@ -70,7 +71,7 @@ int mainMenu(int row, int col)
 	noecho();
 	keypad(stdscr, TRUE);
 	
-	return printMenu(&mStr);
+	return printMenu(&mStr,punk);
 }
 
 int printRamka(int _row, int _col)
@@ -93,6 +94,7 @@ int printRamka(int _row, int _col)
 //
 int slozhnost(int row, int col)
 {
+	int punk=4;
     printRamka(row, col);
 	std::vector <std::string> mStr = {
 		"Complexity", // TODO eng
@@ -103,7 +105,7 @@ int slozhnost(int row, int col)
 	};
 
 	noecho();
-	return printMenu(&mStr);
+	return printMenu(&mStr,punk);
 }
 double reaction(int _SEC, int result)
 {

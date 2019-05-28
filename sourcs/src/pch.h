@@ -28,7 +28,7 @@
 	int slozhnost(int row, int col);
 	void speedMode(int slozh, int row, int col);
 	void speedNormal(std::string _dataFile, int row, int col);
-	long long unsigned int printMenu(std::vector <std::string>* _vec);
+	long long unsigned int printMenu(std::vector <std::string>* _vec, long long unsigned int punk);
 	void Select_level(int slozh, int row, int col);
 	int level(int row, int col);
 	int Num_Menu(int row, int col);
