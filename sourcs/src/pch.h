@@ -18,7 +18,7 @@
 	#include <unistd.h>
 	#include <cmath>
 	#include <sstream>
-	#include <map>
+	#include <math.h>
 
 	using namespace std;
 
@@ -35,6 +35,6 @@
 	int Num_Menu(int row, int col);
 	void Select_item (int item, int row, int col);
 	int* SpeedNum(int row, int col, int* A);
-	int ResultNum (int row, int col, int* A);
+	int ResultNum (int row, int col, int* A, int flag);
 	int* Solving (int row, int col, int* A);
 #endif
