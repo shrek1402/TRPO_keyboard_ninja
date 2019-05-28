@@ -45,7 +45,7 @@ int* SpeedNum(int row, int col, int* A) {
 	srand(time(0));
 	nodelay(stdscr, TRUE);
 	unsigned int StartTime = clock(), EndTime = clock();
-	int i=0, k=0, time=5, flag=1, size, ch;
+	int i=0, k=0, time=30, flag=1, size, ch;
 	ifstream Numbers("Numbers.txt");
 	string array[100];
 	string str1, str2;
@@ -112,21 +112,21 @@ int ResultNum (int row, int col, int* A) {
 	attron (A_BOLD);
 
 	float result0, result1;
-	result0=A[0]/30;
-	result1=A[1]/30;
+	result0=(double)A[0]/(double)30;
+	result1=(double)A[1]/(double)30;
 	move(row / 2 - 10, col / 2-5);
 	printw("Your results:\n");
 
 	move(row / 2 - 5, 25);
 	printw("Your speed in simvols = %.2f per second", result1);
-	if (A[1]/30 > 1) {
+	if ((double)A[1]/(double)30 > 1) {
 	printw("	[GOOD]");
 	}
 	else printw("	[NOT GOOD] You should train more!");
-
+	
 	move(row / 2, 25);
 	printw("Your speed in numbers = %.2f per second", result0);
-	if (A[0]/30 > 1) {
+	if ((double)A[0]/(double)30 > 1) {
 	printw("	[GOOD]");
 	}
 	else printw("	[NOT GOOD] You should train more!");
