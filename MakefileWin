@@ -59,6 +59,8 @@ copyTXT:
 	cp sourcs/data/level4.txt bin
 	cp sourcs/data/level5.txt bin
 	cp sourcs/data/level6.txt bin
+	cp sourcs/data/Equation.txt bin
+	cp sourcs/data/EquationAnswers.txt bin
 
 run:
 	bin/Keyboard-Ninja.exe Welcome.txt
