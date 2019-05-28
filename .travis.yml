@@ -39,7 +39,7 @@ matrix:
          - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
 
 script:
-    - git ls-files sourcs/src/ | xargs clang-format -i && git diff --exit-code
+    #- git ls-files sourcs/src/ | xargs clang-format -i && git diff --exit-code
     - sudo apt-get install libncursesw5-dev
     - make build
     - make test
