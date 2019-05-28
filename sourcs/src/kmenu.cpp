@@ -6,15 +6,15 @@ constexpr unsigned int _SEC = 5;
 
 void printWelcomePanel(string _str, int row, int col)
 {
+	keypad(stdscr,1);
     ifstream myTextFile;
     myTextFile.open(_str);
     if (!myTextFile.is_open())
         return; 
 	
-    //move(row / 2, col / 2);
     mvprintw(row / 2, col / 2, "Hello");
-	refresh();
-	getch(); // TODO time
+	refresh();	
+	getch();
     myTextFile.close();
 }
 //
@@ -194,7 +194,8 @@ void speedNormal(string _dataFile, int row, int col)
 			attron(COLOR_PAIR(2));
 			temp = ch;
 			flag = 0;
-		
+			if(ch == 27)
+				break;
 			if ((int)tempA[i] != temp || i == 0){
 				if(tempA[i] != temp){
 					i=0;
@@ -272,7 +273,8 @@ void speedEz()
 		else{
 			temp = ch;
 			flag = 0;
-			
+			if(ch == 27)
+				break;
 			if ((int)tempA != temp){
 				flag = 1;
 			}
