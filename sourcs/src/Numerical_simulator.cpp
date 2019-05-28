@@ -29,7 +29,8 @@ void Select_item (int item, int row, int col) {
 			break;
 		}
 		case 2: {
-		//	Solving();
+			Solving(row, col, A);
+			ResultNum (row, col, A);
 			break;
 		}
 		case 3: {
@@ -140,4 +141,71 @@ int ResultNum (int row, int col, int* A) {
 	else printw("	[NOT GOOD] You should train more!");
 	getch();
 return 0;
+}
+
+int* Solving (int row, int col, int* A) {
+	srand(time(0));
+	unsigned int StartTime = clock(), EndTime = clock();
+	int i=0, k=0, time=30, flag=1, ch;
+	ifstream equation("Equation.txt");
+	ifstream equationA("EquationAnswers.txt");
+	string array1[100], array2[100];
+	string str1, str2;
+	erase();
+	printRamka(row, col);
+	while (!equation.eof()){		//заполняем массив уравнениями из файла
+		getline(equation, str1);
+		array1[i]=str1;
+		i++;
+	}
+	str1="";
+		while (!equationA.eof()){		//заполняем массив ответами из файла
+		getline(equationA, str1);
+		array2[i]=str1;
+		i++;
+	}
+	do {
+		move(1, 2);				//таймер
+		printw("Time left: ");
+		EndTime = clock();
+		move(1, 13);
+		printw("%d sec", (time * 1000 - (EndTime - StartTime))/1000);
+		if (((StartTime + time * 1000)-EndTime)<16000)
+		{
+		move(5, col/2-6);
+		attron (A_BOLD);
+		printw("Let's! Pull baker!");
+		attron (A_NORMAL);
+		}
+
+		if ((ch = getch()) == ERR)
+		{
+			if (flag)
+			{
+				erase();				//для очищения от 
+				printRamka(row, col);	//выделения с прошлой итерации
+				k = rand()%34;			//выбираем случайную строку из массива
+				str2 = array1[k];
+				move(row / 2, col / 2);
+				printw("%s", str2.c_str());
+				flag = 0;
+				A[0]++; //подсчет кол-ва уравнений
+			}
+		}
+		else
+		{
+			move(row/2+10, col/2+10);
+			printw("Input your answer and print 'Enter' ");
+			move(row/2+15, col/2+15);
+			printw("Answer= ");
+			cin >> str1;
+			if (str1==array2[k])
+			{
+				flag=1;
+				A[1]++;
+			}
+			else A[2]++; //ошибки ввода
+		}
+	} while (EndTime < StartTime + time * 1000);
+return A;
 }
