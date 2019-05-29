@@ -35,7 +35,7 @@ void Select_item (int item, int row, int col) {
 		}
 		case 3: {
 			Calculator(row, col, A);
-			ResultNum (row, col, A, 3);
+			ResultNum (row, col, A, 2);
 			break;
 		}
 		case 4: {
@@ -118,20 +118,20 @@ int ResultNum (int row, int col, int* A, int flag) {
 
 	switch (flag) {
 		case 0: {
-			float result0, result1;
+			double result0, result1;
 			result0=(double)A[0]/(double)30;
 			result1=(double)A[1]/(double)30;
 			
 			move(row / 2 - 5, 25);
 			printw("Your speed in simvols = %.2f per second", result1);
-			if ((double)A[1]/(double)30 > 1) {
+			if (result1 > 1) {
 			printw("	[GOOD]");
 			}
 			else printw("	[NOT GOOD] You should train more!");
 	
 			move(row / 2, 25);
 			printw("Your speed in numbers = %.2f per second", result0);
-			if ((double)A[0]/(double)30 > 1) {
+			if (result0 > 1) {
 			printw("	[GOOD]");
 			}
 			else printw("	[NOT GOOD] You should train more!");
@@ -145,23 +145,60 @@ int ResultNum (int row, int col, int* A, int flag) {
 			break;
 		}
 		case 1: {
-			double result = (double)A[1]/30;
+			double result = (double)A[0]/(double)A[1];
+			double result1 = (double)A[0]/(double)60;
+
 			move(row / 2 - 5, 25);
-			printw("Solved equations: %d ", A[1]);
-			if (result>0.2) {
+			printw("Total equations: %d", A[0]);
+
+			move(row / 2, 25);
+			printw("Correct solved equations: %d ", A[1]);
+			if (result>0.7) {
 			printw("	[GOOD]");
 			}
 			else printw("	[NOT GOOD] You should train more!");
 
-			move(row / 2, 25);
+			move(row / 2 + 5, 25);
 			printw("Your errors = %d", A[2]);
 			if (A[2]<2) {
+			printw("	[GOOD]");
+			}
+			else printw("	[NOT GOOD] You should train more!");
+
+			move(row / 2 + 10, 25);
+			printw("Your solving speed = %.2f", result1);
+			if (result1>0.2) {
 			printw("	[GOOD]");
 			}
 			else printw("	[NOT GOOD] You should train more!");
 			break;
 		}
 		case 2: {
+			double result0, result1;
+			result0=(double)A[0]/(double)30;
+			result1=(double)(A[1])/(double)(A[0]);
+			
+			move(row / 2 - 5, 25);
+			printw("Your speed in simvols = %.2f per second", result0);
+			if (result0 > 1) {
+			printw("	[GOOD]");
+			}
+			else printw("	[NOT GOOD] You should train more!");
+	
+			move(row / 2, 25);
+			printw("Correct simvols = %d from %d (%.2f percent)", A[1], A[0], result1);
+			if (result1 > 0.75) {
+			printw("	[GOOD]");
+			}
+			else printw("	[NOT GOOD] You should train more!");
+
+			move(row / 2 + 5, 25);
+			printw("Uncorrect simvols = %d", A[2]);
+			if (A[2] < 5) {
+			printw("	[GOOD]");
+			}
+			else printw("	[NOT GOOD] You should train more!");
+
 			break;
 		}
 	}
@@ -173,7 +210,7 @@ int* Solving (int row, int col, int* A) {
 	nodelay(stdscr, TRUE); //для выключения паузы
 	srand(time(0));
 	unsigned int StartTime = clock(), EndTime = clock();
-	int i=0, k=0, time=30, flag=1, ch, size, flagik=0;
+	int i=0, k=0, time=60, flag=1, ch, size, flagik=0;
 	ifstream equation("Equation.txt");
 	ifstream equationA("EquationAnswers.txt");
 	string array1[100], array2[100];
@@ -286,7 +323,7 @@ int* Calculator (int row, int col, int* A) {
 		if (((StartTime + time * 1000)-EndTime)<16000)
 		{
 		attron(COLOR_PAIR(2));
-		move(1, 2);				//таймер
+		move(1, 2);			
 		printw("Time left: ");
 		EndTime = clock();
 		move(1, 13);
@@ -299,7 +336,7 @@ int* Calculator (int row, int col, int* A) {
 		}
 		else {
 		attron(COLOR_PAIR(3));
-		move(1, 2);				//таймер
+		move(1, 2);				
 		printw("Time left: ");
 		EndTime = clock();
 		move(1, 13);
@@ -321,7 +358,6 @@ int* Calculator (int row, int col, int* A) {
 				printw("Enter this equation!");
 				flag = 0;
 				i=0;
-				A[0]++; //подсчет кол-ва уравнений
 			}
 		}
 		else
@@ -333,7 +369,8 @@ int* Calculator (int row, int col, int* A) {
 				addch(str2.at(i)); //выделение правильно введеного символа
 				attron(COLOR_PAIR(3));
 				i++;
-				A[1]++; //подсчет символов
+				A[1]++; //подсчет верных символов
+				A[0]++; //подсчет общего кол-ва символов
 				if (i == size) //достижение конца строки
 				{
 					flag = 1; //"включение" новой строки 
@@ -347,6 +384,7 @@ int* Calculator (int row, int col, int* A) {
 				attron(COLOR_PAIR(3)); 
 				i++;
 				A[2]++;	//ошибки ввода
+				A[0]++; //подсчет общего кол-ва символов
 				if (i == size) //достижение конца строки
 				{
 					flag = 1; //"включение" новой строки 
