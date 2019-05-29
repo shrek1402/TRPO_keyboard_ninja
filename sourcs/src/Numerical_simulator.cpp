@@ -35,6 +35,7 @@ void Select_item (int item, int row, int col) {
 		}
 		case 3: {
 			Calculator(row, col, A);
+			ResultNum (row, col, A, 3);
 			break;
 		}
 		case 4: {
@@ -257,5 +258,104 @@ return A;
 }
 
 int* Calculator (int row, int col, int* A) {
+	nodelay(stdscr, TRUE); //для выключения паузы
+	start_color();
+	init_pair(1, COLOR_GREEN, COLOR_BLACK);
+	init_pair(2, COLOR_RED, COLOR_BLACK);
+	init_pair(3, COLOR_WHITE, COLOR_BLACK);
+	srand(time(0));
+	unsigned int StartTime = clock(), EndTime = clock();
+	int i=0, k=0, time=30, flag=1, ch, size;
+	ifstream calcul("Calculator.txt");
+	string array1[100];
+	string str1, str2, temp;
 
+	erase();
+	printRamka(row, col);
+
+	while (!calcul.eof()){		//заполняем массив уравнениями из файла
+		getline(calcul, str1);
+		array1[i]=str1;
+		i++;
+	}
+
+	i=0;
+	str1="";
+
+	do {
+		if (((StartTime + time * 1000)-EndTime)<16000)
+		{
+		attron(COLOR_PAIR(2));
+		move(1, 2);				//таймер
+		printw("Time left: ");
+		EndTime = clock();
+		move(1, 13);
+		printw("%d sec", (time * 1000 - (EndTime - StartTime))/1000);
+		attron(COLOR_PAIR(3));
+		move(5, col/2-5);
+		attron (A_BOLD);
+		printw("Let's! Pull baker!");
+		attron (A_NORMAL);
+		}
+		else {
+		attron(COLOR_PAIR(3));
+		move(1, 2);				//таймер
+		printw("Time left: ");
+		EndTime = clock();
+		move(1, 13);
+		printw("%d sec", (time * 1000 - (EndTime - StartTime))/1000);
+		}
+
+		if ((ch = getch()) == ERR)
+		{
+			if (flag)
+			{
+				erase();				//для очищения от 
+				printRamka(row, col);	//выделения с прошлой итерации
+				k = rand()%51;			//выбираем случайную строку из массива
+				str2 = array1[k];
+				size=str2.length();
+				move(row / 2, col / 2 - size / 2);
+				printw("%s", str2.c_str());
+				move(row/2 - 5, col/2 - 10);
+				printw("Enter this equation!");
+				flag = 0;
+				i=0;
+				A[0]++; //подсчет кол-ва уравнений
+			}
+		}
+		else
+		{
+			if (str2[i] == ch)
+			{
+				move(row / 2, col / 2 - size / 2 + i); //перемещаемся в строке const + i (где i - номер текущего символа)
+				attron(COLOR_PAIR(1));
+				addch(str2.at(i)); //выделение правильно введеного символа
+				attron(COLOR_PAIR(3));
+				i++;
+				A[1]++; //подсчет символов
+				if (i == size) //достижение конца строки
+				{
+					flag = 1; //"включение" новой строки 
+					i = 0; //обнуляем счетчик для новой строки
+				}
+			}
+			else {
+				move(row / 2, col / 2 - size / 2 + i);
+				attron(COLOR_PAIR(2)); //выделение неправильно введеного символа
+				addch(str2.at(i));
+				attron(COLOR_PAIR(3)); 
+				i++;
+				A[2]++;	//ошибки ввода
+				if (i == size) //достижение конца строки
+				{
+					flag = 1; //"включение" новой строки 
+					i = 0; //обнуляем счетчик для новой строки
+				}
+				} 
+			
+		}
+	} while (EndTime < StartTime + time * 1000);
+	nodelay(stdscr, FALSE);
+return A;
 }
