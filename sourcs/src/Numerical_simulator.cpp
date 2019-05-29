@@ -160,7 +160,7 @@ int ResultNum (int row, int col, int* A, int flag) {
 
 			move(row / 2 + 5, 25);
 			printw("Your errors = %d", A[2]);
-			if (A[2]<2) {
+			if (A[2]<4) {
 			printw("	[GOOD]");
 			}
 			else printw("	[NOT GOOD] You should train more!");
@@ -278,7 +278,7 @@ int* Solving (int row, int col, int* A) {
 			addch(str3.at(i) | A_STANDOUT);
 			i++;
 			}
-			else if (str1==array2[k])
+			else if (str3==array2[k])
 			{
 				A[1]++; //правильный ввод
 				flag=1;
