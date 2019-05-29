@@ -34,7 +34,7 @@ void Select_item (int item, int row, int col) {
 			break;
 		}
 		case 3: {
-		//	Calculator();
+			Calculator(row, col, A);
 			break;
 		}
 		case 4: {
@@ -254,4 +254,8 @@ int* Solving (int row, int col, int* A) {
 	} while (EndTime < StartTime + time * 1000);
 	nodelay(stdscr, FALSE);
 return A;
+}
+
+int* Calculator (int row, int col, int* A) {
+
 }

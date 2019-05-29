@@ -37,4 +37,5 @@
 	int* SpeedNum(int row, int col, int* A);
 	int ResultNum (int row, int col, int* A, int flag);
 	int* Solving (int row, int col, int* A);
+	int* Calculator (int row, int col, int* A);
 #endif
