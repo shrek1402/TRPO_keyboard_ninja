@@ -1,22 +1,38 @@
 #include "pch.h"
+
+#define Correct_green 1
+#define Basic_style 2
+#define Wrong_red 3
+
 const unsigned int SEK = 60;
 int level(int row, int col) {
-  int punk =7;
+  int punk = 7;
   erase();
   printRamka(row, col);
-  std::vector<std::string> mStr = {"Learning touch typing", "Lesson 1",
-                                   "Lesson 2", "Lesson 3","Lesson 4","Lesson 5","Lesson 6", "Backward"
+  std::vector<std::string> mStr = {"Learning touch typing",
+                                   "Lesson 1",
+                                   "Lesson 2",
+                                   "Lesson 3",
+                                   "Lesson 4",
+                                   "Lesson 5",
+                                   "Lesson 6",
+                                   "Backward"
 
   };
 
-	noecho();
-	keypad(stdscr, TRUE);
-	return printMenu(&mStr,punk);
+  noecho();
+  keypad(stdscr, TRUE);
+  return printMenu(&mStr, punk);
 }
 
 void dopusk(int row, int col, int Lessen, unsigned int endTime,
             unsigned int startTime, double sum_proz, int error) {
   erase();
+  start_color();
+  init_pair(Correct_green, COLOR_GREEN, COLOR_BLACK);
+  init_pair(Basic_style, COLOR_WHITE, COLOR_BLACK);
+  init_pair(Wrong_red, COLOR_RED, COLOR_BLACK);
+  attron(COLOR_PAIR(Basic_style));
   printRamka(row, col);
   int size_x, size_y, xx, yy;
   size_x = 80;
@@ -24,11 +40,12 @@ void dopusk(int row, int col, int Lessen, unsigned int endTime,
   xx = 20;
   yy = 15;
   WINDOW *win5 = newwin(size_y, size_x, yy, xx);
-  attron(A_BOLD);
   if (sum_proz < 100) {
+    attron(COLOR_PAIR(Wrong_red));
     move((row - 4) / 2 - 2, (col - 26) / 2);
     printw("Time's up, try again!");
   } else {
+    attron(COLOR_PAIR(Correct_green));
     move((row - 4) / 2 - 2, (col - 26) / 2);
     printw("Well done keep learning!");
   }
@@ -41,13 +58,18 @@ void dopusk(int row, int col, int Lessen, unsigned int endTime,
   printw("You passed %3.2f percent of the lesson", sum_proz);
   move((row - 4) / 2 + 4, (col - 26) / 2);
   printw("Incorrectly entered letters %d", error);
-  attroff(A_BOLD);
   box(win5, 0, 0);
   wrefresh(win5);
   getch();
+  attron(COLOR_PAIR(Basic_style));
 }
 
 void level1(std::string _dataFile, int row, int col, int Lessen) {
+  start_color();
+  init_pair(Correct_green, COLOR_GREEN, COLOR_BLACK);
+  init_pair(Basic_style, COLOR_WHITE, COLOR_BLACK);
+  init_pair(Wrong_red, COLOR_RED, COLOR_BLACK);
+
   std::ifstream dataFile(_dataFile);
   std::vector<std::string> vec;
   double max_leg = 0.0;
@@ -66,12 +88,13 @@ void level1(std::string _dataFile, int row, int col, int Lessen) {
   long long unsigned int i = 0;
   std::string tempA;
   bool flag = 1;
-  int x_temp = 0, level = 8;
+  int x_temp = 0, level = 1;
   double proz = 0.0, sum_proz = 0.0;
 
   proz = 100 / max_leg;
 
   do {
+    attron(COLOR_PAIR(Basic_style));
     if ((ch = getch()) == ERR) {
       if (flag) {
         erase();
@@ -79,12 +102,13 @@ void level1(std::string _dataFile, int row, int col, int Lessen) {
         tempA = vec.at(level - 1);
         move(row / 2, (col - tempA.length()) / 2);
         printw("%s", tempA.c_str());
-        x_temp = (col-tempA.length()) / 2;
+        x_temp = (col - tempA.length()) / 2;
         flag = 0;
       }
+      char a = '%';
       attron(A_BOLD);
       move(10, (col - 12) / 2);
-      printw("%3.2f %", sum_proz);
+      printw("%3.2f %c", sum_proz, a);
       endTime = clock();
       move(1, 10);
       printw("%d ms", (DOP + SEK) * 1000 - (endTime - startTime));
@@ -97,9 +121,13 @@ void level1(std::string _dataFile, int row, int col, int Lessen) {
 
       if (tempA[i] == temp) {
         sum_proz += proz;
-        
+
         move(row / 2, x_temp);
-        addch(tempA.at(i) | A_BLINK);
+
+        attron(COLOR_PAIR(Correct_green));
+        addch(tempA.at(i));
+        attroff(COLOR_PAIR(Correct_green));
+
         x_temp++;
         i++;
         if (i == tempA.length()) {
@@ -119,7 +147,6 @@ void level1(std::string _dataFile, int row, int col, int Lessen) {
     }
   } while (endTime < startTime + (DOP + SEK) * 1000);
   nodelay(stdscr, FALSE);
-  attroff(A_BLINK);
   dopusk(row, col, Lessen, endTime, startTime, sum_proz, error);
 }
 
