@@ -20,3 +20,4 @@
 #include <sstream>
 #include <math.h>
 #include "../../third/catch2/catch.hpp"
+#endif
