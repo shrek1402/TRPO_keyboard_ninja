@@ -61,18 +61,7 @@ int* SpeedNum(int row, int col, int* A) {
 	}
 	i=0;
 	do {
-		move(1, 2);				//таймер
-		printw("Time left: ");
-		EndTime = clock();
-		move(1, 13);
-		printw("%d sec", (time * 1000 - (EndTime - StartTime))/1000);
-		if (((StartTime + time * 1000)-EndTime)<16000)
-		{
-		move(5, col/2-5);
-		attron (A_BOLD);
-		printw("Let's! Pull baker!");
-		attron (A_NORMAL);
-		}
+		Time(row, col, 30, EndTime, StartTime);
 		if ((ch = getch()) == ERR)
 		{
 			if (flag)
@@ -104,6 +93,7 @@ int* SpeedNum(int row, int col, int* A) {
 			}
 			else A[2]++; //ошибки ввода
 		}
+		EndTime=clock();
 	} while (EndTime < StartTime + time * 1000);
 	nodelay(stdscr, FALSE);
 return A;
@@ -230,18 +220,7 @@ int* Solving (int row, int col, int* A) {
 		i++;
 	}
 	do {
-		move(1, 2);				//таймер
-		printw("Time left: ");
-		EndTime = clock();
-		move(1, 13);
-		printw("%d sec", (time * 1000 - (EndTime - StartTime))/1000);
-		if (((StartTime + time * 1000)-EndTime)<16000)
-		{
-		move(5, col/2-5);
-		attron (A_BOLD);
-		printw("Let's! Pull baker!");
-		attron (A_NORMAL);
-		}
+		Time(row, col, 30, EndTime, StartTime);
 
 		if ((ch = getch()) == ERR)
 		{
@@ -289,6 +268,7 @@ int* Solving (int row, int col, int* A) {
 				} 
 			
 		}
+		EndTime=clock();
 	} while (EndTime < StartTime + time * 1000);
 	nodelay(stdscr, FALSE);
 return A;
@@ -320,29 +300,7 @@ int* Calculator (int row, int col, int* A) {
 	str1="";
 
 	do {
-		if (((StartTime + time * 1000)-EndTime)<16000)
-		{
-		attron(COLOR_PAIR(2));
-		move(1, 2);			
-		printw("Time left: ");
-		EndTime = clock();
-		move(1, 13);
-		printw("%d sec", (time * 1000 - (EndTime - StartTime))/1000);
-		attron(COLOR_PAIR(3));
-		move(5, col/2-5);
-		attron (A_BOLD);
-		printw("Let's! Pull baker!");
-		attron (A_NORMAL);
-		}
-		else {
-		attron(COLOR_PAIR(3));
-		move(1, 2);				
-		printw("Time left: ");
-		EndTime = clock();
-		move(1, 13);
-		printw("%d sec", (time * 1000 - (EndTime - StartTime))/1000);
-		}
-
+		Time(row, col, 60, EndTime, StartTime);
 		if ((ch = getch()) == ERR)
 		{
 			if (flag)
@@ -393,7 +351,33 @@ int* Calculator (int row, int col, int* A) {
 				} 
 			
 		}
+		EndTime = clock();
 	} while (EndTime < StartTime + time * 1000);
 	nodelay(stdscr, FALSE);
 return A;
+}
+
+void Time (int row, int col, int time, int EndTime, int StartTime) {
+	if (((StartTime + time * 1000)-EndTime)<16000)
+		{
+		attron(COLOR_PAIR(2));
+		move(1, 2);			
+		printw("Time left: ");
+		EndTime = clock();
+		move(1, 13);
+		printw("%d sec", (time * 1000 - (EndTime - StartTime))/1000);
+		attron(COLOR_PAIR(3));
+		move(5, col/2-5);
+		attron (A_BOLD);
+		printw("Let's! Pull baker!");
+		attron (A_NORMAL);
+		}
+		else {
+		attron(COLOR_PAIR(3));
+		move(1, 2);				
+		printw("Time left: ");
+		EndTime = clock();
+		move(1, 13);
+		printw("%d sec", (time * 1000 - (EndTime - StartTime))/1000);
+		}
 }
