@@ -28,6 +28,11 @@ int level(int row, int col) {
 void dopusk(int row, int col, int Lessen, unsigned int endTime,
             unsigned int startTime, double sum_proz, int error) {
   erase();
+  start_color();
+  init_pair(Correct_green, COLOR_GREEN, COLOR_BLACK);
+  init_pair(Basic_style, COLOR_WHITE, COLOR_BLACK);
+  init_pair(Wrong_red, COLOR_RED, COLOR_BLACK);
+  attron (COLOR_PAIR (Basic_style));
   printRamka(row, col);
   int size_x, size_y, xx, yy;
   size_x = 80;
@@ -35,12 +40,12 @@ void dopusk(int row, int col, int Lessen, unsigned int endTime,
   xx = 20;
   yy = 15;
   WINDOW *win5 = newwin(size_y, size_x, yy, xx);
-  //attron(COLOR_GREEN);
-
   if (sum_proz < 100) {
+    attron (COLOR_PAIR (Wrong_red));
     move((row - 4) / 2 - 2, (col - 26) / 2);
     printw("Time's up, try again!");
   } else {
+    attron (COLOR_PAIR (Correct_green));
     move((row - 4) / 2 - 2, (col - 26) / 2);
     printw("Well done keep learning!");
   }
@@ -53,10 +58,10 @@ void dopusk(int row, int col, int Lessen, unsigned int endTime,
   printw("You passed %3.2f percent of the lesson", sum_proz);
   move((row - 4) / 2 + 4, (col - 26) / 2);
   printw("Incorrectly entered letters %d", error);
-  //attroff(COLOR_GREEN);
   box(win5, 0, 0);
   wrefresh(win5);
   getch();
+  attron (COLOR_PAIR(Basic_style));
 }
 
 void level1(std::string _dataFile, int row, int col, int Lessen) {
@@ -83,7 +88,7 @@ void level1(std::string _dataFile, int row, int col, int Lessen) {
   long long unsigned int i = 0;
   std::string tempA;
   bool flag = 1;
-  int x_temp = 0, level = 8;
+  int x_temp = 0, level = 1;
   double proz = 0.0, sum_proz = 0.0;
 
   proz = 100 / max_leg;
@@ -142,7 +147,6 @@ void level1(std::string _dataFile, int row, int col, int Lessen) {
     }
   } while (endTime < startTime + (DOP + SEK) * 1000);
   nodelay(stdscr, FALSE);
-  //attroff(A_BLINK);
   dopusk(row, col, Lessen, endTime, startTime, sum_proz, error);
 }
 
