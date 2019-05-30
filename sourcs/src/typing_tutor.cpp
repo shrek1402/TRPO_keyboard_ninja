@@ -1,8 +1,8 @@
 #include "pch.h"
 
 #define Correct_green 1
-#define Basic_style   2
-#define Wrong_red     3
+#define Basic_style 2
+#define Wrong_red 3
 
 const unsigned int SEK = 60;
 int level(int row, int col) {
@@ -32,7 +32,7 @@ void dopusk(int row, int col, int Lessen, unsigned int endTime,
   init_pair(Correct_green, COLOR_GREEN, COLOR_BLACK);
   init_pair(Basic_style, COLOR_WHITE, COLOR_BLACK);
   init_pair(Wrong_red, COLOR_RED, COLOR_BLACK);
-  attron (COLOR_PAIR (Basic_style));
+  attron(COLOR_PAIR(Basic_style));
   printRamka(row, col);
   int size_x, size_y, xx, yy;
   size_x = 80;
@@ -41,11 +41,11 @@ void dopusk(int row, int col, int Lessen, unsigned int endTime,
   yy = 15;
   WINDOW *win5 = newwin(size_y, size_x, yy, xx);
   if (sum_proz < 100) {
-    attron (COLOR_PAIR (Wrong_red));
+    attron(COLOR_PAIR(Wrong_red));
     move((row - 4) / 2 - 2, (col - 26) / 2);
     printw("Time's up, try again!");
   } else {
-    attron (COLOR_PAIR (Correct_green));
+    attron(COLOR_PAIR(Correct_green));
     move((row - 4) / 2 - 2, (col - 26) / 2);
     printw("Well done keep learning!");
   }
@@ -61,7 +61,7 @@ void dopusk(int row, int col, int Lessen, unsigned int endTime,
   box(win5, 0, 0);
   wrefresh(win5);
   getch();
-  attron (COLOR_PAIR(Basic_style));
+  attron(COLOR_PAIR(Basic_style));
 }
 
 void level1(std::string _dataFile, int row, int col, int Lessen) {
@@ -69,7 +69,7 @@ void level1(std::string _dataFile, int row, int col, int Lessen) {
   init_pair(Correct_green, COLOR_GREEN, COLOR_BLACK);
   init_pair(Basic_style, COLOR_WHITE, COLOR_BLACK);
   init_pair(Wrong_red, COLOR_RED, COLOR_BLACK);
-  
+
   std::ifstream dataFile(_dataFile);
   std::vector<std::string> vec;
   double max_leg = 0.0;
@@ -94,7 +94,7 @@ void level1(std::string _dataFile, int row, int col, int Lessen) {
   proz = 100 / max_leg;
 
   do {
-    attron (COLOR_PAIR(Basic_style));
+    attron(COLOR_PAIR(Basic_style));
     if ((ch = getch()) == ERR) {
       if (flag) {
         erase();
@@ -105,10 +105,10 @@ void level1(std::string _dataFile, int row, int col, int Lessen) {
         x_temp = (col - tempA.length()) / 2;
         flag = 0;
       }
-
+      char a = '%';
       attron(A_BOLD);
       move(10, (col - 12) / 2);
-      printw("%3.2f %", sum_proz);
+      printw("%3.2f %c", sum_proz, a);
       endTime = clock();
       move(1, 10);
       printw("%d ms", (DOP + SEK) * 1000 - (endTime - startTime));
@@ -127,7 +127,7 @@ void level1(std::string _dataFile, int row, int col, int Lessen) {
         attron(COLOR_PAIR(Correct_green));
         addch(tempA.at(i));
         attroff(COLOR_PAIR(Correct_green));
-        
+
         x_temp++;
         i++;
         if (i == tempA.length()) {
