@@ -39,13 +39,16 @@ build/src/Numerical_simulator.o: sourcs/src/Numerical_simulator.cpp
 
 
 
-bin/Keyboard-Ninja-test: build/test/reaction.o build/test/printWelcomePanel.o
+bin/Keyboard-Ninja-test: build/test/reaction.o build/test/printWelcomePanel.o build/test/test_level1.o
 	g++ $(CFLAGS) $^ -o $@
 
 build/test/reaction.o: sourcs/test/reaction.cpp
 	$(TEST)
 	
 build/test/printWelcomePanel.o: sourcs/test/printWelcomePanel.cpp
+	$(TEST)
+
+build/test/printWelcomePanel.o: sourcs/test/test_level1.cpp
 	$(TEST)
 	
 copyDLL: 
