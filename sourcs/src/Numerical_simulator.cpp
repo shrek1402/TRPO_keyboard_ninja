@@ -273,14 +273,14 @@ int* Solving (int row, int col, int* A) {
 		{
 			if (ch!='\n')
 			{
-				if (str3.length()<6) 
+				if (str3.length() < 6) 
 				{
 					move(row/2, col/2 + size/2 + i);
 					temp=ch;
 					str3+=temp;
 					addch(str3.at(i) | A_STANDOUT);
 					i++;
-					}
+				}
 			}
 			else if (str3==array2[k])
 			{
@@ -291,7 +291,6 @@ int* Solving (int row, int col, int* A) {
 				A[2]++; //ошибки ввода
 				flag=1;
 				} 
-			
 		}
 		EndTime=clock();
 	} while (EndTime < StartTime + time * 1000);
