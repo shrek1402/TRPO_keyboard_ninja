@@ -40,6 +40,9 @@ TEST_CASE("Test [1]", "[menu]")
 
 int read_file(string file) {
     ifstream Numbers(file);
+    if (!(Numbers.is_open())) {
+        return 0;
+    }
     string array[100];
     string str1;
     int i = 0;
@@ -48,13 +51,10 @@ int read_file(string file) {
         array[i] = str1;
         i++;
     }
-    if (i>0)
-        return 1;
-    else
-        return 0;
+    return 1;
 }
 TEST_CASE("Test [2]", "[read_file]")
 {
     REQUIRE(read_file("Numbers.txt") == 1);
-    REQUIRE(read_file("TestNofile.txt") == 0);
+    REQUIRE(read_file("TestNoFile.txt") == 0);
 }
