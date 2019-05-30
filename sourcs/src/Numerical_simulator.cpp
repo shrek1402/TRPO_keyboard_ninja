@@ -47,6 +47,10 @@ void Select_item (int item, int row, int col) {
 int* SpeedNum(int row, int col, int* A) {
 	srand(time(0));
 	nodelay(stdscr, TRUE);
+	start_color();
+	init_pair(1, COLOR_GREEN, COLOR_BLACK);
+	init_pair(2, COLOR_RED, COLOR_BLACK);
+	init_pair(3, COLOR_WHITE, COLOR_BLACK);
 	unsigned int StartTime = clock(), EndTime = clock();
 	int i=0, k=0, time=30, flag=1, size, ch;
 	ifstream Numbers("Numbers.txt");
@@ -61,18 +65,7 @@ int* SpeedNum(int row, int col, int* A) {
 	}
 	i=0;
 	do {
-		move(1, 2);				//таймер
-		printw("Time left: ");
-		EndTime = clock();
-		move(1, 13);
-		printw("%d sec", (time * 1000 - (EndTime - StartTime))/1000);
-		if (((StartTime + time * 1000)-EndTime)<16000)
-		{
-		move(5, col/2-5);
-		attron (A_BOLD);
-		printw("Let's! Pull baker!");
-		attron (A_NORMAL);
-		}
+		Time(row, col, 30, EndTime, StartTime);
 		if ((ch = getch()) == ERR)
 		{
 			if (flag)
@@ -93,7 +86,9 @@ int* SpeedNum(int row, int col, int* A) {
 			if (str2[i] == ch)
 			{
 				move(row / 2, col / 2 + i); //перемещаемся в строке const + i (где i - номер текущего символа)
-				addch(str2.at(i) | A_STANDOUT); //выделение правильно введеного символа
+				attron(COLOR_PAIR(1));
+				addch(str2.at(i)); //выделение правильно введеного символа
+				attron(COLOR_PAIR(3));
 				i++;
 				A[1]++; //подсчет символов
 				if (i == size) //достижение конца строки
@@ -102,9 +97,23 @@ int* SpeedNum(int row, int col, int* A) {
 					i = 0; //обнуляем счетчик для новой строки
 				}
 			}
-			else A[2]++; //ошибки ввода
+			else {
+				move(row / 2, col / 2 + i);
+				attron(COLOR_PAIR(2)); //выделение неправильно введеного символа
+				addch(str2.at(i));
+				attron(COLOR_PAIR(3)); 
+				i++;
+				A[2]++;
+				if (i == size) //достижение конца строки
+				{
+					flag = 1; //"включение" новой строки 
+					i = 0; //обнуляем счетчик для новой строки
+				}
+				} //ошибки ввода
 		}
+		EndTime=clock();
 	} while (EndTime < StartTime + time * 1000);
+	TimeLeft(row, col);
 	nodelay(stdscr, FALSE);
 return A;
 }
@@ -209,6 +218,9 @@ return 0;
 int* Solving (int row, int col, int* A) {
 	nodelay(stdscr, TRUE); //для выключения паузы
 	srand(time(0));
+	start_color();
+	init_pair(2, COLOR_RED, COLOR_BLACK);
+	init_pair(3, COLOR_WHITE, COLOR_BLACK);
 	unsigned int StartTime = clock(), EndTime = clock();
 	int i=0, k=0, time=60, flag=1, ch, size, flagik=0;
 	ifstream equation("Equation.txt");
@@ -230,18 +242,7 @@ int* Solving (int row, int col, int* A) {
 		i++;
 	}
 	do {
-		move(1, 2);				//таймер
-		printw("Time left: ");
-		EndTime = clock();
-		move(1, 13);
-		printw("%d sec", (time * 1000 - (EndTime - StartTime))/1000);
-		if (((StartTime + time * 1000)-EndTime)<16000)
-		{
-		move(5, col/2-5);
-		attron (A_BOLD);
-		printw("Let's! Pull baker!");
-		attron (A_NORMAL);
-		}
+		Time(row, col, 60, EndTime, StartTime);
 
 		if ((ch = getch()) == ERR)
 		{
@@ -289,7 +290,9 @@ int* Solving (int row, int col, int* A) {
 				} 
 			
 		}
+		EndTime=clock();
 	} while (EndTime < StartTime + time * 1000);
+	TimeLeft(row, col);
 	nodelay(stdscr, FALSE);
 return A;
 }
@@ -320,29 +323,7 @@ int* Calculator (int row, int col, int* A) {
 	str1="";
 
 	do {
-		if (((StartTime + time * 1000)-EndTime)<16000)
-		{
-		attron(COLOR_PAIR(2));
-		move(1, 2);			
-		printw("Time left: ");
-		EndTime = clock();
-		move(1, 13);
-		printw("%d sec", (time * 1000 - (EndTime - StartTime))/1000);
-		attron(COLOR_PAIR(3));
-		move(5, col/2-5);
-		attron (A_BOLD);
-		printw("Let's! Pull baker!");
-		attron (A_NORMAL);
-		}
-		else {
-		attron(COLOR_PAIR(3));
-		move(1, 2);				
-		printw("Time left: ");
-		EndTime = clock();
-		move(1, 13);
-		printw("%d sec", (time * 1000 - (EndTime - StartTime))/1000);
-		}
-
+		Time(row, col, 30, EndTime, StartTime);
 		if ((ch = getch()) == ERR)
 		{
 			if (flag)
@@ -351,10 +332,10 @@ int* Calculator (int row, int col, int* A) {
 				printRamka(row, col);	//выделения с прошлой итерации
 				k = rand()%51;			//выбираем случайную строку из массива
 				str2 = array1[k];
-				size=str2.length();
+				size=str2.length() - 3;
 				move(row / 2, col / 2 - size / 2);
 				printw("%s", str2.c_str());
-				move(row/2 - 5, col/2 - 10);
+				move(row/2 - 5, col/2 - 8);
 				printw("Enter this equation!");
 				flag = 0;
 				i=0;
@@ -393,7 +374,46 @@ int* Calculator (int row, int col, int* A) {
 				} 
 			
 		}
+		EndTime = clock();
 	} while (EndTime < StartTime + time * 1000);
+	TimeLeft(row, col);
 	nodelay(stdscr, FALSE);
 return A;
+}
+
+void Time (int row, int col, int time, int EndTime, int StartTime) {
+	if (((StartTime + time * 1000)-EndTime)<16000)
+		{
+		attron(COLOR_PAIR(2));
+		move(1, 2);			
+		printw("Time left: ");
+		EndTime = clock();
+		move(1, 13);
+		printw("%d sec ", (time * 1000 - (EndTime - StartTime))/1000);
+		attron(COLOR_PAIR(3));
+		move(15, col/2 - 7);
+		attron (A_BOLD);
+		printw("Let's! Pull baker!");
+		attron (A_NORMAL);
+		}
+		else {
+		attron(COLOR_PAIR(3));
+		move(1, 2);				
+		printw("Time left: ");
+		EndTime = clock();
+		move(1, 13);
+		printw("%.2d sec", (time * 1000 - (EndTime - StartTime))/1000);
+		}
+}
+void TimeLeft (int row, int col) {
+	int ch, StartTime=clock(), EndTime=clock(), time = 3;
+		do {
+			if ((ch = getch()) == ERR) {
+				move(row / 2 + 8, col / 2 - 5);
+				printw("Time is left.");
+				move(row / 2 + 11, col / 2 - 8);
+				printw("Your result into %d", (time * 1000 - (EndTime - StartTime))/1000);
+				EndTime=clock();
+			}
+	} while (EndTime < StartTime + time * 1000);
 }
