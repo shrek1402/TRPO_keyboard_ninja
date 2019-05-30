@@ -52,7 +52,7 @@ copyDLL:
 	cp third/pdcurses.dll bin
 	
 copyTXT: 
-	cp sourcs/Welcome.txt bincp 
+	cp sourcs/data/Welcome.txt bin
 	cp sourcs/data/level1.txt bin
 	cp sourcs/data/level2.txt bin
 	cp sourcs/data/level3.txt bin
