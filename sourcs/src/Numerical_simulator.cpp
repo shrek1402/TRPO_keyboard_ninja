@@ -113,6 +113,7 @@ int* SpeedNum(int row, int col, int* A) {
 		}
 		EndTime=clock();
 	} while (EndTime < StartTime + time * 1000);
+	TimeLeft(row, col);
 	nodelay(stdscr, FALSE);
 return A;
 }
@@ -241,7 +242,7 @@ int* Solving (int row, int col, int* A) {
 		i++;
 	}
 	do {
-		Time(row, col, 30, EndTime, StartTime);
+		Time(row, col, 60, EndTime, StartTime);
 
 		if ((ch = getch()) == ERR)
 		{
@@ -291,6 +292,7 @@ int* Solving (int row, int col, int* A) {
 		}
 		EndTime=clock();
 	} while (EndTime < StartTime + time * 1000);
+	TimeLeft(row, col);
 	nodelay(stdscr, FALSE);
 return A;
 }
@@ -321,7 +323,7 @@ int* Calculator (int row, int col, int* A) {
 	str1="";
 
 	do {
-		Time(row, col, 60, EndTime, StartTime);
+		Time(row, col, 30, EndTime, StartTime);
 		if ((ch = getch()) == ERR)
 		{
 			if (flag)
@@ -330,10 +332,10 @@ int* Calculator (int row, int col, int* A) {
 				printRamka(row, col);	//выделения с прошлой итерации
 				k = rand()%51;			//выбираем случайную строку из массива
 				str2 = array1[k];
-				size=str2.length();
+				size=str2.length() - 3;
 				move(row / 2, col / 2 - size / 2);
 				printw("%s", str2.c_str());
-				move(row/2 - 5, col/2 - 10);
+				move(row/2 - 5, col/2 - 8);
 				printw("Enter this equation!");
 				flag = 0;
 				i=0;
@@ -374,6 +376,7 @@ int* Calculator (int row, int col, int* A) {
 		}
 		EndTime = clock();
 	} while (EndTime < StartTime + time * 1000);
+	TimeLeft(row, col);
 	nodelay(stdscr, FALSE);
 return A;
 }
@@ -386,7 +389,7 @@ void Time (int row, int col, int time, int EndTime, int StartTime) {
 		printw("Time left: ");
 		EndTime = clock();
 		move(1, 13);
-		printw("%d sec", (time * 1000 - (EndTime - StartTime))/1000);
+		printw("%d sec ", (time * 1000 - (EndTime - StartTime))/1000);
 		attron(COLOR_PAIR(3));
 		move(15, col/2 - 7);
 		attron (A_BOLD);
@@ -399,6 +402,18 @@ void Time (int row, int col, int time, int EndTime, int StartTime) {
 		printw("Time left: ");
 		EndTime = clock();
 		move(1, 13);
-		printw("%d sec", (time * 1000 - (EndTime - StartTime))/1000);
+		printw("%.2d sec", (time * 1000 - (EndTime - StartTime))/1000);
 		}
+}
+void TimeLeft (int row, int col) {
+	int ch, StartTime=clock(), EndTime=clock(), time = 3;
+		do {
+			if ((ch = getch()) == ERR) {
+				move(row / 2 + 8, col / 2 - 5);
+				printw("Time is left.");
+				move(row / 2 + 11, col / 2 - 8);
+				printw("Your result into %d", (time * 1000 - (EndTime - StartTime))/1000);
+				EndTime=clock();
+			}
+	} while (EndTime < StartTime + time * 1000);
 }
