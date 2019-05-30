@@ -8,17 +8,16 @@
 #include <ncurses.h>
 #endif
 
+#include <cmath>
 #include <ctime>
-#include <vector>
-#include <string>
 #include <fstream>
 #include <iostream>
+#include <math.h>
+#include <sstream>
 #include <stdlib.h>
 #include <string>
 #include <unistd.h>
-#include <cmath>
-#include <sstream>
-#include <math.h>
+#include <vector>
 
 using namespace std;
 
