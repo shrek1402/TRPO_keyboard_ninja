@@ -273,11 +273,14 @@ int* Solving (int row, int col, int* A) {
 		{
 			if (ch!='\n')
 			{
-			move(row/2, col/2 + size/2 + i);
-			temp=ch;
-			str3+=temp;
-			addch(str3.at(i) | A_STANDOUT);
-			i++;
+				if (str3.length()<6) 
+				{
+					move(row/2, col/2 + size/2 + i);
+					temp=ch;
+					str3+=temp;
+					addch(str3.at(i) | A_STANDOUT);
+					i++;
+					}
 			}
 			else if (str3==array2[k])
 			{
