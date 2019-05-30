@@ -51,7 +51,8 @@ int read_file(string file) {
         array[i] = str1;
         i++;
     }
-    return 1;
+    if (i>0) return 1;
+    return -1;
 }
 TEST_CASE("Test [2]", "[read_file]")
 {
