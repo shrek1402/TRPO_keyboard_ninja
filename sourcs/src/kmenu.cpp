@@ -301,10 +301,10 @@ void speedMode(int slozh, int row, int col)
 			speedEz();
 			break;
 		case 2:
-			speedNormal("Word.txt", row, col);
+			speedNormal("WordsENG.txt", row, col);
 			break;
 		case 3:
-				speedNormal("Pred.txt", row, col);
+				speedNormal("ProposalENG.txt", row, col);
 				break;
 		case 4:
 			break;
