@@ -1,16 +1,4 @@
-#ifndef PCH_H
-#define PCH_H
-#define PDC_DLL_BUILD
-
-#ifdef _WIN32
-#include <curses.h>
-#else
-#include <ncurses.h>
-#endif
-#include <fstream>
-#include <string>
-
-#include "../../third/catch2/catch.hpp"
+#include "test.h"
 
 int resultat (int row, int col, int Lessen, unsigned int endTime,
             unsigned int startTime, double sum_proz, int error) {
@@ -51,7 +39,8 @@ int resultat (int row, int col, int Lessen, unsigned int endTime,
   getch();
   attron(COLOR_PAIR(3));
 }
-TEST_CASE("TEST_PROP", "[int]") {
+
+TEST_CASE("TEST_RESULTAT", "[int]") {
   REQUIRE(reaction(10,2, 3, 4, 5, 6, 7) == 1;
   REQUIRE(reaction(10,2, 3, 4, 5, 6, 100) == 2;
 }

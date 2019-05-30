@@ -48,7 +48,7 @@ build/test/reaction.o: sourcs/test/reaction.cpp
 build/test/printWelcomePanel.o: sourcs/test/printWelcomePanel.cpp
 	$(TEST)
 
-build/test/printWelcomePanel.o: sourcs/test/test_level1.cpp
+build/test/test_level1.o: sourcs/test/test_level1.cpp
 	$(TEST)
 	
 copyDLL: 
