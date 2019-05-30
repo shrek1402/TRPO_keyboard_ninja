@@ -20,7 +20,6 @@ int resultat (int row, int col, int Lessen, unsigned int endTime,
   init_pair(2, COLOR_WHITE, COLOR_BLACK);
   init_pair(3, COLOR_RED, COLOR_BLACK);
   attron(COLOR_PAIR(3));
-  printRamka(row, col);
   int size_x, size_y, xx, yy;
   size_x = 80;
   size_y = 20;
