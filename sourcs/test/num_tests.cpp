@@ -1,4 +1,4 @@
-#include <iostream>
+#include "../src/pch.h"
 #include "../../third/catch2/catch.hpp"
 using namespace std;
 
@@ -29,7 +29,7 @@ int num_menu(int ch) {
     return 4;
 }
 
-TEST_CASE("Test [1]", "[SpeedNum]")
+TEST_CASE("Test [1]", "[menu]")
 {
     REQUIRE(num_menu(0) == 0);
     REQUIRE(num_menu(1) == 1);
@@ -38,41 +38,23 @@ TEST_CASE("Test [1]", "[SpeedNum]")
     REQUIRE(num_menu(5) == 4);
 }
 
-int Select_item(int item)
-{
-    int A[3] = {0, 0, 0};
-    switch (item) {
-    case 1: {
-        SpeedNum(row, col, A);
-        ResultNum(row, col, A, 0);
+int read_file(string file) {
+    ifstream Numbers(file);
+    string array[100];
+    string str1;
+    int i = 0;
+    while (!Numbers.eof()) { 
+        getline(Numbers, str1);
+        array[i] = str1;
+        i++;
+    }
+    if (i>0)
         return 1;
-        break;
-    }
-    case 2: {
-        Solving(row, col, A);
-        ResultNum(row, col, A, 1);
-        return 2;
-        break;
-    }
-    case 3: {
-        Calculator(row, col, A);
-        ResultNum(row, col, A, 2);
-        return 3;
-        break;
-    }
-    case 4: {
-        return 4;
-        break;
-    }
-    }
-    return 0;
+    else
+        return 0;
 }
-
-TEST_CASE("Test [1]", "[SpeedNum]")
+TEST_CASE("Test [2]", "[read_file]")
 {
-    REQUIRE(Select_item(1) == 1);
-    REQUIRE(Select_item(2) == 2);
-    REQUIRE(Select_item(3) == 3);
-    REQUIRE(Select_item(4) == 4);
-    REQUIRE(Select_item(5) == 0);
+    REQUIRE(read_file("Numbers.txt") == 1);
+    REQUIRE(read_file("TestNofile.txt") == 0);
 }
