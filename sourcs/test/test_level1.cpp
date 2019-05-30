@@ -12,14 +12,14 @@
 
 #include "../../third/catch2/catch.hpp"
 
-int dopusk(int row, int col, int Lessen, unsigned int endTime,
+int resultat (int row, int col, int Lessen, unsigned int endTime,
             unsigned int startTime, double sum_proz, int error) {
   erase();
   start_color();
-  init_pair(Correct_green, COLOR_GREEN, COLOR_BLACK);
-  init_pair(Basic_style, COLOR_WHITE, COLOR_BLACK);
-  init_pair(Wrong_red, COLOR_RED, COLOR_BLACK);
-  attron(COLOR_PAIR(Basic_style));
+  init_pair(1, COLOR_GREEN, COLOR_BLACK);
+  init_pair(2, COLOR_WHITE, COLOR_BLACK);
+  init_pair(3, COLOR_RED, COLOR_BLACK);
+  attron(COLOR_PAIR(3));
   printRamka(row, col);
   int size_x, size_y, xx, yy;
   size_x = 80;
@@ -28,12 +28,12 @@ int dopusk(int row, int col, int Lessen, unsigned int endTime,
   yy = 15;
   WINDOW *win5 = newwin(size_y, size_x, yy, xx);
   if (sum_proz < 100) {
-    attron(COLOR_PAIR(Wrong_red));
+    attron(COLOR_PAIR(3));
     move((row - 4) / 2 - 2, (col - 26) / 2);
     printw("Time's up, try again!");
     return 1;
   } else {
-    attron(COLOR_PAIR(Correct_green));
+    attron(COLOR_PAIR(1));
     move((row - 4) / 2 - 2, (col - 26) / 2);
     printw("Well done keep learning!");
     return 2;
@@ -50,7 +50,7 @@ int dopusk(int row, int col, int Lessen, unsigned int endTime,
   box(win5, 0, 0);
   wrefresh(win5);
   getch();
-  attron(COLOR_PAIR(Basic_style));
+  attron(COLOR_PAIR(3));
 }
 TEST_CASE("TEST_PROP", "[int]") {
   REQUIRE(reaction(10,2, 3, 4, 5, 6, 7) == 1;
