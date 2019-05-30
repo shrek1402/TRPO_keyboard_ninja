@@ -58,3 +58,16 @@ TEST_CASE("Test [2]", "[read_file]")
     REQUIRE(read_file("Numbers.txt") == 1);
     REQUIRE(read_file("TestNoFile.txt") == 0);
 }
+
+int Time(int time, int EndTime, int StartTime) {
+    do {
+    EndTime += 100;
+    } while (EndTime < StartTime + time * 1000);
+    if (EndTime > StartTime + time * 1000) return 0;
+    else
+        return 1;
+}
+TEST_CASE("Test [3]", "[Time]")
+{
+    REQUIRE(Time(30,0,0) == 1);
+}
