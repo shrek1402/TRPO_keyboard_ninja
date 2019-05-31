@@ -5,7 +5,7 @@
 #define Wrong_red 3
 
 const unsigned int SEK = 60;
-int level(int row, int col) {
+int menu_lesson(int row, int col) {
   int punk = 7;
   erase();
   printRamka(row, col);
@@ -25,8 +25,8 @@ int level(int row, int col) {
   return printMenu(&mStr, punk);
 }
 
-void dopusk(int row, int col, int Lessen, unsigned int endTime,
-            unsigned int startTime, double sum_proz, int error) {
+void resultat(int row, int col, int Lessen, unsigned int endTime,
+              unsigned int startTime, double sum_proz, int error) {
   erase();
   start_color();
   init_pair(Correct_green, COLOR_GREEN, COLOR_BLACK);
@@ -64,7 +64,7 @@ void dopusk(int row, int col, int Lessen, unsigned int endTime,
   attron(COLOR_PAIR(Basic_style));
 }
 
-void level1(std::string _dataFile, int row, int col, int Lessen) {
+void Lessen1(std::string _dataFile, int row, int col, int Lessen) {
   start_color();
   init_pair(Correct_green, COLOR_GREEN, COLOR_BLACK);
   init_pair(Basic_style, COLOR_WHITE, COLOR_BLACK);
@@ -147,45 +147,45 @@ void level1(std::string _dataFile, int row, int col, int Lessen) {
     }
   } while (endTime < startTime + (DOP + SEK) * 1000);
   nodelay(stdscr, FALSE);
-  dopusk(row, col, Lessen, endTime, startTime, sum_proz, error);
+  resultat(row, col, Lessen, endTime, startTime, sum_proz, error);
 }
 
-void Select_level(int slozh, int row, int col) {
+void Select_level(int temp, int row, int col) {
   int Lessen = 1;
 
   erase();
   printRamka(row, col);
-  switch (slozh) {
+  switch (temp) {
   case 1: {
     Lessen = 1;
-    level1("level1.txt", row, col, Lessen);
+    Lessen1("level1.txt", row, col, Lessen);
     break;
   }
 
   case 2: {
     Lessen = 2;
-    level1("level2.txt", row, col, Lessen);
+    Lessen1("level2.txt", row, col, Lessen);
     break;
   }
 
   case 3: {
     Lessen = 3;
-    level1("level3.txt", row, col, Lessen);
+    Lessen1("level3.txt", row, col, Lessen);
     break;
   }
   case 4: {
     Lessen = 4;
-    level1("level4.txt", row, col, Lessen);
+    Lessen1("level4.txt", row, col, Lessen);
     break;
   }
   case 5: {
     Lessen = 5;
-    level1("level5.txt", row, col, Lessen);
+    Lessen1("level5.txt", row, col, Lessen);
     break;
   }
   case 6: {
     Lessen = 6;
-    level1("level6.txt", row, col, Lessen);
+    Lessen1("level6.txt", row, col, Lessen);
     break;
   }
   }

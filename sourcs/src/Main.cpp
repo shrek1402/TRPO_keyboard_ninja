@@ -26,7 +26,7 @@ int main(int argc, char** argv)
 			}
 			case 2:
             {
-                int tmp = level (row, col);	
+                int tmp = menu_lesson (row, col);	
         	Select_level(tmp, row, col);
             break;
             }
