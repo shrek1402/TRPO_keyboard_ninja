@@ -9,4 +9,5 @@
 #include <sstream>
 #include <math.h>
 #include "../../third/catch2/catch.hpp"
+using namespace std;
 
