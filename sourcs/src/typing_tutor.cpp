@@ -98,7 +98,7 @@ void Lessen1(std::string _dataFile, int row, int col, int Lessen)
     std::string tempA;
     bool flag = 1;
     int x_temp = 0, level = 1;
-    double proz = 0.0, sum_proz = 0.0;
+    double proz = 0, sum_proz = 0.0;
 
     proz = 100 / max_leg;
 
