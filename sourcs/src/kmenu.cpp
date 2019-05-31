@@ -60,7 +60,7 @@ int mainMenu(int row, int col)
 {
     int punk = 4;
     printRamka(row, col);
-    std::vector<std::string> mStr = {"    Menu          ",
+    std::vector<std::string> mStr = {"      Menu        ",
                                      "1. Speed mode     ",
                                      "2. typing tutor   ",
                                      "3. Numerical Simulator",
@@ -289,10 +289,10 @@ void speedMode(int slozh, int row, int col)
         speedEz();
         break;
     case 2:
-        speedNormal("WordsENG.txt", row, col);
+        speedNormal("data/WordsENG.txt", row, col);
         break;
     case 3:
-        speedNormal("ProposalENG.txt", row, col);
+        speedNormal("data/ProposalENG.txt", row, col);
         break;
     case 4:
         break;

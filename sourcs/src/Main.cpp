@@ -15,7 +15,7 @@ int main(int argc, char** argv)
 
     getmaxyx(stdscr, row, col);
     printRamka(row, col);
-    printWelcomePanel("Welcome.txt", row, col);
+    printWelcomePanel("data/Welcome.txt", row, col);
     keypad(stdscr, TRUE);
 
     while (1) {
