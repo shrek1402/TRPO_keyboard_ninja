@@ -326,8 +326,8 @@ int* Calculator(int row, int col, int* A)
                 printRamka(row, col); //выделения с прошлой итерации
                 k = rand() % 51; //выбираем случайную строку из массива
                 str2 = array1[k];
-                size = str2.length() - 3;
-                move(row / 2, col / 2 - size / 2);
+                size = str2.length();
+                move(row / 2, col / 2 - size / 2 + 1);
                 printw("%s", str2.c_str());
                 move(row / 2 - 5, col / 2 - 8);
                 printw("Enter this equation!");
@@ -337,7 +337,7 @@ int* Calculator(int row, int col, int* A)
         } else {
             if (str2[i] == ch) {
                 move(row / 2,
-                     col / 2 - size / 2 + i); //перемещаемся в строке const + i
+                     col / 2 - size / 2 + 1 + i); //перемещаемся в строке const + i
                                               //(где i - номер текущего символа)
                 attron(COLOR_PAIR(1));
                 addch(str2.at(i)); //выделение правильно введеного символа
@@ -351,7 +351,7 @@ int* Calculator(int row, int col, int* A)
                     i = 0; //обнуляем счетчик для новой строки
                 }
             } else {
-                move(row / 2, col / 2 - size / 2 + i);
+                move(row / 2, col / 2 - size / 2 + 1 + i);
                 attron(COLOR_PAIR(2)); //выделение неправильно введеного символа
                 addch(str2.at(i));
                 attron(COLOR_PAIR(3));
