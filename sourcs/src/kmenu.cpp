@@ -15,9 +15,13 @@ void printWelcomePanel(string _str, int row, int col)
         vec.push_back(temp);
     }
 	
-	for (long long unsigned int i = 0; i < vec.size(); i++) {
-		mvprintw(row / 2 - vec.size()/2 + 2 + i, col / 2 - vec.at(i).length() / 2, "%s", vec.at(i).c_str());
-	}
+for (long long unsigned int i = 0; i < vec.size(); i++) {
+        mvprintw(
+                row / 2 - vec.size() / 2 + 2 + i,
+                col / 2 - vec.at(i).length() / 2,
+                "%s",
+                vec.at(i).c_str());
+}
     refresh();
     getch();
     dataFile.close();
@@ -64,11 +68,11 @@ printMenu(std::vector<std::string>* _vec, long long unsigned int punk)
 int mainMenu(int row, int col)
 {
     printRamka(row, col);
-    std::vector<std::string> mStr = {"      Menu        ",
-                                     "1. Speed mode     ",
-                                     "2. Typing tutor   ",
+    std::vector<std::string> mStr = {"         Menu         ",
+                                     "1. Speed mode         ",
+                                     "2. Typing tutor       ",
                                      "3. Numerical Simulator",
-                                     "4. Exit           "};
+                                     "4. Exit               "};
 
     noecho();
     keypad(stdscr, TRUE);
@@ -96,12 +100,12 @@ int printRamka(int _row, int _col)
 int complexity(int row, int col)
 {
     printRamka(row, col);
-    std::vector<std::string> mStr = {"Complexity", // TODO eng
+    std::vector<std::string> mStr = {"Complexity ", // TODO eng
                                      "1. Eazy    ",
                                      "2. Normal  ",
                                      "3. Hard    ",
                                      "4. Settings",
-									 "5. Back    "};
+                                     "5. Back    "};
 
     noecho();
     return printMenu(&mStr, mStr.size());
@@ -117,12 +121,12 @@ double reaction(int _SEC, int result)
 
 int getYY(int row, int ySize)
 {
-	return (row - ySize - 5) / 2 + 4;
+    return (row - ySize - 5) / 2 + 4;
 }
 
 int getXX(int col, int xSize)
 {
-	return (col - xSize) / 2; // TODO /////////////////////////////////////
+    return (col - xSize) / 2; // TODO /////////////////////////////////////
 }
 
 void resultTabl(int result, int popitki)
@@ -131,9 +135,8 @@ void resultTabl(int result, int popitki)
     int row, col;
     getmaxyx(stdscr, row, col);
     printRamka(row, col);
-    int ySize = 9, xSize = col - (row - ySize + 3 + 2),
-        yy = getYY(row, ySize),
-            xx = getXX(col, xSize);
+    int ySize = 9, xSize = col - (row - ySize + 3 + 2), yy = getYY(row, ySize),
+        xx = getXX(col, xSize);
 
     if ((col - xSize) % 2 != 0)
         xSize++;
@@ -244,7 +247,7 @@ void speedNormal(string _dataFile, int row, int col)
 
 void speedEz()
 {
-    int row, col;
+int row, col;
     getmaxyx(stdscr, row, col);
     unsigned int result = 0;
     unsigned int startTime = clock();
@@ -295,11 +298,11 @@ void speedEz()
 void settings()
 {
 	int col, row;
-    getmaxyx(stdscr, row, col);
-	printRamka(row, col);
-    mvprintw(row / 2 +2, col/2 -5, "Time : ");
-	echo();
-	scanw("%d", &_SEC);
+	getmaxyx(stdscr, row, col);
+    printRamka(row, col);
+    mvprintw(row / 2 + 2, col / 2 - 5, "Time : ");
+    echo();
+    scanw("%d", &_SEC);
     noecho();
     keypad(stdscr, TRUE);
 
@@ -321,9 +324,9 @@ void speedMode(int complexity, int row, int col)
         speedNormal("data/ProposalENG.txt", row, col);
         break;
     case 4:
-		settings();
+        settings();
         break;
-	case 5:
+    case 5:
 		break;
     }
 }
