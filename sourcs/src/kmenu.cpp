@@ -37,7 +37,7 @@ printMenu(std::vector<std::string>* _vec, long long unsigned int punk)
 
     do {
         for (long long unsigned int i = 0; i < _vec->size(); i++) {
-            move(row / 2 + i, col / 2 - _vec->at(0).length() / 2);
+            move(row / 2 + i - 1, col / 2 - _vec->at(0).length() / 2);
 
             if (i == swtch) {
                 for (long long unsigned int j = 0; j < _vec->at(i).length();
