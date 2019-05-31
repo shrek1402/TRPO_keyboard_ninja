@@ -75,6 +75,9 @@ build/test/getXX.o: sourcs/test/getXX.cpp
 build/test/getYY.o: sourcs/test/getYY.cpp
 	$(TEST)
 
+build/test/num_tests.o: sourcs/test/num_tests.cpp
+	$(TEST)
+
 run-tests:
 	bin/Keyboard-Ninja-test.exe	
 	
