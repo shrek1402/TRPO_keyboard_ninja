@@ -21,7 +21,7 @@ int main(int argc, char** argv)
     while (1) {
         switch (mainMenu(row, col)) {
         case 1: {
-            speedMode(slozhnost(row, col), row, col);
+            speedMode(complexity(row, col), row, col);
             break;
         }
         case 2: {
