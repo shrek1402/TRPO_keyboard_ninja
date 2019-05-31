@@ -121,7 +121,7 @@ int ResultNum(int row, int col, int* A, int flag)
     printRamka(row, col);
     attron(A_BOLD);
     move(row / 2 - 10, col / 2 - 5);
-    printw("Your results:\n");
+    printw("Your results:");
 
     switch (flag) {
     case 0: {
@@ -193,10 +193,10 @@ int ResultNum(int row, int col, int* A, int flag)
             printw("	[NOT GOOD] You should train more!");
 
         move(row / 2, 25);
-        printw("Correct simvols = %d from %d (%.2f percent)",
+        printw("Correct simvols = %d from %d (%.0f percents)",
                A[1],
                A[0],
-               result1);
+               result1*100);
         if (result1 > 0.75) {
             printw("	[GOOD]");
         } else
