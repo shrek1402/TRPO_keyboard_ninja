@@ -196,7 +196,7 @@ int ResultNum(int row, int col, int* A, int flag)
         printw("Correct simvols = %d from %d (%.0f percents)",
                A[1],
                A[0],
-               result1*100);
+               result1 * 100);
         if (result1 > 0.75) {
             printw("	[GOOD]");
         } else
