@@ -1,12 +1,18 @@
 #include "test.h"
 
 
-void Lessen1(std::string _dataFile, int row, int col, int Lessen) {
+int Lessen1(std::string _dataFile, int row, int col, int Lessen) {
 
 
   std::ifstream dataFile(_dataFile);
   std::vector<std::string> vec;
   double max_leg = 0.0;
+  dataFile.open(_dataFile);
+  if (!dataFile.is_open())
+  { 
+      return 2;
+  }
+  return 1;
   while (!dataFile.eof()) {
     std::string temp;
     std::getline(dataFile, temp);
