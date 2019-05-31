@@ -1,7 +1,7 @@
 #include "pch.h"
 
 using namespace std;
-constexpr auto _VERSION = "Reliase v3.0";
+constexpr auto _VERSION = "Release v3.0";
 int _SEC = 5;
 
 void printWelcomePanel(string _str, int row, int col)
@@ -71,7 +71,7 @@ int mainMenu(int row, int col)
     std::vector<std::string> mStr = {"         Menu         ",
                                      "1. Speed mode         ",
                                      "2. Typing tutor       ",
-                                     "3. Numerical Simulator",
+                                     "3. Numerical simulator",
                                      "4. Exit               "};
 
     noecho();
@@ -147,10 +147,10 @@ void resultTabl(int result, int popitki)
 
     if (result) {
         attron(COLOR_PAIR(2));
-        mvprintw(yy += 3, xx + xSize / 2 - 6, "MOLODEC! :)");
+        mvprintw(yy += 3, xx + xSize / 2 - 6, "PERFECT! :)");
     } else {
         attron(COLOR_PAIR(3));
-        mvprintw(yy += 3, xx + xSize / 2 - 6, "NE MOLODEC! :(");
+        mvprintw(yy += 3, xx + xSize / 2 - 6, "BADLY!   :(");
     }
 
     mvprintw(++yy, xx + xSize / 2 - 6, "Result: %d", result);

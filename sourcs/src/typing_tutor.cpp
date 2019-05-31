@@ -17,7 +17,7 @@ int menu_lesson(int row, int col)
                                      "Lesson 4",
                                      "Lesson 5",
                                      "Lesson 6",
-                                     "Backward"
+                                     "Back    "
 
     };
 
