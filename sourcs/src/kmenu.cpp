@@ -14,14 +14,14 @@ void printWelcomePanel(string _str, int row, int col)
         std::getline(dataFile, temp);
         vec.push_back(temp);
     }
-	
-for (long long unsigned int i = 0; i < vec.size(); i++) {
+
+    for (long long unsigned int i = 0; i < vec.size(); i++) {
         mvprintw(
                 row / 2 - vec.size() / 2 + 2 + i,
                 col / 2 - vec.at(i).length() / 2,
                 "%s",
                 vec.at(i).c_str());
-}
+    }
     refresh();
     getch();
     dataFile.close();
@@ -247,7 +247,7 @@ void speedNormal(string _dataFile, int row, int col)
 
 void speedEz()
 {
-int row, col;
+    int row, col;
     getmaxyx(stdscr, row, col);
     unsigned int result = 0;
     unsigned int startTime = clock();
@@ -297,8 +297,8 @@ int row, col;
 
 void settings()
 {
-	int col, row;
-	getmaxyx(stdscr, row, col);
+    int col, row;
+    getmaxyx(stdscr, row, col);
     printRamka(row, col);
     mvprintw(row / 2 + 2, col / 2 - 5, "Time : ");
     echo();
@@ -327,6 +327,6 @@ void speedMode(int complexity, int row, int col)
         settings();
         break;
     case 5:
-		break;
+        break;
     }
 }
