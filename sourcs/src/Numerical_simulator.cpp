@@ -335,7 +335,7 @@ int* Calculator(int row, int col, int* A)
                 i = 0;
             }
         } else {
-            if (str2[i] == ch) {
+            if (str2[i] == ch || (str2[i]==47 && ch==458) || (str2[i]==42 && ch==463) || (str2[i]==43 && ch==465) || (str2[i]==45 && ch==464)) {
                 move(row / 2,
                      col / 2 - size / 2 + 1 + i); //перемещаемся в строке const + i
                                               //(где i - номер текущего символа)
