@@ -2,7 +2,7 @@
 
 using namespace std;
 constexpr auto _VERSION = "Reliase v3.0";
-constexpr unsigned int _SEC = 5;
+int _SEC = 5;
 
 void printWelcomePanel(string _str, int row, int col)
 {
@@ -48,9 +48,9 @@ printMenu(std::vector<std::string>* _vec, long long unsigned int punk)
             if (swtch != 1)
                 swtch--;
             else
-                swtch = punk;
+                swtch = punk - 1;
         } else if (key == KEY_DOWN) {
-            if (swtch != punk)
+            if (swtch != punk - 1)
                 swtch++;
             else
                 swtch = 1;
@@ -93,14 +93,15 @@ int printRamka(int _row, int _col)
     return 0;
 }
 
-int slozhnost(int row, int col)
+int complexity(int row, int col)
 {
     printRamka(row, col);
     std::vector<std::string> mStr = {"Complexity", // TODO eng
-                                     "1. Eazy   ",
-                                     "2. Normal ",
-                                     "3. Hard   ",
-                                     "4. Back   "};
+                                     "1. Eazy    ",
+                                     "2. Normal  ",
+                                     "3. Hard    ",
+                                     "4. Settings",
+									 "5. Back    "};
 
     noecho();
     return printMenu(&mStr, mStr.size());
@@ -121,7 +122,7 @@ int getYY(int row, int ySize)
 
 int getXX(int col, int xSize)
 {
-	return (col - xSize) / 2;
+	return (col - xSize) / 2; // TODO /////////////////////////////////////
 }
 
 void resultTabl(int result, int popitki)
@@ -291,11 +292,25 @@ void speedEz()
     resultTabl(result, popitki);
 }
 
-void speedMode(int slozh, int row, int col)
+void settings()
+{
+	int col, row;
+    getmaxyx(stdscr, row, col);
+	printRamka(row, col);
+    mvprintw(row / 2 +2, col/2 -5, "Time : ");
+	echo();
+	scanw("%d", &_SEC);
+    noecho();
+    keypad(stdscr, TRUE);
+
+    return;
+}
+
+void speedMode(int complexity, int row, int col)
 {
     printRamka(row, col);
 
-    switch (slozh) {
+    switch (complexity) {
     case 1:
         speedEz();
         break;
@@ -306,6 +321,9 @@ void speedMode(int slozh, int row, int col)
         speedNormal("data/ProposalENG.txt", row, col);
         break;
     case 4:
+		settings();
         break;
+	case 5:
+		break;
     }
 }
