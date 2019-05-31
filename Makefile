@@ -1,14 +1,22 @@
 CFLAGS = -Wall -Werror -std=c++17
 OBJ = g++ $(CFLAGS) -c $< -o $@
 TEST = g++ $(CFLAGS) -I ..third/catch2 -c $< -o $@
+allFolders  = folder1 folder2 folder3 folder4 folder5
+allO = build/src/Main.o build/src/kmenu.o build/src/typing_tutor.o build/src/Numerical_simulator.o
+allTests = build/test/reaction.o build/test/printWelcomePanel.o build/test/test_level1.o build/test/Lessen1.o build/test/getXX.o build/test/getYY.o
 
 .PHONY: clean
 
-all: help
+##############################
+all: build test run-tests run# 
+##############################
 
-build: folder1 folder2 folder3 folder4 bin/Keyboard-Ninja copyTXT
+build: $(allFolders) bin/Keyboard-Ninja copyTXT
 
 test: bin/Keyboard-Ninja-test
+
+
+############################  FOLDER  ############################
 
 folder1:	
 	mkdir -p build
@@ -21,9 +29,15 @@ folder3:
 	
 folder4:
 	mkdir -p build/test
+
+folder5:
+	mkdir -p bin/data
 	
-bin/Keyboard-Ninja: build/src/kmenu.o build/src/Main.o build/src/typing_tutor.o build/src/Numerical_simulator.o
-	g++ $(CFLAGS) $^ -lncurses -o $@
+	
+############################  BUILD  ############################
+
+bin/Keyboard-Ninja: $(allO)
+	g++ $(CFLAGS) $^ -lncurses -o $@ 
 	
 build/src/kmenu.o: sourcs/src/kmenu.cpp
 	$(OBJ) -lncurses
@@ -39,7 +53,9 @@ build/src/Numerical_simulator.o: sourcs/src/Numerical_simulator.cpp
 
 
 
-bin/Keyboard-Ninja-test: build/test/reaction.o build/test/printWelcomePanel.o
+############################  TEST  ############################
+
+bin/Keyboard-Ninja-test: $(allTests)
 	g++ $(CFLAGS) $^ -o $@
 
 build/test/reaction.o: sourcs/test/reaction.cpp
@@ -47,30 +63,41 @@ build/test/reaction.o: sourcs/test/reaction.cpp
 	
 build/test/printWelcomePanel.o: sourcs/test/printWelcomePanel.cpp
 	$(TEST)
+
+build/test/test_level1.o: sourcs/test/test_level1.cpp
+	$(TEST)
+
+build/test/Lessen1.o: sourcs/test/Lessen1.cpp
+	$(TEST)
+	
+build/test/getXX.o: sourcs/test/getXX.cpp
+	$(TEST)
+	
+build/test/getYY.o: sourcs/test/getYY.cpp
+	$(TEST)
+
+run-tests:
+	bin/Keyboard-Ninja-test
+	
+############################  OTHER  ############################	
+	
+run: bin/Keyboard-Ninja
 	
 copyDLL: 
 	cp third/pdcurses.dll bin
 	
 copyTXT: 
-	cp sourcs/data/Welcome.txt bin
-	cp sourcs/data/level1.txt bin
-	cp sourcs/data/level2.txt bin
-	cp sourcs/data/level3.txt bin
-	cp sourcs/data/level4.txt bin
-	cp sourcs/data/level5.txt bin
-	cp sourcs/data/level6.txt bin
-
-run:
-	bin/Keyboard-Ninja.exe Welcome.txt
+	cp sourcs/data/*.txt bin/data
 
 clean:
 	rm -r build
+	rm -r bin
 
 help:
 	@echo "=========================HELP THERE!========================="
-	@echo ""
-	@echo "1. Build project: Make build"
-	@echo "2. Test: Make test"
-	@echo "3. If you see error 'pdcurses.dll not found': Make copyDLL"
-	@echo ""
-	@echo "=========================    TODO   ========================="
+	@echo "|                                                           |"
+	@echo "|  1. Build project: Make build                             |"
+	@echo "|  2. Test: Make test                                       |"
+	@echo "|  3. Claen: make clean                                     |"
+	@echo "|                                                           |"
+	@echo "============================================================="
