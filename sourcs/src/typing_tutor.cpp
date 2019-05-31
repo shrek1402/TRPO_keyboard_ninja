@@ -168,34 +168,34 @@ void Select_level(int temp, int row, int col)
     switch (temp) {
     case 1: {
         Lessen = 1;
-        Lessen1("level1.txt", row, col, Lessen);
+        Lessen1("data/level1.txt", row, col, Lessen);
         break;
     }
 
     case 2: {
         Lessen = 2;
-        Lessen1("level2.txt", row, col, Lessen);
+        Lessen1("data/level2.txt", row, col, Lessen);
         break;
     }
 
     case 3: {
         Lessen = 3;
-        Lessen1("level3.txt", row, col, Lessen);
+        Lessen1("data/level3.txt", row, col, Lessen);
         break;
     }
     case 4: {
         Lessen = 4;
-        Lessen1("level4.txt", row, col, Lessen);
+        Lessen1("data/level4.txt", row, col, Lessen);
         break;
     }
     case 5: {
         Lessen = 5;
-        Lessen1("level5.txt", row, col, Lessen);
+        Lessen1("data/level5.txt", row, col, Lessen);
         break;
     }
     case 6: {
         Lessen = 6;
-        Lessen1("level6.txt", row, col, Lessen);
+        Lessen1("data/level6.txt", row, col, Lessen);
         break;
     }
     }
