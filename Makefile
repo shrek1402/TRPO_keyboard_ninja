@@ -8,7 +8,7 @@ TEST = g++ $(CFLAGS) -I ..third/catch2 -c $< -o $@
 all: build test run-tests run# 
 ##############################
 
-build: folder1 folder2 folder3 folder4 folder5 bin/Keyboard-Ninja.exe
+build: folder1 folder2 folder3 folder4 folder5 bin/Keyboard-Ninja
 
 test: bin/Keyboard-Ninja-test
 
