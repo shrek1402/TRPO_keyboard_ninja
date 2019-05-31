@@ -1,21 +1,26 @@
 #include "pch.h"
 
 using namespace std;
-constexpr auto _VERSION = "Beta v1.0";
+constexpr auto _VERSION = "Reliase v3.0";
 constexpr unsigned int _SEC = 5;
 
 void printWelcomePanel(string _str, int row, int col)
 {
-    keypad(stdscr, 1);
-    ifstream myTextFile;
-    myTextFile.open(_str);
-    if (!myTextFile.is_open())
-        return;
+    std::ifstream dataFile("data/Welcome.txt");
+    std::vector<std::string> vec;
 
-    mvprintw(row / 2, col / 2, "Hello");
+    while (!dataFile.eof()) {
+        std::string temp;
+        std::getline(dataFile, temp);
+        vec.push_back(temp);
+    }
+	
+	for (long long unsigned int i = 0; i < vec.size(); i++) {
+		mvprintw(row / 2 - vec.size()/2 + 2 + i, col / 2 - vec.at(i).length() / 2, "%s", vec.at(i).c_str());
+	}
     refresh();
     getch();
-    myTextFile.close();
+    dataFile.close();
 }
 
 long long unsigned int
@@ -58,7 +63,6 @@ printMenu(std::vector<std::string>* _vec, long long unsigned int punk)
 
 int mainMenu(int row, int col)
 {
-    int punk = 4;
     printRamka(row, col);
     std::vector<std::string> mStr = {"      Menu        ",
                                      "1. Speed mode     ",
@@ -69,7 +73,7 @@ int mainMenu(int row, int col)
     noecho();
     keypad(stdscr, TRUE);
 
-    return printMenu(&mStr, punk);
+    return printMenu(&mStr, mStr.size());
 }
 
 int printRamka(int _row, int _col)
@@ -83,7 +87,7 @@ int printRamka(int _row, int _col)
     WINDOW* win1 = newwin(_row - 3, _col, 3, 0);
     box(win1, 0, 0);
 
-    mvaddstr(1, _col - 10, _VERSION);
+    mvaddstr(1, _col - 14, _VERSION);
     wrefresh(win1);
     wrefresh(win);
     return 0;
@@ -91,7 +95,6 @@ int printRamka(int _row, int _col)
 
 int slozhnost(int row, int col)
 {
-    int punk = 4;
     printRamka(row, col);
     std::vector<std::string> mStr = {"Complexity", // TODO eng
                                      "1. Eazy   ",
@@ -100,14 +103,25 @@ int slozhnost(int row, int col)
                                      "4. Back   "};
 
     noecho();
-    return printMenu(&mStr, punk);
+    return printMenu(&mStr, mStr.size());
 }
+
 double reaction(int _SEC, int result)
 {
     if (!result)
         return 0;
 
     return (double)_SEC / result;
+}
+
+int getYY(int row, int ySize)
+{
+	return (row - ySize - 5) / 2 + 4;
+}
+
+int getXX(int col, int xSize)
+{
+	return (col - xSize) / 2;
 }
 
 void resultTabl(int result, int popitki)
@@ -117,8 +131,8 @@ void resultTabl(int result, int popitki)
     getmaxyx(stdscr, row, col);
     printRamka(row, col);
     int ySize = 9, xSize = col - (row - ySize + 3 + 2),
-        yy = (row - ySize - 5) / 2 + 4, // TEST
-            xx = (col - xSize) / 2;     // TEST TOO
+        yy = getYY(row, ySize),
+            xx = getXX(col, xSize);
 
     if ((col - xSize) % 2 != 0)
         xSize++;
@@ -126,7 +140,7 @@ void resultTabl(int result, int popitki)
         ySize++;
 
     WINDOW* win = newwin(ySize, xSize, yy, xx);
-    // TODO add: time, % ...
+
     if (result) {
         attron(COLOR_PAIR(2));
         mvprintw(yy += 3, xx + xSize / 2 - 6, "MOLODEC! :)");
@@ -250,17 +264,14 @@ void speedEz()
                 x = (rand() % (col - 1) + 1);
                 y = (rand() % (row - 5)) + 4;
                 printRamka(row, col);
-                move(y, x);
-                printw("%c", tempA);
+                mvprintw(y, x, "%c", tempA);
                 flag = 0;
                 popitki++;
             }
 
             endTime = clock();
-            move(1, 5);
-            printw("%d ms", endTime - startTime);
-            move(1, 1);
-            printw("%d", result);
+            mvprintw(1, 5, "%d ms", endTime - startTime);
+            mvprintw(1, 1, "%d", result);
         } else {
             temp = ch;
             flag = 0;
