@@ -1,4 +1,6 @@
 #include "pch.h"
+void Time(int row, int col, int time, int EndTime, int StartTime);
+void TimeLeft(int row, int col);
 
 int Num_Menu(int row, int col)
 {

@@ -20,14 +20,13 @@ int main(int argc, char** argv)
 
     while (1) {
         switch (mainMenu(row, col)) {
-			case 1:{
-				speedMode(slozhnost(row, col), row, col);
-				break;
-			}
-			case 2:
-            {
-                int tmp = menu_lesson (row, col);	
-        	Select_level(tmp, row, col);
+        case 1: {
+            speedMode(slozhnost(row, col), row, col);
+            break;
+        }
+        case 2: {
+            int tmp = menu_lesson(row, col);
+            Select_level(tmp, row, col);
             break;
         }
         case 3: {
