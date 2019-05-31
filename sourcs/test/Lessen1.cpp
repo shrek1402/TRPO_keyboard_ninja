@@ -1,5 +1,5 @@
 #include "test.h"
-
+const unsigned int SEK = 60;
 
 int Lessen1(std::string _dataFile, int row, int col, int Lessen) {
 
