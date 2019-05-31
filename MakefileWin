@@ -4,9 +4,9 @@ TEST = g++ $(CFLAGS) -I ..third/catch2 -c $< -o $@
 
 .PHONY: clean
 
-##
-all: build test run-tests run 
-##
+##############################
+all: build test run-tests run# 
+##############################
 
 build: folder1 folder2 folder3 folder4 folder5 bin/Keyboard-Ninja.exe copyTXT copyDLL
 

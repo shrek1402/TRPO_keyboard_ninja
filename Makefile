@@ -4,11 +4,16 @@ TEST = g++ $(CFLAGS) -I ..third/catch2 -c $< -o $@
 
 .PHONY: clean
 
-all: help
+##############################
+all: build test run-tests run# 
+##############################
 
-build: folder1 folder2 folder3 folder4 bin/Keyboard-Ninja
+build: folder1 folder2 folder3 folder4 folder5 bin/Keyboard-Ninja.exe
 
 test: bin/Keyboard-Ninja-test
+
+
+############################  FOLDER  ############################
 
 folder1:	
 	mkdir -p build
@@ -21,9 +26,15 @@ folder3:
 	
 folder4:
 	mkdir -p build/test
+
+folder5:
+	mkdir -p bin/data
 	
-bin/Keyboard-Ninja: build/src/kmenu.o build/src/Main.o build/src/typing_tutor.o build/src/Numerical_simulator.o
-	g++ $(CFLAGS) $^ -lncurses -o $@
+	
+############################  BUILD  ############################
+
+bin/Keyboard-Ninja: build/src/Main.o build/src/kmenu.o build/src/typing_tutor.o build/src/Numerical_simulator.o
+	g++ $(CFLAGS) $^ -lncurses -o $@ 
 	
 build/src/kmenu.o: sourcs/src/kmenu.cpp
 	$(OBJ) -lncurses
@@ -39,6 +50,8 @@ build/src/Numerical_simulator.o: sourcs/src/Numerical_simulator.cpp
 
 
 
+############################  TEST  ############################
+
 bin/Keyboard-Ninja-test: build/test/reaction.o build/test/printWelcomePanel.o
 	g++ $(CFLAGS) $^ -o $@
 
@@ -47,30 +60,29 @@ build/test/reaction.o: sourcs/test/reaction.cpp
 	
 build/test/printWelcomePanel.o: sourcs/test/printWelcomePanel.cpp
 	$(TEST)
+
+run-tests:
+	bin/Keyboard-Ninja-test
+	
+############################  OTHER  ############################	
+	
+run: bin/Keyboard-Ninja
 	
 copyDLL: 
 	cp third/pdcurses.dll bin
 	
 copyTXT: 
-	cp sourcs/Welcome.txt bincp 
-	cp sourcs/data/level1.txt bin
-	cp sourcs/data/level2.txt bin
-	cp sourcs/data/level3.txt bin
-	cp sourcs/data/level4.txt bin
-	cp sourcs/data/level5.txt bin
-	cp sourcs/data/level6.txt bin
-
-run:
-	bin/Keyboard-Ninja.exe Welcome.txt
+	cp sourcs/data/*.txt bin/data
 
 clean:
 	rm -r build
+	rm -r bin
 
 help:
 	@echo "=========================HELP THERE!========================="
 	@echo ""
 	@echo "1. Build project: Make build"
 	@echo "2. Test: Make test"
-	@echo "3. If you see error 'pdcurses.dll not found': Make copyDLL"
+	@echo "3. Claen: make clean"
 	@echo ""
 	@echo "=========================    TODO   ========================="
