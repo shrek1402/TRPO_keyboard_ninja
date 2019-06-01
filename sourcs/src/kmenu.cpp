@@ -1,7 +1,7 @@
 #include "pch.h"
 
 using namespace std;
-constexpr auto _VERSION = "Release v3.0";
+constexpr auto _VERSION = "Release v3.1";
 int _SEC = 5;
 
 void printWelcomePanel(string _str, int row, int col)
