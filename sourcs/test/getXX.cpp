@@ -1,9 +1,8 @@
+#define CATCH_CONFIG_MAIN
 #include "../../third/catch2/catch.hpp"
-using namespace std;
-int getXX(int col, int xSize)
-{
-	return (col - xSize) / 2;
-}
+
+int getXX(int col, int xSize);
+
 TEST_CASE("TEST_getXX", "[check]")
 {
     REQUIRE(getXX(12, 6) == 3);
