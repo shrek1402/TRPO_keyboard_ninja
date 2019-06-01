@@ -22,7 +22,7 @@ int menu_lesson(int row, int col)
 
     noecho();
     keypad(stdscr, TRUE);
-    return printMenu(&mStr, mstr.size());
+    return printMenu(&mStr, mStr.size());
 }
 
 void resultat(
