@@ -302,7 +302,7 @@ int* Calculator(int row, int col, int* A)
     srand(time(0));
     unsigned int StartTime = clock(), EndTime = clock();
     int i = 0, k = 0, time = 30, flag = 1, ch, size;
-    ifstream calcul("Calculator.txt");
+    ifstream calcul("data/Calculator.txt");
     string array1[100];
     string str1, str2, temp;
 

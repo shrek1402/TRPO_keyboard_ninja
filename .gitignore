@@ -33,7 +33,7 @@
 *.app
 
 # Dir
-/bin/
-/build/
+bin/
+
 
 dir.txt
