@@ -7,7 +7,6 @@
 const unsigned int SEK = 60;
 int menu_lesson(int row, int col)
 {
-    int punk = 7;
     erase();
     printRamka(row, col);
     std::vector<std::string> mStr = {"Learning touch typing",
@@ -23,7 +22,7 @@ int menu_lesson(int row, int col)
 
     noecho();
     keypad(stdscr, TRUE);
-    return printMenu(&mStr, punk);
+    return printMenu(&mStr, mstr.size());
 }
 
 void resultat(
