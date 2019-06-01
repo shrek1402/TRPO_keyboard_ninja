@@ -54,7 +54,7 @@ void resultat(
     } else {
         attron(COLOR_PAIR(Correct_green));
         move((row - 4) / 2 - 2, (col - 26) / 2);
-        printw("Well done keep learning!");
+        printw("Well done keep learning !");
     }
 
     move(1, (col - 4) / 2);
