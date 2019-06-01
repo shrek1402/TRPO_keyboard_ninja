@@ -55,7 +55,7 @@ int* SpeedNum(int row, int col, int* A)
     init_pair(3, COLOR_WHITE, COLOR_BLACK);
     unsigned int StartTime = clock(), EndTime = clock();
     int i = 0, k = 0, time = 30, flag = 1, size, ch;
-    ifstream Numbers("Numbers.txt");
+    ifstream Numbers("data/Numbers.txt");
     string array[100];
     string str1, str2;
     erase();
@@ -225,8 +225,8 @@ int* Solving(int row, int col, int* A)
     init_pair(3, COLOR_WHITE, COLOR_BLACK);
     unsigned int StartTime = clock(), EndTime = clock();
     int i = 0, k = 0, time = 60, flag = 1, ch, size, flagik = 0;
-    ifstream equation("Equation.txt");
-    ifstream equationA("EquationAnswers.txt");
+    ifstream equation("data/Equation.txt");
+    ifstream equationA("data/EquationAnswers.txt");
     string array1[100], array2[100];
     string str1, str2, str3 = "", temp;
     erase();
