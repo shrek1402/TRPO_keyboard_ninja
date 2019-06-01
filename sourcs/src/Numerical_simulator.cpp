@@ -149,6 +149,8 @@ int ResultNum(int row, int col, int* A, int flag)
             printw("	[GOOD]");
         } else
             printw("	[NOT GOOD] You should train more!");
+        move(row / 2 + 14, col/2 - 13);
+        printw("Press any key to continue...");
         break;
     }
     case 1: {
@@ -178,6 +180,8 @@ int ResultNum(int row, int col, int* A, int flag)
             printw("	[GOOD]");
         } else
             printw("	[NOT GOOD] You should train more!");
+        move(row / 2 + 14, col/2 - 13);
+        printw("Press any key to continue...");
         break;
     }
     case 2: {
@@ -208,7 +212,8 @@ int ResultNum(int row, int col, int* A, int flag)
             printw("	[GOOD]");
         } else
             printw("	[NOT GOOD] You should train more!");
-
+        move(row / 2 + 14, col/2 - 13);
+        printw("Press any key to continue...");
         break;
     }
     }
