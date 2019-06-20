@@ -22,12 +22,12 @@ int menu_lesson(int row, int col)
 
     noecho();
     keypad(stdscr, TRUE);
-    return printMenu(&mStr,mStr.size());
+    return printMenu(&mStr, mStr.size());
 }
 
-int coordinate (int row)
+int coordinate(int row)
 {
-    return (row-4)/2;
+    return (row - 4) / 2;
 }
 
 void resultat(
@@ -48,21 +48,21 @@ void resultat(
     printRamka(row, col);
     if (sum_proz < 100) {
         attron(COLOR_PAIR(Wrong_red));
-        move(coordinate (row) - 2, (col - 26) / 2);
+        move(coordinate(row) - 2, (col - 26) / 2);
         printw("Time's up, try again!");
     } else {
         attron(COLOR_PAIR(Correct_green));
-        move(coordinate (row) - 2, (col - 26) / 2);
+        move(coordinate(row) - 2, (col - 26) / 2);
         printw("Well done keep learning!");
     }
 
     move(1, (col - 4) / 2);
     printw("Lessen %d", Lessen);
-    move(coordinate (row), (col - 26) / 2);
+    move(coordinate(row), (col - 26) / 2);
     printw("Execution time %d ms", endTime - startTime);
-    move(coordinate (row), (col - 26) / 2);
+    move(coordinate(row), (col - 26) / 2);
     printw("You passed %3.2f percent of the lesson", sum_proz);
-    move(coordinate (row) + 4, (col - 26) / 2);
+    move(coordinate(row) + 4, (col - 26) / 2);
     printw("Incorrectly entered letters %d", error);
     getch();
     attron(COLOR_PAIR(Basic_style));
@@ -117,7 +117,7 @@ void Lessen1(std::string _dataFile, int row, int col, int Lessen)
             printw("%3.2f %c", sum_proz, a);
             endTime = time(NULL);
             move(1, 10);
-            printw("%d sek", (startTime+DOP + SEK) - (endTime ));
+            printw("%d sek", (startTime + DOP + SEK) - (endTime));
             move(1, 1);
             printw("Lessen %d", Lessen);
             attroff(A_BOLD);
@@ -151,11 +151,10 @@ void Lessen1(std::string _dataFile, int row, int col, int Lessen)
                 error++;
             }
         }
-    } while (difftime(endTime,(startTime + (DOP + SEK))) );
+    } while (difftime(endTime, (startTime + (DOP + SEK))));
     nodelay(stdscr, FALSE);
     resultat(row, col, Lessen, endTime, startTime, sum_proz, error);
 }
-
 
 void Select_level(int temp, int row, int col)
 {
