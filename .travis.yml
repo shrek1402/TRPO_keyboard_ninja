@@ -41,8 +41,10 @@ matrix:
 script:
     - git ls-files sourcs/src/ | xargs clang-format -i && git diff --exit-code
     - sudo apt-get install libncursesw5-dev
-    - make
+    - make build
+    - make test
     - bin/Keyboard-Ninja-test
+    - bin/Keyboard-Ninja
     
 before_install:
     - eval "${MATRIX_EVAL}"
