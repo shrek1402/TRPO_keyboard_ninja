@@ -15,6 +15,6 @@ int printWelcomePanel(string _str)
 }
 TEST_CASE("TEST_PRINT_WELCOME_PANEL", "[check]")
 {
-    REQUIRE(printWelcomePanel("data/Welcome.txt") == 0);
-    REQUIRE(printWelcomePanel("data/temp.txt") == 1);
+    REQUIRE(printWelcomePanel("bin/data/Welcome.txt") == 0);
+    REQUIRE(printWelcomePanel("bin/data/temp.txt") == 1);
 }

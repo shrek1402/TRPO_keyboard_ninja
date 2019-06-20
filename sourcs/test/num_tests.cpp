@@ -21,10 +21,10 @@ int GetString(string file, string array[100])
 TEST_CASE("TEST_GETSTRING", "[check]")
 {
     string array[100];
-    REQUIRE(GetString("data/Numbers.txt", array) == 1);
-    REQUIRE(GetString("data/Calculator.txt", array) == 1);
-    REQUIRE(GetString("data/Equation.txt", array) == 1);
-    REQUIRE(GetString("data/EquationAnswers.txt", array) == 1);
+    REQUIRE(GetString("bin/data/Numbers.txt", array) == 1);
+    REQUIRE(GetString("bin/data/Calculator.txt", array) == 1);
+    REQUIRE(GetString("bin/data/Equation.txt", array) == 1);
+    REQUIRE(GetString("bin/data/EquationAnswers.txt", array) == 1);
 }
 
 int Time(int row, int col, int Timer, int EndTime, int StartTime)
