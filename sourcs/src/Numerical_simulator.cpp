@@ -11,7 +11,7 @@ int Num_Menu(int row, int col)
                                        "1. Speed Number     ",
                                        "2. Solving equations",
                                        "3. Calculator       ",
-                                       "4. Back             "};
+                                       "4. Back to main menu"};
 
     noecho();
     keypad(stdscr, TRUE);
@@ -53,8 +53,9 @@ int* SpeedNum(int row, int col, int* A)
     init_pair(1, COLOR_GREEN, COLOR_BLACK);
     init_pair(2, COLOR_RED, COLOR_BLACK);
     init_pair(3, COLOR_WHITE, COLOR_BLACK);
-    unsigned int StartTime = clock(), EndTime = clock();
-    int i = 0, k = 0, time = 30, flag = 1, size, ch;
+    time_t StartTime = time(NULL);
+    time_t EndTime = StartTime;
+    int i = 0, k = 0, Timer = 30, flag = 1, size, ch;
     ifstream Numbers("data/Numbers.txt");
     string array[100];
     string str1, str2;
@@ -108,8 +109,10 @@ int* SpeedNum(int row, int col, int* A)
                 }
             } //ошибки ввода
         }
-        EndTime = clock();
-    } while (EndTime < StartTime + time * 1000);
+        EndTime = time(NULL);
+    } while (difftime(EndTime, (StartTime + Timer)));
+    move(1, 13);
+    printw("0 sec ");
     TimeLeft(row, col);
     nodelay(stdscr, FALSE);
     return A;
@@ -120,7 +123,7 @@ int ResultNum(int row, int col, int* A, int flag)
     erase();
     printRamka(row, col);
     attron(A_BOLD);
-    move(row / 2 - 10, col / 2 - 5);
+    move(row / 2 - row / 4, col / 2 - 5);
     printw("Your results:");
 
     switch (flag) {
@@ -129,55 +132,59 @@ int ResultNum(int row, int col, int* A, int flag)
         result0 = (double)A[0] / (double)30;
         result1 = (double)A[1] / (double)30;
 
-        move(row / 2 - 5, 25);
+        move(row / 2 - row / 4 + 2, 3);
         printw("Your speed in simvols = %.2f per second", result1);
         if (result1 > 1) {
-            printw("	[GOOD]");
+            printw("   [GOOD]");
         } else
-            printw("	[NOT GOOD] You should train more!");
+            printw("   [NOT GOOD] You should train more!");
 
-        move(row / 2, 25);
+        move(row / 2 - row / 4 + 4, 3);
         printw("Your speed in numbers = %.2f per second", result0);
         if (result0 > 1) {
-            printw("	[GOOD]");
+            printw("   [GOOD]");
         } else
-            printw("	[NOT GOOD] You should train more!");
+            printw("   [NOT GOOD] You should train more!");
 
-        move(row / 2 + 5, 25);
+        move(row / 2 - row / 4 + 6, 3);
         printw("Your errors = %d", A[2]);
         if (A[2] < 5) {
-            printw("	[GOOD]");
+            printw("   [GOOD]");
         } else
-            printw("	[NOT GOOD] You should train more!");
+            printw("   [NOT GOOD] You should train more!");
+        move(row / 2 + row / 3, col / 2 - 13);
+        printw("Press any key to continue...");
         break;
     }
     case 1: {
         double result = (double)A[0] / (double)A[1];
         double result1 = (double)A[0] / (double)60;
 
-        move(row / 2 - 5, 25);
+        move(row / 2 - row / 4 + 2, 3);
         printw("Total equations: %d", A[0]);
 
-        move(row / 2, 25);
+        move(row / 2 - row / 4 + 4, 3);
         printw("Correct solved equations: %d ", A[1]);
         if (result > 0.7) {
-            printw("	[GOOD]");
+            printw("   [GOOD]");
         } else
-            printw("	[NOT GOOD] You should train more!");
+            printw("   [NOT GOOD] You should train more!");
 
-        move(row / 2 + 5, 25);
+        move(row / 2 - row / 4 + 6, 3);
         printw("Your errors = %d", A[2]);
         if (A[2] < 4) {
-            printw("	[GOOD]");
+            printw("   [GOOD]");
         } else
-            printw("	[NOT GOOD] You should train more!");
+            printw("   [NOT GOOD] You should train more!");
 
-        move(row / 2 + 10, 25);
+        move(row / 2 - row / 4 + 8, 3);
         printw("Your solving speed = %.2f", result1);
         if (result1 > 0.2) {
             printw("	[GOOD]");
         } else
-            printw("	[NOT GOOD] You should train more!");
+            printw("   [NOT GOOD] You should train more!");
+        move(row / 2 + row / 3, col / 2 - 13);
+        printw("Press any key to continue...");
         break;
     }
     case 2: {
@@ -185,30 +192,31 @@ int ResultNum(int row, int col, int* A, int flag)
         result0 = (double)A[0] / (double)30;
         result1 = (double)(A[1]) / (double)(A[0]);
 
-        move(row / 2 - 5, 25);
+        move(row / 2 - row / 4 + 2, 3);
         printw("Your speed in simvols = %.2f per second", result0);
         if (result0 > 1) {
-            printw("	[GOOD]");
+            printw("   [GOOD]");
         } else
-            printw("	[NOT GOOD] You should train more!");
+            printw("   [NOT GOOD] You should train more!");
 
-        move(row / 2, 25);
+        move(row / 2 - row / 4 + 4, 3);
         printw("Correct simvols = %d from %d (%.0f percents)",
                A[1],
                A[0],
                result1 * 100);
         if (result1 > 0.75) {
-            printw("	[GOOD]");
+            printw("   [GOOD]");
         } else
-            printw("	[NOT GOOD] You should train more!");
+            printw("   [NOT GOOD] You should train more!");
 
-        move(row / 2 + 5, 25);
+        move(row / 2 - row / 4 + 6, 3);
         printw("Uncorrect simvols = %d", A[2]);
         if (A[2] < 5) {
-            printw("	[GOOD]");
+            printw("   [GOOD]");
         } else
-            printw("	[NOT GOOD] You should train more!");
-
+            printw("   [NOT GOOD] You should train more!");
+        move(row / 2 + row / 3, col / 2 - 13);
+        printw("Press any key to continue...");
         break;
     }
     }
@@ -223,8 +231,9 @@ int* Solving(int row, int col, int* A)
     start_color();
     init_pair(2, COLOR_RED, COLOR_BLACK);
     init_pair(3, COLOR_WHITE, COLOR_BLACK);
-    unsigned int StartTime = clock(), EndTime = clock();
-    int i = 0, k = 0, time = 60, flag = 1, ch, size, flagik = 0;
+    time_t StartTime = time(NULL);
+    time_t EndTime = StartTime;
+    int i = 0, k = 0, Timer = 60, flag = 1, ch, size, flagik = 0;
     ifstream equation("data/Equation.txt");
     ifstream equationA("data/EquationAnswers.txt");
     string array1[100], array2[100];
@@ -285,8 +294,10 @@ int* Solving(int row, int col, int* A)
                 flag = 1;
             }
         }
-        EndTime = clock();
-    } while (EndTime < StartTime + time * 1000);
+        EndTime = time(NULL);
+    } while (difftime(EndTime, (StartTime + Timer)));
+    move(1, 13);
+    printw("0 sec ");
     TimeLeft(row, col);
     nodelay(stdscr, FALSE);
     return A;
@@ -300,9 +311,10 @@ int* Calculator(int row, int col, int* A)
     init_pair(2, COLOR_RED, COLOR_BLACK);
     init_pair(3, COLOR_WHITE, COLOR_BLACK);
     srand(time(0));
-    unsigned int StartTime = clock(), EndTime = clock();
-    int i = 0, k = 0, time = 30, flag = 1, ch, size;
-    ifstream calcul("Calculator.txt");
+    time_t StartTime = time(NULL);
+    time_t EndTime = StartTime;
+    int i = 0, k = 0, Timer = 30, flag = 1, ch, size;
+    ifstream calcul("data/Calculator.txt");
     string array1[100];
     string str1, str2, temp;
 
@@ -368,24 +380,26 @@ int* Calculator(int row, int col, int* A)
                 }
             }
         }
-        EndTime = clock();
-    } while (EndTime < StartTime + time * 1000);
+        EndTime = time(NULL);
+    } while (difftime(EndTime, (StartTime + Timer)));
+    move(1, 13);
+    printw("0 sec ");
     TimeLeft(row, col);
     nodelay(stdscr, FALSE);
     return A;
 }
 
-void Time(int row, int col, int time, int EndTime, int StartTime)
+void Time(int row, int col, int Timer, int EndTime, int StartTime)
 {
-    if (((StartTime + time * 1000) - EndTime) < 16000) {
+    if (((StartTime + Timer) - EndTime) < 16) {
         attron(COLOR_PAIR(2));
         move(1, 2);
         printw("Time left: ");
-        EndTime = clock();
+        EndTime = time(NULL);
         move(1, 13);
-        printw("%d sec ", (time * 1000 - (EndTime - StartTime)) / 1000);
+        printw("%d sec ", (Timer - (EndTime - StartTime)));
         attron(COLOR_PAIR(3));
-        move(15, col / 2 - 7);
+        move(row / 2 - row / 4, col / 2 - 7);
         attron(A_BOLD);
         printw("Let's! Pull baker!");
         attron(A_NORMAL);
@@ -393,22 +407,23 @@ void Time(int row, int col, int time, int EndTime, int StartTime)
         attron(COLOR_PAIR(3));
         move(1, 2);
         printw("Time left: ");
-        EndTime = clock();
+        EndTime = time(NULL);
         move(1, 13);
-        printw("%.2d sec", (time * 1000 - (EndTime - StartTime)) / 1000);
+        printw("%.2d sec", (Timer - (EndTime - StartTime)));
     }
 }
 void TimeLeft(int row, int col)
 {
-    int ch, StartTime = clock(), EndTime = clock(), time = 3;
+    int ch, Timer = 3;
+    time_t StartTime = time(NULL);
+    time_t EndTime = StartTime;
     do {
         if ((ch = getch()) == ERR) {
-            move(row / 2 + 8, col / 2 - 5);
+            move(row / 2 + row / 3, col / 2 - 5);
             printw("Time is left.");
-            move(row / 2 + 11, col / 2 - 8);
-            printw("Your result into %d",
-                   (time * 1000 - (EndTime - StartTime)) / 1000);
-            EndTime = clock();
+            move(row / 2 + row / 3 + 1, col / 2 - 8);
+            printw("Your result into %d", (Timer - (EndTime - StartTime)));
+            EndTime = time(NULL);
         }
-    } while (EndTime < StartTime + time * 1000);
+    } while (EndTime < StartTime + Timer);
 }
