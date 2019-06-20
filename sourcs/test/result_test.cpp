@@ -7,8 +7,8 @@ int resultat(
         unsigned int startTime,
         double sum_proz,
         int error);
-        TEST_CASE("TEST_RESULT", "[check]")
+TEST_CASE("TEST_RESULT", "[check]")
 {
-    REQUIRE(resultat (100, 200, 2, 100, 0, 100, 5) == 2);
-	REQUIRE(resultat (100, 200, 2, 100, 0, 87, 5) == 1);
+    REQUIRE(resultat(100, 200, 2, 100, 0, 100, 5) == 2);
+    REQUIRE(resultat(100, 200, 2, 100, 0, 87, 5) == 1);
 }

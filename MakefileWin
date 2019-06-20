@@ -63,11 +63,11 @@ build/test/reaction.o: sourcs/test/reaction.cpp
 build/test/printWelcomePanel.o: sourcs/test/printWelcomePanel.cpp
 	$(TEST)
 
-build/test/test_level1.o: sourcs/test/test_level1.cpp
+build/test/coordinate_test.o: sourcs/test/coordinate_test.cpp
 	$(TEST)
 
-build/test/Lessen1.o: sourcs/test/Lessen1.cpp
-	$(TEST)
+#build/test/result_test.o: sourcs/test/result_test.cpp
+#	$(TEST)
 	
 build/test/getXX.o: sourcs/test/getXX.cpp
 	$(TEST)

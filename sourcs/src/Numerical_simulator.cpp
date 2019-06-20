@@ -45,6 +45,21 @@ void Select_item(int item, int row, int col)
     }
 }
 
+int GetString(string file, string array[100])
+{
+    ifstream File(file);
+    if (!(File.is_open())) {
+        return 0;
+    }
+    string str;
+    int i = 0;
+    while (!File.eof()) { //заполняем массив строками из файла
+        getline(File, str);
+        array[i] = str;
+        i++;
+    }
+    return 1;
+}
 int* SpeedNum(int row, int col, int* A)
 {
     srand(time(0));
@@ -56,17 +71,11 @@ int* SpeedNum(int row, int col, int* A)
     time_t StartTime = time(NULL);
     time_t EndTime = StartTime;
     int i = 0, k = 0, Timer = 30, flag = 1, size, ch;
-    ifstream Numbers("data/Numbers.txt");
-    string array[100];
     string str1, str2;
+    string array[100];
+    GetString("data/Numbers.txt", array);
     erase();
     printRamka(row, col);
-    while (!Numbers.eof()) { //заполняем массив строками из файла
-        getline(Numbers, str1);
-        array[i] = str1;
-        i++;
-    }
-    i = 0;
     do {
         Time(row, col, 30, EndTime, StartTime);
         if ((ch = getch()) == ERR) {

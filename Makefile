@@ -3,7 +3,7 @@ OBJ = g++ $(CFLAGS) -c $< -o $@
 TEST = g++ $(CFLAGS) -I ..third/catch2 -c $< -o $@
 allFolders  = folder1 folder2 folder3 folder4 folder5
 allO = build/src/Main.o build/src/kmenu.o build/src/typing_tutor.o build/src/Numerical_simulator.o
-allTests = build/test/reaction.o build/test/printWelcomePanel.o build/test/test_level1.o build/test/Lessen1.o build/test/getXX.o build/test/getYY.o
+allTests = build/test/reaction.o build/test/printWelcomePanel.o build/test/coordinate_test.o build/test/getXX.o build/test/getYY.o build/test/num_tests.o #build/test/result_test.o
 
 .PHONY: clean
 
@@ -64,16 +64,19 @@ build/test/reaction.o: sourcs/test/reaction.cpp
 build/test/printWelcomePanel.o: sourcs/test/printWelcomePanel.cpp
 	$(TEST)
 
-build/test/test_level1.o: sourcs/test/test_level1.cpp
-	$(TEST)
+#build/test/result_test.o: sourcs/test/result_test.cpp
+#	$(TEST)
 
-build/test/Lessen1.o: sourcs/test/Lessen1.cpp
+build/test/coordinate_test.o: sourcs/test/coordinate_test.cpp
 	$(TEST)
 	
 build/test/getXX.o: sourcs/test/getXX.cpp
 	$(TEST)
 	
 build/test/getYY.o: sourcs/test/getYY.cpp
+	$(TEST)
+
+build/test/num_tests.o: sourcs/test/num_tests.cpp
 	$(TEST)
 
 run-tests:
