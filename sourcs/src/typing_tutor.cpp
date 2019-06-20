@@ -7,7 +7,6 @@
 const unsigned int SEK = 60;
 int menu_lesson(int row, int col)
 {
-    int punk = 7;
     erase();
     printRamka(row, col);
     std::vector<std::string> mStr = {"Learning touch typing",
@@ -23,7 +22,7 @@ int menu_lesson(int row, int col)
 
     noecho();
     keypad(stdscr, TRUE);
-    return printMenu(&mStr, punk);
+    return printMenu(&mStr,mStr.size());
 }
 
 int coordinate (int row)
@@ -47,12 +46,6 @@ void resultat(
     init_pair(Wrong_red, COLOR_RED, COLOR_BLACK);
     attron(COLOR_PAIR(Basic_style));
     printRamka(row, col);
-    int size_x, size_y, xx, yy;
-    size_x = 80;
-    size_y = 20;
-    xx = 20;
-    yy = 15;
-    WINDOW* win5 = newwin(size_y, size_x, yy, xx);
     if (sum_proz < 100) {
         attron(COLOR_PAIR(Wrong_red));
         move(coordinate (row) - 2, (col - 26) / 2);
@@ -71,8 +64,6 @@ void resultat(
     printw("You passed %3.2f percent of the lesson", sum_proz);
     move(coordinate (row) + 4, (col - 26) / 2);
     printw("Incorrectly entered letters %d", error);
-    box(win5, 0, 0);
-    wrefresh(win5);
     getch();
     attron(COLOR_PAIR(Basic_style));
 }
@@ -94,8 +85,9 @@ void Lessen1(std::string _dataFile, int row, int col, int Lessen)
         vec.push_back(temp);
     }
 
-    unsigned int startTime = clock();
-    unsigned int endTime = startTime, DOP = 0;
+    time_t startTime = time(NULL);
+    time_t endTime = startTime;
+    unsigned int DOP = 0;
     nodelay(stdscr, TRUE);
     int ch;
     int temp, error = 0;
@@ -123,9 +115,9 @@ void Lessen1(std::string _dataFile, int row, int col, int Lessen)
             attron(A_BOLD);
             move(10, (col - 12) / 2);
             printw("%3.2f %c", sum_proz, a);
-            endTime = clock();
+            endTime = time(NULL);
             move(1, 10);
-            printw("%d ms", (DOP + SEK) * 1000 - (endTime - startTime));
+            printw("%d sek", (startTime+DOP + SEK) - (endTime ));
             move(1, 1);
             printw("Lessen %d", Lessen);
             attroff(A_BOLD);
@@ -159,10 +151,11 @@ void Lessen1(std::string _dataFile, int row, int col, int Lessen)
                 error++;
             }
         }
-    } while (endTime < startTime + (DOP + SEK) * 1000);
+    } while (difftime(endTime,(startTime + (DOP + SEK))) );
     nodelay(stdscr, FALSE);
     resultat(row, col, Lessen, endTime, startTime, sum_proz, error);
 }
+
 
 void Select_level(int temp, int row, int col)
 {
