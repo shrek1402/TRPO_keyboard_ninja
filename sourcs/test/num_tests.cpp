@@ -26,3 +26,19 @@ TEST_CASE("TEST_GETSTRING", "[check]")
     REQUIRE(GetString("data/Equation.txt", array) == 1);
     REQUIRE(GetString("data/EquationAnswers.txt", array) == 1);
 }
+
+int Time(int row, int col, int Timer, int EndTime, int StartTime)
+{
+    if (((StartTime + Timer) - EndTime) < 16) {
+        EndTime = time(NULL);
+    } else {
+        EndTime = time(NULL);
+    }
+    return (EndTime - StartTime);
+}
+
+TEST_CASE("TEST_TIMEEND", "[check]")
+{
+    string array[100];
+    REQUIRE(Time(100, 100, 30, time(NULL), time(NULL)) == 0);
+}

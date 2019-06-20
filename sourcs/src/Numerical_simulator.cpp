@@ -1,6 +1,4 @@
 #include "pch.h"
-void Time(int row, int col, int time, int EndTime, int StartTime);
-void TimeLeft(int row, int col);
 
 int Num_Menu(int row, int col)
 {
@@ -243,24 +241,12 @@ int* Solving(int row, int col, int* A)
     time_t StartTime = time(NULL);
     time_t EndTime = StartTime;
     int i = 0, k = 0, Timer = 60, flag = 1, ch, size, flagik = 0;
-    ifstream equation("data/Equation.txt");
-    ifstream equationA("data/EquationAnswers.txt");
     string array1[100], array2[100];
     string str1, str2, str3 = "", temp;
     erase();
     printRamka(row, col);
-    while (!equation.eof()) { //заполняем массив уравнениями из файла
-        getline(equation, str1);
-        array1[i] = str1;
-        i++;
-    }
-    i = 0;
-    str1 = "";
-    while (!equationA.eof()) { //заполняем массив ответами из файла
-        getline(equationA, str1);
-        array2[i] = str1;
-        i++;
-    }
+    GetString("data/Equation.txt", array1);
+    GetString("data/EquationAnswers.txt", array2);
     do {
         Time(row, col, 60, EndTime, StartTime);
 
@@ -323,21 +309,11 @@ int* Calculator(int row, int col, int* A)
     time_t StartTime = time(NULL);
     time_t EndTime = StartTime;
     int i = 0, k = 0, Timer = 30, flag = 1, ch, size;
-    ifstream calcul("data/Calculator.txt");
     string array1[100];
     string str1, str2, temp;
-
+    GetString("data/Calculator.txt", array1);
     erase();
     printRamka(row, col);
-
-    while (!calcul.eof()) { //заполняем массив уравнениями из файла
-        getline(calcul, str1);
-        array1[i] = str1;
-        i++;
-    }
-
-    i = 0;
-    str1 = "";
 
     do {
         Time(row, col, 30, EndTime, StartTime);
@@ -398,7 +374,7 @@ int* Calculator(int row, int col, int* A)
     return A;
 }
 
-void Time(int row, int col, int Timer, int EndTime, int StartTime)
+int Time(int row, int col, int Timer, int EndTime, int StartTime)
 {
     if (((StartTime + Timer) - EndTime) < 16) {
         attron(COLOR_PAIR(2));
@@ -420,6 +396,7 @@ void Time(int row, int col, int Timer, int EndTime, int StartTime)
         move(1, 13);
         printw("%.2d sec", (Timer - (EndTime - StartTime)));
     }
+    return (EndTime - StartTime);
 }
 void TimeLeft(int row, int col)
 {
