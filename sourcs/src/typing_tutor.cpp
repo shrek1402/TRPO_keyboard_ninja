@@ -26,6 +26,11 @@ int menu_lesson(int row, int col)
     return printMenu(&mStr, punk);
 }
 
+int coordinate (int row)
+{
+    return (row-4)/2;
+}
+
 void resultat(
         int row,
         int col,
@@ -50,21 +55,21 @@ void resultat(
     WINDOW* win5 = newwin(size_y, size_x, yy, xx);
     if (sum_proz < 100) {
         attron(COLOR_PAIR(Wrong_red));
-        move((row - 4) / 2 - 2, (col - 26) / 2);
+        move(coordinate (row) - 2, (col - 26) / 2);
         printw("Time's up, try again!");
     } else {
         attron(COLOR_PAIR(Correct_green));
-        move((row - 4) / 2 - 2, (col - 26) / 2);
+        move(coordinate (row) - 2, (col - 26) / 2);
         printw("Well done keep learning!");
     }
 
     move(1, (col - 4) / 2);
     printw("Lessen %d", Lessen);
-    move((row - 4) / 2, (col - 26) / 2);
+    move(coordinate (row), (col - 26) / 2);
     printw("Execution time %d ms", endTime - startTime);
-    move((row - 4) / 2 + 2, (col - 26) / 2);
+    move(coordinate (row), (col - 26) / 2);
     printw("You passed %3.2f percent of the lesson", sum_proz);
-    move((row - 4) / 2 + 4, (col - 26) / 2);
+    move(coordinate (row) + 4, (col - 26) / 2);
     printw("Incorrectly entered letters %d", error);
     box(win5, 0, 0);
     wrefresh(win5);
