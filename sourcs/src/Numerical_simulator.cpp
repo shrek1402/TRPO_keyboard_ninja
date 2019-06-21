@@ -1,6 +1,4 @@
 #include "pch.h"
-void Time(int row, int col, int time, int EndTime, int StartTime);
-void TimeLeft(int row, int col);
 
 int Num_Menu(int row, int col)
 {
@@ -45,6 +43,21 @@ void Select_item(int item, int row, int col)
     }
 }
 
+int GetString(string file, string array[100])
+{
+    ifstream File(file);
+    if (!(File.is_open())) {
+        return 0;
+    }
+    string str;
+    int i = 0;
+    while (!File.eof()) { //заполняем массив строками из файла
+        getline(File, str);
+        array[i] = str;
+        i++;
+    }
+    return 1;
+}
 int* SpeedNum(int row, int col, int* A)
 {
     srand(time(0));
@@ -53,20 +66,27 @@ int* SpeedNum(int row, int col, int* A)
     init_pair(1, COLOR_GREEN, COLOR_BLACK);
     init_pair(2, COLOR_RED, COLOR_BLACK);
     init_pair(3, COLOR_WHITE, COLOR_BLACK);
+<<<<<<< HEAD
     time_t StartTime = time(NULL);
     time_t EndTime = StartTime;
     int i = 0, k = 0, Timer = 30, flag = 1, size, ch;
     ifstream Numbers("data/Numbers.txt");
     string array[100];
+||||||| merged common ancestors
+    unsigned int StartTime = clock(), EndTime = clock();
+    int i = 0, k = 0, time = 30, flag = 1, size, ch;
+    ifstream Numbers("Numbers.txt");
+    string array[100];
+=======
+    time_t StartTime = time(NULL);
+    time_t EndTime = StartTime;
+    int i = 0, k = 0, Timer = 30, flag = 1, size, ch;
+>>>>>>> test
     string str1, str2;
+    string array[100];
+    GetString("data/Numbers.txt", array);
     erase();
     printRamka(row, col);
-    while (!Numbers.eof()) { //заполняем массив строками из файла
-        getline(Numbers, str1);
-        array[i] = str1;
-        i++;
-    }
-    i = 0;
     do {
         Time(row, col, 30, EndTime, StartTime);
         if ((ch = getch()) == ERR) {
@@ -118,8 +138,40 @@ int* SpeedNum(int row, int col, int* A)
     return A;
 }
 
+int CalcResult(
+        int A0,
+        int A1,
+        double& result0,
+        double& result1,
+        int flag,
+        int test_flag)
+{
+    switch (flag) {
+    case 0: {
+        result0 = (double)A0 / (double)30;
+        result1 = (double)A1 / (double)30;
+        break;
+    }
+    case 1: {
+        result0 = (double)A0 / (double)A1;
+        result1 = (double)A0 / (double)60;
+        break;
+    }
+    case 2: {
+        result0 = (double)A0 / (double)30;
+        result1 = (double)(A1) / (double)(A0);
+        break;
+    }
+    }
+    if (test_flag == 0)
+        return result0;
+    else
+        return result1;
+    return -1;
+}
 int ResultNum(int row, int col, int* A, int flag)
 {
+    double result0 = 0, result1 = 0;
     erase();
     printRamka(row, col);
     attron(A_BOLD);
@@ -128,11 +180,22 @@ int ResultNum(int row, int col, int* A, int flag)
 
     switch (flag) {
     case 0: {
+<<<<<<< HEAD
         double result0, result1;
         result0 = (double)A[0] / (double)30;
         result1 = (double)A[1] / (double)30;
 
         move(row / 2 - row / 4 + 2, 3);
+||||||| merged common ancestors
+        double result0, result1;
+        result0 = (double)A[0] / (double)30;
+        result1 = (double)A[1] / (double)30;
+
+        move(row / 2 - 5, 25);
+=======
+        CalcResult(A[0], A[1], result0, result1, 0, 0);
+        move(row / 2 - row / 4 + 2, 3);
+>>>>>>> test
         printw("Your speed in simvols = %.2f per second", result1);
         if (result1 > 1) {
             printw("   [GOOD]");
@@ -157,16 +220,34 @@ int ResultNum(int row, int col, int* A, int flag)
         break;
     }
     case 1: {
+<<<<<<< HEAD
         double result = (double)A[0] / (double)A[1];
         double result1 = (double)A[0] / (double)60;
 
         move(row / 2 - row / 4 + 2, 3);
+||||||| merged common ancestors
+        double result = (double)A[0] / (double)A[1];
+        double result1 = (double)A[0] / (double)60;
+
+        move(row / 2 - 5, 25);
+=======
+        CalcResult(A[0], A[1], result0, result1, 1, 0);
+        move(row / 2 - row / 4 + 2, 3);
+>>>>>>> test
         printw("Total equations: %d", A[0]);
 
         move(row / 2 - row / 4 + 4, 3);
         printw("Correct solved equations: %d ", A[1]);
+<<<<<<< HEAD
         if (result > 0.7) {
             printw("   [GOOD]");
+||||||| merged common ancestors
+        if (result > 0.7) {
+            printw("	[GOOD]");
+=======
+        if (result0 > 0.7) {
+            printw("   [GOOD]");
+>>>>>>> test
         } else
             printw("   [NOT GOOD] You should train more!");
 
@@ -188,11 +269,22 @@ int ResultNum(int row, int col, int* A, int flag)
         break;
     }
     case 2: {
+<<<<<<< HEAD
         double result0, result1;
         result0 = (double)A[0] / (double)30;
         result1 = (double)(A[1]) / (double)(A[0]);
 
         move(row / 2 - row / 4 + 2, 3);
+||||||| merged common ancestors
+        double result0, result1;
+        result0 = (double)A[0] / (double)30;
+        result1 = (double)(A[1]) / (double)(A[0]);
+
+        move(row / 2 - 5, 25);
+=======
+        CalcResult(A[0], A[1], result0, result1, 2, 0);
+        move(row / 2 - row / 4 + 2, 3);
+>>>>>>> test
         printw("Your speed in simvols = %.2f per second", result0);
         if (result0 > 1) {
             printw("   [GOOD]");
@@ -231,27 +323,28 @@ int* Solving(int row, int col, int* A)
     start_color();
     init_pair(2, COLOR_RED, COLOR_BLACK);
     init_pair(3, COLOR_WHITE, COLOR_BLACK);
+<<<<<<< HEAD
     time_t StartTime = time(NULL);
     time_t EndTime = StartTime;
     int i = 0, k = 0, Timer = 60, flag = 1, ch, size, flagik = 0;
     ifstream equation("data/Equation.txt");
     ifstream equationA("data/EquationAnswers.txt");
+||||||| merged common ancestors
+    unsigned int StartTime = clock(), EndTime = clock();
+    int i = 0, k = 0, time = 60, flag = 1, ch, size, flagik = 0;
+    ifstream equation("Equation.txt");
+    ifstream equationA("EquationAnswers.txt");
+=======
+    time_t StartTime = time(NULL);
+    time_t EndTime = StartTime;
+    int i = 0, k = 0, Timer = 60, flag = 1, ch, size, flagik = 0;
+>>>>>>> test
     string array1[100], array2[100];
     string str1, str2, str3 = "", temp;
     erase();
     printRamka(row, col);
-    while (!equation.eof()) { //заполняем массив уравнениями из файла
-        getline(equation, str1);
-        array1[i] = str1;
-        i++;
-    }
-    i = 0;
-    str1 = "";
-    while (!equationA.eof()) { //заполняем массив ответами из файла
-        getline(equationA, str1);
-        array2[i] = str1;
-        i++;
-    }
+    GetString("data/Equation.txt", array1);
+    GetString("data/EquationAnswers.txt", array2);
     do {
         Time(row, col, 60, EndTime, StartTime);
 
@@ -311,24 +404,25 @@ int* Calculator(int row, int col, int* A)
     init_pair(2, COLOR_RED, COLOR_BLACK);
     init_pair(3, COLOR_WHITE, COLOR_BLACK);
     srand(time(0));
+<<<<<<< HEAD
     time_t StartTime = time(NULL);
     time_t EndTime = StartTime;
     int i = 0, k = 0, Timer = 30, flag = 1, ch, size;
     ifstream calcul("data/Calculator.txt");
+||||||| merged common ancestors
+    unsigned int StartTime = clock(), EndTime = clock();
+    int i = 0, k = 0, time = 30, flag = 1, ch, size;
+    ifstream calcul("Calculator.txt");
+=======
+    time_t StartTime = time(NULL);
+    time_t EndTime = StartTime;
+    int i = 0, k = 0, Timer = 30, flag = 1, ch, size;
+>>>>>>> test
     string array1[100];
     string str1, str2, temp;
-
+    GetString("data/Calculator.txt", array1);
     erase();
     printRamka(row, col);
-
-    while (!calcul.eof()) { //заполняем массив уравнениями из файла
-        getline(calcul, str1);
-        array1[i] = str1;
-        i++;
-    }
-
-    i = 0;
-    str1 = "";
 
     do {
         Time(row, col, 30, EndTime, StartTime);
@@ -389,7 +483,13 @@ int* Calculator(int row, int col, int* A)
     return A;
 }
 
+<<<<<<< HEAD
 void Time(int row, int col, int Timer, int EndTime, int StartTime)
+||||||| merged common ancestors
+void Time(int row, int col, int time, int EndTime, int StartTime)
+=======
+int Time(int row, int col, int Timer, int EndTime, int StartTime)
+>>>>>>> test
 {
     if (((StartTime + Timer) - EndTime) < 16) {
         attron(COLOR_PAIR(2));
@@ -411,6 +511,7 @@ void Time(int row, int col, int Timer, int EndTime, int StartTime)
         move(1, 13);
         printw("%.2d sec", (Timer - (EndTime - StartTime)));
     }
+    return (EndTime - StartTime);
 }
 void TimeLeft(int row, int col)
 {

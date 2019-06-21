@@ -38,4 +38,6 @@ int* SpeedNum(int row, int col, int* A);
 int ResultNum(int row, int col, int* A, int flag);
 int* Solving(int row, int col, int* A);
 int* Calculator(int row, int col, int* A);
+void TimeLeft(int row, int col);
+int Time(int row, int col, int Timer, int EndTime, int StartTime);
 #endif
