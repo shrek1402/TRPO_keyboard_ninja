@@ -1,12 +1,6 @@
-#include "../../third/catch2/catch.hpp"
 #include <cmath>
-double reaction(int _SEC, int result)
-{
-    if (!result)
-        return 0;
-
-    return (double)_SEC / result;
-}
+#include "../../third/catch2/catch.hpp"
+double reaction(int _sec, int result);
 
 TEST_CASE("TEST_REACTION", "[int]")
 {

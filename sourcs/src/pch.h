@@ -22,7 +22,7 @@
 using namespace std;
 
 bool razmer();
-void printWelcomePanel(std::string _str, int row, int col);
+int printWelcomePanel(std::string _str, int row, int col);
 int mainMenu(int row, int col);
 int printRamka(int _row, int _col);
 int complexity(int row, int col);

@@ -1,10 +1,7 @@
 #define CATCH_CONFIG_MAIN
 #include "../../third/catch2/catch.hpp"
 
-int getXX(int col, int xSize)
-{
-    return (col - xSize) / 2;
-}
+int getXX(int col, int xSize);
 
 TEST_CASE("TEST_getXX", "[check]")
 {
