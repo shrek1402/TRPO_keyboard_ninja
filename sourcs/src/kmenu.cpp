@@ -33,6 +33,8 @@ int printWelcomePanel(string _str, int row, int col)
 long long unsigned int
 printMenu(std::vector<std::string>* _vec, long long unsigned int punk)
 {
+    init_pair(1, COLOR_WHITE, COLOR_BLACK);
+    attron(COLOR_PAIR(1));
     long long unsigned int swtch = 1;
     int key;
     int col, row;

@@ -40,7 +40,6 @@ void resultat(
         int error)
 {
     erase();
-    start_color();
     init_pair(Correct_green, COLOR_GREEN, COLOR_BLACK);
     init_pair(Basic_style, COLOR_WHITE, COLOR_BLACK);
     init_pair(Wrong_red, COLOR_RED, COLOR_BLACK);
@@ -65,6 +64,7 @@ void resultat(
     move(coordinate(row) + 4, (col - 26) / 2);
     printw("Incorrectly entered letters %d", error);
     getch();
+    attroff(Correct_green);
     attron(COLOR_PAIR(Basic_style));
 }
 
@@ -75,10 +75,10 @@ double percent(double max_leg)
 
 void Lessen1(std::string _dataFile, int row, int col, int Lessen)
 {
-    start_color();
     init_pair(Correct_green, COLOR_GREEN, COLOR_BLACK);
     init_pair(Basic_style, COLOR_WHITE, COLOR_BLACK);
     init_pair(Wrong_red, COLOR_RED, COLOR_BLACK);
+        
 
     std::ifstream dataFile(_dataFile);
     std::vector<std::string> vec;
@@ -167,6 +167,7 @@ void Select_level(int temp, int row, int col)
 
     erase();
     printRamka(row, col);
+
     switch (temp) {
     case 1: {
         Lessen = 1;
@@ -198,6 +199,9 @@ void Select_level(int temp, int row, int col)
     case 6: {
         Lessen = 6;
         Lessen1("data/level6.txt", row, col, Lessen);
+        break;
+    }
+    case 7: {
         break;
     }
     }
