@@ -73,10 +73,6 @@ build/test/getXX.o: sourcs/test/getXX.cpp
 build/test/getYY.o: sourcs/test/getYY.cpp
 	$(TEST)
 
-build/test/num_tests.o: sourcs/test/num_tests.cpp
-	$(TEST)
-
-
 build/test/result_test.o: sourcs/test/result_test.cpp
 	$(TEST)
 

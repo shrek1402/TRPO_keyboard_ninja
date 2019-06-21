@@ -1,6 +1,6 @@
 #include "../../third/catch2/catch.hpp"
 
-int percent(double max_leg);
+double percent(double max_leg);
         TEST_CASE("TEST_RESUL", "[check]")
 {
     REQUIRE(percent (100.0) == Approx(1.0));

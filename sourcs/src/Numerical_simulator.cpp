@@ -2,7 +2,6 @@
 
 int Num_Menu(int row, int col)
 {
-    int punk = 4;
     erase();
     printRamka(row, col);
     std::vector<std::string> N_Menu = {"Exercises with numbers:",
@@ -13,7 +12,7 @@ int Num_Menu(int row, int col)
 
     noecho();
     keypad(stdscr, TRUE);
-    return printMenu(&N_Menu, punk);
+    return printMenu(&N_Menu, N_Menu.size());
 }
 
 void Select_item(int item, int row, int col)

@@ -68,7 +68,7 @@ void resultat(
     attron(COLOR_PAIR(Basic_style));
 }
 
-int percent(double max_leg)
+double percent(double max_leg)
 {
     return 100 / max_leg;
 }

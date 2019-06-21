@@ -4,7 +4,7 @@ TRPO Project
 
 *****
 Application developer
-Kalinin, Vadim Aleksandrovich
+Kalinin Vadim Aleksandrovich
 Mavrin Michael Vitalyevich
 Mitrokhin Anton Igorevich
 *****
