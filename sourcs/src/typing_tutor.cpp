@@ -30,7 +30,7 @@ int coordinate (int row)
     return (row-4)/2;
 }
 
-int resultat(
+void resultat(
         int row,
         int col,
         int Lessen,
@@ -39,7 +39,6 @@ int resultat(
         double sum_proz,
         int error)
 {
-    
     erase();
     start_color();
     init_pair(Correct_green, COLOR_GREEN, COLOR_BLACK);
@@ -47,17 +46,14 @@ int resultat(
     init_pair(Wrong_red, COLOR_RED, COLOR_BLACK);
     attron(COLOR_PAIR(Basic_style));
     printRamka(row, col);
-    int r=0;
     if (sum_proz < 100) {
         attron(COLOR_PAIR(Wrong_red));
         move(coordinate (row) - 2, (col - 26) / 2);
         printw("Time's up, try again!");
-        r=1;
     } else {
         attron(COLOR_PAIR(Correct_green));
         move(coordinate (row) - 2, (col - 26) / 2);
         printw("Well done keep learning!");
-        r=2;
     }
 
     move(1, (col - 4) / 2);
@@ -70,7 +66,11 @@ int resultat(
     printw("Incorrectly entered letters %d", error);
     getch();
     attron(COLOR_PAIR(Basic_style));
-    return r;
+}
+
+int percent (double max_leg)
+{
+    return 100/max_leg;
 }
 
 void Lessen1(std::string _dataFile, int row, int col, int Lessen)
@@ -102,7 +102,7 @@ void Lessen1(std::string _dataFile, int row, int col, int Lessen)
     int x_temp = 0, level = 1;
     double proz = 0, sum_proz = 0.0;
 
-    proz = 100 / max_leg;
+    proz = percent(max_leg);
 
     do {
         attron(COLOR_PAIR(Basic_style));
