@@ -3,12 +3,12 @@ int resultat(
         int row,
         int col,
         int Lessen,
-        unsigned int endTime,
-        unsigned int startTime,
+        time_t endTime,
+        time_t startTime,
         double sum_proz,
         int error);
-        TEST_CASE("TEST_RESULT", "[check]")
+        TEST_CASE("TEST_RESUL", "[check]")
 {
-    REQUIRE(resultat (100, 200, 2, 100, 0, 100, 5) == 2);
-	REQUIRE(resultat (100, 200, 2, 100, 0, 87, 5) == 1);
+    REQUIRE(resultat(200, 100, 2, 110, 121, 100.0, 5) == 2);
+    REQUIRE(resultat(200, 100, 2, 110, 121, 87.5, 5) == 1);
 }
