@@ -1,14 +1,9 @@
 #include "../../third/catch2/catch.hpp"
-int resultat(
-        int row,
-        int col,
-        int Lessen,
-        unsigned int endTime,
-        unsigned int startTime,
-        double sum_proz,
-        int error);
-TEST_CASE("TEST_RESULT", "[check]")
+
+int percent(double max_leg);
+        TEST_CASE("TEST_RESUL", "[check]")
 {
-    REQUIRE(resultat(100, 200, 2, 100, 0, 100, 5) == 2);
-    REQUIRE(resultat(100, 200, 2, 100, 0, 87, 5) == 1);
+    REQUIRE(percent (100.0) == Approx(1.0));
+    REQUIRE(percent (20.0) == Approx(5.0));
+    REQUIRE(percent (25.0) == Approx(4.0));
 }

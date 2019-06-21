@@ -1,8 +1,5 @@
 #include "../../third/catch2/catch.hpp"
-int coordinate(int row)
-{
-    return (row - 4) / 2;
-}
+int coordinate(int row);
 TEST_CASE("TEST_COORDINATE", "[check]")
 {
     REQUIRE(coordinate(100) == 48);

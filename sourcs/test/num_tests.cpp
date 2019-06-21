@@ -1,44 +1,31 @@
 #include "../../third/catch2/catch.hpp"
-#include "../src/pch.h"
-using namespace std;
 
-int GetString(string file, string array[100])
-{
-    ifstream File(file);
-    if (!(File.is_open())) {
-        return 0;
-    }
-    string str;
-    int i = 0;
-    while (!File.eof()) { //заполняем массив строками из файла
-        getline(File, str);
-        array[i] = str;
-        i++;
-    }
-    return 1;
-}
+int GetString(std::string file, std::string array[100]);
 
-TEST_CASE("TEST_GETSTRING", "[check]")
+TEST_CASE("GetStringTest", "[Num_tests]")
 {
-    string array[100];
+    std::string array[100];
     REQUIRE(GetString("bin/data/Numbers.txt", array) == 1);
     REQUIRE(GetString("bin/data/Calculator.txt", array) == 1);
     REQUIRE(GetString("bin/data/Equation.txt", array) == 1);
     REQUIRE(GetString("bin/data/EquationAnswers.txt", array) == 1);
 }
 
-int Time(int row, int col, int Timer, int EndTime, int StartTime)
-{
-    if (((StartTime + Timer) - EndTime) < 16) {
-        EndTime = time(NULL);
-    } else {
-        EndTime = time(NULL);
-    }
-    return (EndTime - StartTime);
-}
+int CalcResult(
+        int A0,
+        int A1,
+        double& result0,
+        double& result1,
+        int flag,
+        int test_flag);
 
-TEST_CASE("TEST_TIMEEND", "[check]")
+TEST_CASE("CalcResultTest", "[Num_tests]")
 {
-    string array[100];
-    REQUIRE(Time(100, 100, 30, time(NULL), time(NULL)) == 0);
+    double a = 0, b = 0;
+    REQUIRE(CalcResult(30, 0, a, b, 0, 0) == 1);
+    REQUIRE(CalcResult(0, 60, a, b, 0, 1) == 2);
+    REQUIRE(CalcResult(60, 30, a, b, 1, 0) == 2);
+    REQUIRE(CalcResult(180, 0, a, b, 1, 1) == 3);
+    REQUIRE(CalcResult(120, 0, a, b, 2, 0) == 4);
+    REQUIRE(CalcResult(30, 120, a, b, 2, 1) == 4);
 }

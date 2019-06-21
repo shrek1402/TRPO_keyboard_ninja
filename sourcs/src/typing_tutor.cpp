@@ -34,8 +34,8 @@ void resultat(
         int row,
         int col,
         int Lessen,
-        unsigned int endTime,
-        unsigned int startTime,
+        time_t endTime,
+        time_t startTime,
         double sum_proz,
         int error)
 {
@@ -59,13 +59,18 @@ void resultat(
     move(1, (col - 4) / 2);
     printw("Lessen %d", Lessen);
     move(coordinate(row), (col - 26) / 2);
-    printw("Execution time %d ms", endTime - startTime);
-    move(coordinate(row), (col - 26) / 2);
+    printw("Execution time %d sek", endTime - startTime);
+    move(coordinate(row) + 2, (col - 26) / 2);
     printw("You passed %3.2f percent of the lesson", sum_proz);
     move(coordinate(row) + 4, (col - 26) / 2);
     printw("Incorrectly entered letters %d", error);
     getch();
     attron(COLOR_PAIR(Basic_style));
+}
+
+int percent(double max_leg)
+{
+    return 100 / max_leg;
 }
 
 void Lessen1(std::string _dataFile, int row, int col, int Lessen)
@@ -97,7 +102,7 @@ void Lessen1(std::string _dataFile, int row, int col, int Lessen)
     int x_temp = 0, level = 1;
     double proz = 0, sum_proz = 0.0;
 
-    proz = 100 / max_leg;
+    proz = percent(max_leg);
 
     do {
         attron(COLOR_PAIR(Basic_style));
