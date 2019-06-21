@@ -42,7 +42,7 @@ printMenu(std::vector<std::string>* _vec, long long unsigned int punk)
             if (i == swtch) {
                 for (long long unsigned int j = 0; j < _vec->at(i).length();
                      j++)
-                    addch(_vec->at(i).at(j)| (COLOR_PAIR(4)));
+                    addch(_vec->at(i).at(j) | (COLOR_PAIR(4)));
             } else {
                 printw("%s", _vec->at(i).c_str());
             }
@@ -163,7 +163,6 @@ void resultTabl(int result, int popitki)
     getch();
 }
 
-
 void speedNormal(string _dataFile, int row, int col)
 {
     std::ifstream dataFile(_dataFile);
@@ -201,8 +200,8 @@ void speedNormal(string _dataFile, int row, int col)
             }
             attron(COLOR_PAIR(1));
             endTime = time(NULL);
-            mvprintw(1,5,"%.2f ms", difftime(startTime, endTime));
-            mvprintw(1,1,"%d", result);
+            mvprintw(1, 5, "%.2f ms", difftime(startTime, endTime));
+            mvprintw(1, 1, "%d", result);
         } else {
             attron(COLOR_PAIR(2));
             temp = ch;
@@ -239,7 +238,7 @@ void speedNormal(string _dataFile, int row, int col)
             }
             attron(COLOR_PAIR(1));
         }
-    } while (difftime(endTime,startTime));
+    } while (difftime(endTime, startTime));
 
     nodelay(stdscr, FALSE);
     resultTabl(result, popitki);
