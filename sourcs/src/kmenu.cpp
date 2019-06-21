@@ -7,8 +7,8 @@ int _SEC = 5;
 int printWelcomePanel(string _str, int row, int col)
 {
     std::ifstream dataFile(_str);
-		if (!dataFile)
-			return 1;
+    if (!dataFile)
+        return 1;
     std::vector<std::string> vec;
 
     while (!dataFile.eof()) {
@@ -27,7 +27,7 @@ int printWelcomePanel(string _str, int row, int col)
     refresh();
     getch();
     dataFile.close();
-	return 0;
+    return 0;
 }
 
 long long unsigned int
