@@ -7,10 +7,11 @@ int main(int argc, char** argv)
     int row, col;
     initscr();
     start_color();
-
+    attron(A_BOLD);
     init_pair(1, COLOR_WHITE, COLOR_BLACK);
     init_pair(2, COLOR_GREEN, COLOR_BLACK);
     init_pair(3, COLOR_RED, COLOR_BLACK);
+    init_pair(4, COLOR_BLACK, COLOR_WHITE);
     attron(COLOR_PAIR(1));
 
     getmaxyx(stdscr, row, col);
@@ -35,11 +36,8 @@ int main(int argc, char** argv)
             break;
         }
         case 4:
+            endwin();
             return 0;
         }
     }
-
-    getch();
-    endwin();
-    return 0;
 }
