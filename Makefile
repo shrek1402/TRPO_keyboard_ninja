@@ -78,7 +78,7 @@ build/test/result_test.o: sourcs/test/result_test.cpp
 
 build/test/num_tests.o: sourcs/test/num_tests.cpp
 	$(TEST)
-	
+
 run-tests:
 	bin/Keyboard-Ninja-test
 	
