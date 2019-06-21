@@ -125,8 +125,40 @@ int* SpeedNum(int row, int col, int* A)
     return A;
 }
 
+int CalcResult(
+        int A0,
+        int A1,
+        double& result0,
+        double& result1,
+        int flag,
+        int test_flag)
+{
+    switch (flag) {
+    case 0: {
+        result0 = (double)A0 / (double)30;
+        result1 = (double)A1 / (double)30;
+        break;
+    }
+    case 1: {
+        result0 = (double)A0 / (double)A1;
+        result1 = (double)A0 / (double)60;
+        break;
+    }
+    case 2: {
+        result0 = (double)A0 / (double)30;
+        result1 = (double)(A1) / (double)(A0);
+        break;
+    }
+    }
+    if (test_flag == 0)
+        return result0;
+    else
+        return result1;
+    return -1;
+}
 int ResultNum(int row, int col, int* A, int flag)
 {
+    double result0 = 0, result1 = 0;
     erase();
     printRamka(row, col);
     attron(A_BOLD);
@@ -135,10 +167,7 @@ int ResultNum(int row, int col, int* A, int flag)
 
     switch (flag) {
     case 0: {
-        double result0, result1;
-        result0 = (double)A[0] / (double)30;
-        result1 = (double)A[1] / (double)30;
-
+        CalcResult(A[0], A[1], result0, result1, 0, 0);
         move(row / 2 - row / 4 + 2, 3);
         printw("Your speed in simvols = %.2f per second", result1);
         if (result1 > 1) {
@@ -164,15 +193,13 @@ int ResultNum(int row, int col, int* A, int flag)
         break;
     }
     case 1: {
-        double result = (double)A[0] / (double)A[1];
-        double result1 = (double)A[0] / (double)60;
-
+        CalcResult(A[0], A[1], result0, result1, 1, 0);
         move(row / 2 - row / 4 + 2, 3);
         printw("Total equations: %d", A[0]);
 
         move(row / 2 - row / 4 + 4, 3);
         printw("Correct solved equations: %d ", A[1]);
-        if (result > 0.7) {
+        if (result0 > 0.7) {
             printw("   [GOOD]");
         } else
             printw("   [NOT GOOD] You should train more!");
@@ -195,10 +222,7 @@ int ResultNum(int row, int col, int* A, int flag)
         break;
     }
     case 2: {
-        double result0, result1;
-        result0 = (double)A[0] / (double)30;
-        result1 = (double)(A[1]) / (double)(A[0]);
-
+        CalcResult(A[0], A[1], result0, result1, 2, 0);
         move(row / 2 - row / 4 + 2, 3);
         printw("Your speed in simvols = %.2f per second", result0);
         if (result0 > 1) {
