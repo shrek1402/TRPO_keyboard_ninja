@@ -22,7 +22,7 @@
 using namespace std;
 
 bool razmer();
-void printWelcomePanel(std::string _str, int row, int col);
+int printWelcomePanel(std::string _str, int row, int col);
 int mainMenu(int row, int col);
 int printRamka(int _row, int _col);
 int complexity(int row, int col);
@@ -38,4 +38,6 @@ int* SpeedNum(int row, int col, int* A);
 int ResultNum(int row, int col, int* A, int flag);
 int* Solving(int row, int col, int* A);
 int* Calculator(int row, int col, int* A);
+void TimeLeft(int row, int col);
+int Time(int row, int col, int Timer, int EndTime, int StartTime);
 #endif

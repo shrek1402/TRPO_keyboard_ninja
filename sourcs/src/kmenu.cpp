@@ -4,9 +4,11 @@ using namespace std;
 constexpr auto _VERSION = "Release v3.1";
 int _SEC = 5;
 
-void printWelcomePanel(string _str, int row, int col)
+int printWelcomePanel(string _str, int row, int col)
 {
-    std::ifstream dataFile("data/Welcome.txt");
+    std::ifstream dataFile(_str);
+    if (!dataFile)
+        return 1;
     std::vector<std::string> vec;
 
     while (!dataFile.eof()) {
@@ -25,6 +27,7 @@ void printWelcomePanel(string _str, int row, int col)
     refresh();
     getch();
     dataFile.close();
+    return 0;
 }
 
 long long unsigned int
@@ -42,7 +45,7 @@ printMenu(std::vector<std::string>* _vec, long long unsigned int punk)
             if (i == swtch) {
                 for (long long unsigned int j = 0; j < _vec->at(i).length();
                      j++)
-                    addch(_vec->at(i).at(j) | A_BLINK);
+                    addch(_vec->at(i).at(j) | (COLOR_PAIR(4)));
             } else {
                 printw("%s", _vec->at(i).c_str());
             }
@@ -175,8 +178,9 @@ void speedNormal(string _dataFile, int row, int col)
     }
 
     unsigned int result = 0;
-    unsigned int startTime = clock();
-    unsigned int endTime = startTime;
+    time_t startTime = time(NULL);
+    time_t endTime = startTime;
+    startTime += _SEC;
     nodelay(stdscr, TRUE);
     int ch;
     int temp;
@@ -198,11 +202,9 @@ void speedNormal(string _dataFile, int row, int col)
                 popitki++;
             }
             attron(COLOR_PAIR(1));
-            endTime = clock();
-            move(1, 5);
-            printw("%d ms", endTime - startTime);
-            move(1, 1);
-            printw("%d", result);
+            endTime = time(NULL);
+            mvprintw(1, 5, "%.2f ms", difftime(startTime, endTime));
+            mvprintw(1, 1, "%d", result);
         } else {
             attron(COLOR_PAIR(2));
             temp = ch;
@@ -230,7 +232,7 @@ void speedNormal(string _dataFile, int row, int col)
                     flag = 1;
                     i = 0;
 
-                    if (endTime < startTime + _SEC * 1000) {
+                    if (endTime < startTime + _SEC) {
                         result++;
                     }
                 }
@@ -239,7 +241,7 @@ void speedNormal(string _dataFile, int row, int col)
             }
             attron(COLOR_PAIR(1));
         }
-    } while (endTime < startTime + _SEC * 1000);
+    } while (difftime(endTime, startTime));
 
     nodelay(stdscr, FALSE);
     resultTabl(result, popitki);
@@ -250,8 +252,9 @@ void speedEz()
     int row, col;
     getmaxyx(stdscr, row, col);
     unsigned int result = 0;
-    unsigned int startTime = clock();
-    unsigned int endTime = startTime;
+    time_t startTime = time(NULL);
+    time_t endTime = startTime;
+    startTime += _SEC;
 
     nodelay(stdscr, TRUE);
     int ch;
@@ -273,8 +276,8 @@ void speedEz()
                 popitki++;
             }
 
-            endTime = clock();
-            mvprintw(1, 5, "%d ms", endTime - startTime);
+            endTime = time(NULL);
+            mvprintw(1, 5, "%.2f s", difftime(startTime, endTime));
             mvprintw(1, 1, "%d", result);
         } else {
             temp = ch;
@@ -289,7 +292,7 @@ void speedEz()
             }
             refresh();
         }
-    } while (endTime < startTime + _SEC * 1000);
+    } while (difftime(endTime, startTime));
 
     nodelay(stdscr, FALSE);
     resultTabl(result, popitki);

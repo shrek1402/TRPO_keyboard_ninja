@@ -1,20 +1,11 @@
-#include <fstream>
 #include <string>
 
 #include "../../third/catch2/catch.hpp"
-using namespace std;
-int printWelcomePanel(string _str)
-{
-    ifstream myTextFile;
-    myTextFile.open(_str);
-    if (!myTextFile.is_open())
-        return 1;
 
-    myTextFile.close();
-    return 0;
-}
+int printWelcomePanel(std::string _str, int row, int col);
+
 TEST_CASE("TEST_PRINT_WELCOME_PANEL", "[check]")
 {
-    REQUIRE(printWelcomePanel("bin/data/Welcome.txt") == 0);
-    REQUIRE(printWelcomePanel("../../bin/temp.txt") == 1);
+    REQUIRE(printWelcomePanel("data/__ERROR__/temp.txt",10,20) != 0);
+    REQUIRE(printWelcomePanel("sourcs/data/Welcome.txt",10,20) == 0);
 }
