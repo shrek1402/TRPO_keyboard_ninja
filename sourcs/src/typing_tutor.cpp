@@ -78,7 +78,6 @@ void Lessen1(std::string _dataFile, int row, int col, int Lessen)
     init_pair(Correct_green, COLOR_GREEN, COLOR_BLACK);
     init_pair(Basic_style, COLOR_WHITE, COLOR_BLACK);
     init_pair(Wrong_red, COLOR_RED, COLOR_BLACK);
-        
 
     std::ifstream dataFile(_dataFile);
     std::vector<std::string> vec;
